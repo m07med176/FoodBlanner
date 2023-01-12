@@ -17,7 +17,7 @@ public class SplachScreenActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Thread.sleep(1000);
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

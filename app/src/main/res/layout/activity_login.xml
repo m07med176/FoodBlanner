@@ -6,4 +6,66 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+    <EditText
+        android:id="@+id/passwordTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="@string/enterPassword"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/emailTxtView"
+        app:layout_constraintStart_toStartOf="@+id/emailTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/emailTxtView" />
+
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:text="@string/login"
+        app:layout_constraintEnd_toEndOf="@+id/passwordTxtView"
+        app:layout_constraintStart_toStartOf="@+id/passwordTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTxtView" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/signInWithGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+    <EditText
+        android:id="@+id/emailTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:ems="10"
+        android:hint="@string/enterYourMail"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="New to food planner ?"
+        app:layout_constraintStart_toStartOf="@+id/passwordTxtView"
+        app:layout_constraintTop_toBottomOf="@+id/passwordTxtView" />
+
+    <TextView
+        android:id="@+id/createNewAccountTxtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/createNewAccount"
+        android:textColor="#673AB7"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
