@@ -1,9 +1,12 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import iti.android.foodplanner.R;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
 
 
 public class SplachScreenActivity extends AppCompatActivity {

@@ -1,4 +1,4 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUpActivity extends AppCompatActivity {
+import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.R;
+
+public class RegisterActivity extends AppCompatActivity {
     TextView signUpEmailTv;
     TextView signUpPasswordTv;
     Button signUpButton;
@@ -54,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUpActivity.this, "This email already exists !",
+                            Toast.makeText(RegisterActivity.this, "This email already exists !",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }

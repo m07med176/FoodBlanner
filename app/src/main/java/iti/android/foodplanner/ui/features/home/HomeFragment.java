@@ -1,4 +1,4 @@
-package iti.android.foodplanner.ui.home;
+package iti.android.foodplanner.ui.features.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,14 +18,11 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textHome;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
