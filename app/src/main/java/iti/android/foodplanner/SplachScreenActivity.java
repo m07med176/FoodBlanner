@@ -16,11 +16,14 @@ public class SplachScreenActivity extends AppCompatActivity {
 
         new Thread(() -> {
             try {
-                Thread.sleep(1000);
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                Thread.sleep(4000);
+                startActivity(new Intent(getApplicationContext(), SignUpOrLoginActivity.class));
+                finish();
+
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
+
     }
 }

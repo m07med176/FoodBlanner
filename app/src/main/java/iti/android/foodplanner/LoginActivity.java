@@ -6,7 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,29 +36,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
-    private static final String TAG="GOOGLEAUTHENTCATION";
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class LoginActivity extends AppCompatActivity {
+    private static final String TAG = "GOOGLEAUTHENTCATION";
 
     TextView emailTV;
     TextView passwordTV;
     TextView createNewAccountTV;
     Button loginButton;
 
-    private static final int RC_SIGN_IN = 9001;
-
     private FirebaseAuth mAuth;
-    SignInButton loginWithGoogleButton;
-    GoogleApiClient googleApiClient;
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            //TODO method to relod home page
-        }
-    }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,45 +55,61 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-        googleApiClient=new GoogleApiClient.Builder(this).enableAutoManage(this,this).
-                addApi(Auth.GOOGLE_SIGN_IN_API,gso).
-                build();
 
-        emailTV=findViewById(R.id.emailTxtView);
-        passwordTV=findViewById(R.id.passwordTxtView);
-        loginButton=findViewById(R.id.loginBtn);
-        loginWithGoogleButton=findViewById(R.id.signInWithGoogle);
-        createNewAccountTV=findViewById(R.id.createNewAccountTxtView);
+        emailTV = findViewById(R.id.emailTxtView);
+        passwordTV = findViewById(R.id.passwordTxtView);
+        loginButton = findViewById(R.id.loginBtn);
+
+        createNewAccountTV = findViewById(R.id.createNewAccountTxtView);
 
         mAuth = FirebaseAuth.getInstance();
 
-
-
-
+        loginButton.setEnabled(false);
         createNewAccountTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
             }
         });
+
+        emailTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(isValidEmail(charSequence.toString()))
+                    loginButton.setEnabled(true);
+                else
+                    loginButton.setEnabled(false);
+
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login(emailTV.getText().toString(),passwordTV.getText().toString());
+                   if(isValidPassword(passwordTV.getText().toString())==true)
+                    login(emailTV.getText().toString(), passwordTV.getText().toString());
+                   else
+                       Toast.makeText(LoginActivity.this, "Please enter the correct password",
+                               Toast.LENGTH_SHORT).show();
+
             }
         });
-        loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signIn();
-            }
-        });
+
     }
-    public void login(String email,String Password){
+
+    public void login(String email, String Password) {
 
         mAuth.signInWithEmailAndPassword(email, Password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -112,9 +121,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+
+                            Toast.makeText(LoginActivity.this, task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             updateUI((FirebaseUser) null);
                         }
@@ -123,57 +131,28 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     }
 
     public void updateUI(FirebaseUser user) {
-        if(user!=null){
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));}
-    }
-
-    public void updateUI(GoogleSignInAccount user) {
-        if(user!=null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));}
-    }
-    private void signIn() {
-        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
-
-            handleSignInResult(task);
+        if (user != null) {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            firebaseAuthWithGoogle(account);
-            // Signed in successfully, show authenticated UI.
-            updateUI(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            updateUI((GoogleSignInAccount) null);
-        }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnSuccessListener(this, authResult -> {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
-                })
-                .addOnFailureListener(this, e -> Toast.makeText(LoginActivity.this, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show());
+
+    public boolean isValidPassword(final String password) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
+
+        pattern = Pattern.compile(PASSWORD_PATTERN);
+        matcher = pattern.matcher(password);
+
+        return matcher.matches();
+
     }
+
+
 }
