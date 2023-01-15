@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.features.details.DetailsFragment">
-
+    <!--TODO Design Details UI-->
     <TextView
         android:id="@+id/tv_details"
         android:layout_width="match_parent"
