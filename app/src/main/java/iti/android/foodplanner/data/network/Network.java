@@ -14,6 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Network {
     private volatile static Retrofit instance = null;
 
+    private Network(){}
+    
     public static synchronized Retrofit getInstance() {
         if (instance == null) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

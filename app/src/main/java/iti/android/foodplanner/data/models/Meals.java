@@ -1,7 +1,8 @@
 package iti.android.foodplanner.data.models;
 
-import java.util.List;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 // TODO Moamen [DATA]: insert it as Entity
 public class Meals{
