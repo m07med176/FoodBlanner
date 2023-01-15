@@ -13,7 +13,13 @@ import androidx.navigation.ui.NavigationUI;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
 
 public class MainActivity extends AppCompatActivity {
+/*
+TODO
+    قلت أمؤمن ولم التعجل   حسبك قد اكون
 
+
+
+ */
     private ActivityMainAppBinding binding;
 
     @Override

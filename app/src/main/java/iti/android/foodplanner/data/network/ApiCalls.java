@@ -11,14 +11,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiCalls {
-    String BASE_URL = "https://api.cryptonator.com/api/full/";
-
-    //@GET("{coin}-usd")
-    //Observable<Object> getCoinData(@Path("coin") String coin);
-
-    // TODO Food Filter
-
-    // TODO Show All Categories
+    String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
     /**
      * link: https://www.themealdb.com/api/json/v1/1/random.php
