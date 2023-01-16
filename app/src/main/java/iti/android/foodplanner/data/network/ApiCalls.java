@@ -1,13 +1,15 @@
 package iti.android.foodplanner.data.network;
 
+import java.util.List;
+
 import io.reactivex.rxjava3.core.Observable;
-import iti.android.foodplanner.data.models.Areas;
-import iti.android.foodplanner.data.models.Categories;
-import iti.android.foodplanner.data.models.FilterResults;
-import iti.android.foodplanner.data.models.Ingredients;
-import iti.android.foodplanner.data.models.Meals;
+import iti.android.foodplanner.data.models.Area;
+import iti.android.foodplanner.data.models.CategoriesItem;
+import iti.android.foodplanner.data.models.Category;
+import iti.android.foodplanner.data.models.Ingredient;
+import iti.android.foodplanner.data.models.MealsItem;
+import iti.android.foodplanner.data.models.ShortMeals;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiCalls {
@@ -18,7 +20,7 @@ public interface ApiCalls {
      * @return Object
      */
     @GET("random.php")
-    public Observable<Meals> lookupSingleRandomMeal();
+    public Observable<List<MealsItem>> lookupSingleRandomMeal();
 
 
     /**
@@ -26,7 +28,7 @@ public interface ApiCalls {
      * @return Ingredients
      */
     @GET("list.php?i=list")
-    public Observable<Ingredients> ingredientsList();
+    public Observable<List<Ingredient>> ingredientsList();
 
 
     /**
@@ -34,14 +36,14 @@ public interface ApiCalls {
      * @return Categories
      */
     @GET("list.php?c=list")
-    public Observable<Categories> categoriesList();
+    public Observable<List<Category>> categoriesList();
 
     /**
      * link: https://www.themealdb.com/api/json/v1/1/list.php?a=list
      * @return Areas
      */
     @GET("list.php?a=list")
-    public Observable<Areas> areasList();
+    public Observable<List<Area>> areasList();
 
 
     /**
@@ -50,15 +52,26 @@ public interface ApiCalls {
      */
 
     @GET("filter.php")
-    public Observable<FilterResults> retrieveFilterResults(
+    public Observable<List<ShortMeals>> retrieveFilterResults(
             @Query("c") String category,
             @Query("i") String ingredient,
             @Query("a") String area
     );
 
+    @GET("categories.php")
+    public Observable<List<CategoriesItem>> retrieveCategoriesList();
 
-    // TODO Moamen [DATA] : search food by name
-    // TODO Moamen [DATA] : filter by id
-    // TODO Moamen [DATA] : show all categories
+
+    @GET("search.php")
+    public Observable<List<MealsItem>> searchMeals(
+            @Query("s") String search
+    );
+
+    @GET("lookup.php")
+    public Observable<List<MealsItem>> retrieveMealByID(
+            @Query("i") String id
+    );
+    
+
 
 }
