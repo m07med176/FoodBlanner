@@ -16,9 +16,19 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
+    <string name="hi_wecome_b">
+    Hi, Wecome Back! 👋
+    </string>
+    <string name="hello_again">
+    Hello again, you\'ve been missed!
+    </string>
+    <string name="create_an_a">
+    Create an account
+    </string>
+    <string name="connect_wit">
+    Plan your food better with us!
+    </string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signUpWithMail">Sign up with email</string>
 </resources>

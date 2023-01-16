@@ -1,4 +1,4 @@
-package iti.android.foodplanner.ui.features.register;
+package iti.android.foodplanner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,15 +17,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import iti.android.foodplanner.MainActivity;
-import iti.android.foodplanner.R;
-
-public class RegisterActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity {
     TextView signUpEmailTv;
     TextView signUpPasswordTv;
     Button signUpButton;
+    TextView loginTxtViewBtn;
     private FirebaseAuth mAuth;
     private static final String TAG="GOOGLEAUTHENTCATION";
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +34,19 @@ public class RegisterActivity extends AppCompatActivity {
         signUpEmailTv=findViewById(R.id.signupEmailTxtView);
         signUpPasswordTv=findViewById(R.id.passwordSignupTxtView);
         signUpButton=findViewById(R.id.signUpBtn);
+        loginTxtViewBtn=findViewById(R.id.loginTxtView);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 addNewUser(signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString());
             }
         });
-
+        loginTxtViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }
+        });
 
 
     }
@@ -49,17 +56,18 @@ public class RegisterActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(RegisterActivity.this, "This email already exists !",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                        } else {Exception exception = task.getException();
+                            if (exception == null) {
+                                Toast.makeText(getApplicationContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+           }
                         }
                     }
                 });
