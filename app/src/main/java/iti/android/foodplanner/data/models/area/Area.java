@@ -1,4 +1,4 @@
-package iti.android.foodplanner.data.models;
+package iti.android.foodplanner.data.models.area;
 
 public class Area {
     private String strArea;

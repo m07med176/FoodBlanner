@@ -1,4 +1,4 @@
-package iti.android.foodplanner.data.models;
+package iti.android.foodplanner.data.models.meal;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 
-import iti.android.foodplanner.data.models.CategoriesItem;
+import iti.android.foodplanner.data.models.categoryFeed.CategoriesItem;
 
 @Database(entities = {CategoriesItem.class}, version = 1,exportSchema = false)
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {

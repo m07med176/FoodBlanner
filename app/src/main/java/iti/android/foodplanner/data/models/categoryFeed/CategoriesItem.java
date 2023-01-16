@@ -1,4 +1,4 @@
-package iti.android.foodplanner.data.models;
+package iti.android.foodplanner.data.models.categoryFeed;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

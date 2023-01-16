@@ -6,7 +6,7 @@ import androidx.room.Query;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
-import iti.android.foodplanner.data.models.CategoriesItem;
+import iti.android.foodplanner.data.models.categoryFeed.CategoriesItem;
 
 @Dao
 public interface FeedCashDAO {
