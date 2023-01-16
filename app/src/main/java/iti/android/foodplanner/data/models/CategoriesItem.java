@@ -1,20 +1,36 @@
 package iti.android.foodplanner.data.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "categories_feed")
 public class CategoriesItem{
 
-	@SerializedName("strCategory")
+	@PrimaryKey(autoGenerate = true)
+	private int id;
+
+	@ColumnInfo
 	private String strCategory;
 
-	@SerializedName("strCategoryDescription")
+	@ColumnInfo
 	private String strCategoryDescription;
 
-	@SerializedName("idCategory")
+	@ColumnInfo
 	private String idCategory;
 
-	@SerializedName("strCategoryThumb")
+	@ColumnInfo
 	private String strCategoryThumb;
+
+	public CategoriesItem(int id,String strCategory, String strCategoryDescription, String idCategory, String strCategoryThumb) {
+		this.id = id;
+		this.strCategory = strCategory;
+		this.strCategoryDescription = strCategoryDescription;
+		this.idCategory = idCategory;
+		this.strCategoryThumb = strCategoryThumb;
+	}
 
 	public void setStrCategory(String strCategory){
 		this.strCategory = strCategory;
@@ -42,6 +58,14 @@ public class CategoriesItem{
 
 	public void setStrCategoryThumb(String strCategoryThumb){
 		this.strCategoryThumb = strCategoryThumb;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getStrCategoryThumb(){

@@ -1,12 +1,16 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.splash;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import iti.android.foodplanner.R;
+import iti.android.foodplanner.SignUpOrLoginActivity;
+import iti.android.foodplanner.ui.features.register.RegisterActivity;
 
-public class SplachScreenActivity extends AppCompatActivity {
+
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +21,7 @@ public class SplachScreenActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Thread.sleep(4000);
-                startActivity(new Intent(getApplicationContext(), SignUpOrLoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
                 finish();
 
             } catch (InterruptedException e) {

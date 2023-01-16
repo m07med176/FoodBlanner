@@ -1,4 +1,4 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.login;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +39,10 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.R;
+import iti.android.foodplanner.ui.features.register.RegisterActivity;
+
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "GOOGLEAUTHENTCATION";
 
@@ -68,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         createNewAccountTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
 

@@ -1,4 +1,4 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.register;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +17,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUpActivity extends AppCompatActivity {
+import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.R;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
+
+public class RegisterActivity extends AppCompatActivity {
     TextView signUpEmailTv;
     TextView signUpPasswordTv;
     Button signUpButton;
