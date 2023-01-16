@@ -16,39 +16,39 @@ public interface ApiCalls {
     String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
 
     /**
-     * link: https://www.themealdb.com/api/json/v1/1/random.php
-     * @return Object
+     * link: <a href="https://www.themealdb.com/api/json/v1/1/random.php">Single Random Meal</a>
+     * @return List<MealsItem>
      */
     @GET("random.php")
     public Observable<List<MealsItem>> lookupSingleRandomMeal();
 
 
     /**
-     * link: https://www.themealdb.com/api/json/v1/1/list.php?i=list
-     * @return Ingredients
+     * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?i=list">List of Ingredients</a>
+     * @return List<Ingredient>
      */
     @GET("list.php?i=list")
     public Observable<List<Ingredient>> ingredientsList();
 
 
     /**
-     * link: https://www.themealdb.com/api/json/v1/1/list.php?c=list
-     * @return Categories
+     * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?c=list">List of Categories</a>
+     * @return List<Category>
      */
     @GET("list.php?c=list")
     public Observable<List<Category>> categoriesList();
 
     /**
-     * link: https://www.themealdb.com/api/json/v1/1/list.php?a=list
-     * @return Areas
+     * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?a=list">List of Areas</a>
+     * @return List<Area>
      */
     @GET("list.php?a=list")
     public Observable<List<Area>> areasList();
 
 
     /**
-     * link: https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert
-     * @return FilterResults
+     * Link <a href="https://www.themealdb.com/api/json/v1/1/filter.php?c=Dessert"> Result of Short Meals</a>
+     * @return List<ShortMeals>
      */
 
     @GET("filter.php")
@@ -58,20 +58,32 @@ public interface ApiCalls {
             @Query("a") String area
     );
 
+    /**
+     * Link <a href="https://www.themealdb.com/api/json/v1/1/categories.php">Categories List</a>
+     * @return List<CategoriesItem>
+     */
     @GET("categories.php")
     public Observable<List<CategoriesItem>> retrieveCategoriesList();
 
 
+    /**
+     * Link <a href="https://www.themealdb.com/api/json/v1/1/search.php?s='Q'">Search By Name</a>
+     * @return List<MealsItem>
+     */
     @GET("search.php")
-    public Observable<List<MealsItem>> searchMeals(
+    public Observable<List<MealsItem>> searchMealsByName(
             @Query("s") String search
     );
 
+    /**
+     * Link <a href="https://www.themealdb.com/api/json/v1/1/lookup.php?i='525'">Retrieve Meals By ID</a>
+     * @return List<MealsItem>
+     */
     @GET("lookup.php")
     public Observable<List<MealsItem>> retrieveMealByID(
             @Query("i") String id
     );
-    
+
 
 
 }
