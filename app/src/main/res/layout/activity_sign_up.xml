@@ -4,22 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    android:background="@color/white"
+    tools:context=".ui.features.register.RegisterActivity">
+
     <TextView
         android:id="@+id/create_an_a"
-        android:layout_width="304dp"
-        android:layout_height="99dp"
+        android:layout_width="298dp"
+        android:layout_height="55dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="92dp"
         android:gravity="top"
         android:text="@string/create_an_a"
         android:textAppearance="@style/hi_wecome_b"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.584"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/connect_wit"
         android:layout_width="wrap_content"
@@ -39,11 +43,13 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
+        android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/enterYourMail"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:textColor="#999EA1"
+        android:textColor="@color/black"
+        android:textColorHint="#999EA1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,21 +59,23 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/enterPassword"
         android:inputType="textPassword"
-        android:textColor="#999EA1"
         android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="#999EA1"
         app:layout_constraintEnd_toEndOf="@+id/signupEmailTxtView"
         app:layout_constraintTop_toBottomOf="@+id/signupEmailTxtView" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpBtn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
+        android:backgroundTint="@drawable/button_state_color"
         android:text="@string/signUp"
-        android:backgroundTint="@color/purbleButtonsEnabled"
         android:textColor="@color/white"
         app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="@+id/passwordSignupTxtView"
@@ -96,20 +104,19 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="66dp"
         android:layout_marginBottom="36dp"
         android:text="Already have an account ?"
         android:textColor="#999EA1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/signUpBtn" />
+
     <TextView
         android:id="@+id/loginTxtView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="140dp"
-        android:layout_marginBottom="36dp"
         android:text="@string/login"
         android:textColor="@color/purbleButtonsEnabled"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

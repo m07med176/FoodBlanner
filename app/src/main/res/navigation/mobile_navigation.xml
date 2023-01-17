@@ -23,4 +23,9 @@
         android:name="iti.android.foodplanner.ui.features.plan.PlanFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="iti.android.foodplanner.ui.features.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
 </navigation>

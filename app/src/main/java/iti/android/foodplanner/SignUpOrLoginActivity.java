@@ -54,6 +54,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements GoogleAp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_or_login);
+        getSupportActionBar().hide();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))

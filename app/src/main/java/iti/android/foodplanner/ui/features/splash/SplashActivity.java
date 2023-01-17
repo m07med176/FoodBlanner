@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.SignUpOrLoginActivity;
-import iti.android.foodplanner.ui.features.register.RegisterActivity;
+
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -21,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Thread.sleep(4000);
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
+                startActivity(new Intent(getApplicationContext(), SignUpOrLoginActivity.class));
                 finish();
 
             } catch (InterruptedException e) {

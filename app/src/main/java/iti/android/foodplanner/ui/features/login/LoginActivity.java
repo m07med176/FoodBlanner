@@ -51,11 +51,15 @@ public class LoginActivity extends AppCompatActivity {
     TextView createNewAccountTV;
     Button loginButton;
 
+    private static boolean statesFlagEmail=false;
+    private static boolean statesFlagPassword=false;
+
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
@@ -75,8 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
-
-        emailTV.addTextChangedListener(new TextWatcher() {
+        passwordTV.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -84,13 +87,39 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if(isValidEmail(charSequence.toString()))
-                    loginButton.setEnabled(true);
-                else
-                    loginButton.setEnabled(false);
+                if (isValidPassword(charSequence))
+                {  statesFlagPassword=true;
+                    buttonStates();}
+                if(isValidPassword(charSequence)==false)
+                {
+                    statesFlagPassword=false;
+                    buttonStates();
+                }
 
 
+            }
 
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        emailTV.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (isValidEmail(charSequence))
+                {   statesFlagEmail=true;
+                    buttonStates();}
+                if(isValidEmail(charSequence)==false) {
+                    statesFlagEmail=false;
+                    buttonStates();
+                }
             }
 
             @Override
@@ -102,11 +131,9 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   if(isValidPassword(passwordTV.getText().toString())==true)
-                    login(emailTV.getText().toString(), passwordTV.getText().toString());
-                   else
-                       Toast.makeText(LoginActivity.this, "Please enter the correct password",
-                               Toast.LENGTH_SHORT).show();
+
+                login(emailTV.getText().toString(), passwordTV.getText().toString());
+
 
             }
         });
@@ -141,10 +168,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public static boolean isValidEmail(CharSequence target) {
-        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+        Pattern pattern;
+        Matcher matcher;
+        pattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
+        matcher = pattern.matcher(target);
+        return (!TextUtils.isEmpty(target) && matcher.matches());
     }
 
-    public boolean isValidPassword(final String password) {
+    public static boolean isValidPassword(CharSequence password) {
 
         Pattern pattern;
         Matcher matcher;
@@ -156,6 +187,13 @@ public class LoginActivity extends AppCompatActivity {
 
         return matcher.matches();
 
+    }
+
+    public void buttonStates() {
+        if (statesFlagEmail&&statesFlagPassword)
+            loginButton.setEnabled(true);
+        else
+            loginButton.setEnabled(false);
     }
 
 
