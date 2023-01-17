@@ -1,11 +1,15 @@
 package iti.android.foodplanner.data.models.meal;
 
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "meals")
 public class MealsItem{
 
 	@SerializedName("strImageSource")
-	private Object strImageSource;
+	private String strImageSource;
 
 	@SerializedName("strIngredient10")
 	private String strIngredient10;
@@ -85,11 +89,9 @@ public class MealsItem{
 	@SerializedName("strIngredient8")
 	private String strIngredient8;
 
+
 	@SerializedName("strMealThumb")
 	private String strMealThumb;
-
-	@SerializedName("strMeasure20")
-	private Object strMeasure20;
 
 	@SerializedName("strYoutube")
 	private String strYoutube;
@@ -97,17 +99,6 @@ public class MealsItem{
 	@SerializedName("strMeal")
 	private String strMeal;
 
-	@SerializedName("strMeasure12")
-	private String strMeasure12;
-
-	@SerializedName("strMeasure13")
-	private String strMeasure13;
-
-	@SerializedName("strMeasure10")
-	private String strMeasure10;
-
-	@SerializedName("strMeasure11")
-	private String strMeasure11;
 
 	@SerializedName("dateModified")
 	private Object dateModified;
@@ -118,56 +109,11 @@ public class MealsItem{
 	@SerializedName("strSource")
 	private Object strSource;
 
-	@SerializedName("strMeasure9")
-	private String strMeasure9;
-
-	@SerializedName("strMeasure7")
-	private String strMeasure7;
-
-	@SerializedName("strMeasure8")
-	private String strMeasure8;
-
-	@SerializedName("strMeasure5")
-	private String strMeasure5;
-
-	@SerializedName("strMeasure6")
-	private String strMeasure6;
-
-	@SerializedName("strMeasure3")
-	private String strMeasure3;
-
-	@SerializedName("strMeasure4")
-	private String strMeasure4;
-
-	@SerializedName("strMeasure1")
-	private String strMeasure1;
-
-	@SerializedName("strMeasure18")
-	private Object strMeasure18;
-
-	@SerializedName("strMeasure2")
-	private String strMeasure2;
-
-	@SerializedName("strMeasure19")
-	private Object strMeasure19;
-
-	@SerializedName("strMeasure16")
-	private Object strMeasure16;
-
-	@SerializedName("strMeasure17")
-	private Object strMeasure17;
-
-	@SerializedName("strMeasure14")
-	private String strMeasure14;
-
-	@SerializedName("strMeasure15")
-	private String strMeasure15;
-
-	public void setStrImageSource(Object strImageSource){
+	public void setStrImageSource(String strImageSource){
 		this.strImageSource = strImageSource;
 	}
 
-	public Object getStrImageSource(){
+	public String getStrImageSource(){
 		return strImageSource;
 	}
 
@@ -387,14 +333,6 @@ public class MealsItem{
 		return strMealThumb;
 	}
 
-	public void setStrMeasure20(Object strMeasure20){
-		this.strMeasure20 = strMeasure20;
-	}
-
-	public Object getStrMeasure20(){
-		return strMeasure20;
-	}
-
 	public void setStrYoutube(String strYoutube){
 		this.strYoutube = strYoutube;
 	}
@@ -409,38 +347,6 @@ public class MealsItem{
 
 	public String getStrMeal(){
 		return strMeal;
-	}
-
-	public void setStrMeasure12(String strMeasure12){
-		this.strMeasure12 = strMeasure12;
-	}
-
-	public String getStrMeasure12(){
-		return strMeasure12;
-	}
-
-	public void setStrMeasure13(String strMeasure13){
-		this.strMeasure13 = strMeasure13;
-	}
-
-	public String getStrMeasure13(){
-		return strMeasure13;
-	}
-
-	public void setStrMeasure10(String strMeasure10){
-		this.strMeasure10 = strMeasure10;
-	}
-
-	public String getStrMeasure10(){
-		return strMeasure10;
-	}
-
-	public void setStrMeasure11(String strMeasure11){
-		this.strMeasure11 = strMeasure11;
-	}
-
-	public String getStrMeasure11(){
-		return strMeasure11;
 	}
 
 	public void setDateModified(Object dateModified){
@@ -467,125 +373,6 @@ public class MealsItem{
 		return strSource;
 	}
 
-	public void setStrMeasure9(String strMeasure9){
-		this.strMeasure9 = strMeasure9;
-	}
-
-	public String getStrMeasure9(){
-		return strMeasure9;
-	}
-
-	public void setStrMeasure7(String strMeasure7){
-		this.strMeasure7 = strMeasure7;
-	}
-
-	public String getStrMeasure7(){
-		return strMeasure7;
-	}
-
-	public void setStrMeasure8(String strMeasure8){
-		this.strMeasure8 = strMeasure8;
-	}
-
-	public String getStrMeasure8(){
-		return strMeasure8;
-	}
-
-	public void setStrMeasure5(String strMeasure5){
-		this.strMeasure5 = strMeasure5;
-	}
-
-	public String getStrMeasure5(){
-		return strMeasure5;
-	}
-
-	public void setStrMeasure6(String strMeasure6){
-		this.strMeasure6 = strMeasure6;
-	}
-
-	public String getStrMeasure6(){
-		return strMeasure6;
-	}
-
-	public void setStrMeasure3(String strMeasure3){
-		this.strMeasure3 = strMeasure3;
-	}
-
-	public String getStrMeasure3(){
-		return strMeasure3;
-	}
-
-	public void setStrMeasure4(String strMeasure4){
-		this.strMeasure4 = strMeasure4;
-	}
-
-	public String getStrMeasure4(){
-		return strMeasure4;
-	}
-
-	public void setStrMeasure1(String strMeasure1){
-		this.strMeasure1 = strMeasure1;
-	}
-
-	public String getStrMeasure1(){
-		return strMeasure1;
-	}
-
-	public void setStrMeasure18(Object strMeasure18){
-		this.strMeasure18 = strMeasure18;
-	}
-
-	public Object getStrMeasure18(){
-		return strMeasure18;
-	}
-
-	public void setStrMeasure2(String strMeasure2){
-		this.strMeasure2 = strMeasure2;
-	}
-
-	public String getStrMeasure2(){
-		return strMeasure2;
-	}
-
-	public void setStrMeasure19(Object strMeasure19){
-		this.strMeasure19 = strMeasure19;
-	}
-
-	public Object getStrMeasure19(){
-		return strMeasure19;
-	}
-
-	public void setStrMeasure16(Object strMeasure16){
-		this.strMeasure16 = strMeasure16;
-	}
-
-	public Object getStrMeasure16(){
-		return strMeasure16;
-	}
-
-	public void setStrMeasure17(Object strMeasure17){
-		this.strMeasure17 = strMeasure17;
-	}
-
-	public Object getStrMeasure17(){
-		return strMeasure17;
-	}
-
-	public void setStrMeasure14(String strMeasure14){
-		this.strMeasure14 = strMeasure14;
-	}
-
-	public String getStrMeasure14(){
-		return strMeasure14;
-	}
-
-	public void setStrMeasure15(String strMeasure15){
-		this.strMeasure15 = strMeasure15;
-	}
-
-	public String getStrMeasure15(){
-		return strMeasure15;
-	}
 
 	@Override
  	public String toString(){
@@ -619,31 +406,13 @@ public class MealsItem{
 			",strIngredient9 = '" + strIngredient9 + '\'' + 
 			",strIngredient8 = '" + strIngredient8 + '\'' + 
 			",strMealThumb = '" + strMealThumb + '\'' + 
-			",strMeasure20 = '" + strMeasure20 + '\'' + 
-			",strYoutube = '" + strYoutube + '\'' + 
+			",strYoutube = '" + strYoutube + '\'' +
 			",strMeal = '" + strMeal + '\'' + 
-			",strMeasure12 = '" + strMeasure12 + '\'' + 
-			",strMeasure13 = '" + strMeasure13 + '\'' + 
-			",strMeasure10 = '" + strMeasure10 + '\'' + 
-			",strMeasure11 = '" + strMeasure11 + '\'' + 
+
 			",dateModified = '" + dateModified + '\'' + 
 			",strDrinkAlternate = '" + strDrinkAlternate + '\'' + 
 			",strSource = '" + strSource + '\'' + 
-			",strMeasure9 = '" + strMeasure9 + '\'' + 
-			",strMeasure7 = '" + strMeasure7 + '\'' + 
-			",strMeasure8 = '" + strMeasure8 + '\'' + 
-			",strMeasure5 = '" + strMeasure5 + '\'' + 
-			",strMeasure6 = '" + strMeasure6 + '\'' + 
-			",strMeasure3 = '" + strMeasure3 + '\'' + 
-			",strMeasure4 = '" + strMeasure4 + '\'' + 
-			",strMeasure1 = '" + strMeasure1 + '\'' + 
-			",strMeasure18 = '" + strMeasure18 + '\'' + 
-			",strMeasure2 = '" + strMeasure2 + '\'' + 
-			",strMeasure19 = '" + strMeasure19 + '\'' + 
-			",strMeasure16 = '" + strMeasure16 + '\'' + 
-			",strMeasure17 = '" + strMeasure17 + '\'' + 
-			",strMeasure14 = '" + strMeasure14 + '\'' + 
-			",strMeasure15 = '" + strMeasure15 + '\'' + 
+
 			"}";
 		}
 }
