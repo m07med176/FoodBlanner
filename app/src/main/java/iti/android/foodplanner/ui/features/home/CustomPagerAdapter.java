@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.models.ShortMeals;
+import iti.android.foodplanner.data.models.meal.MealsItem;
 
 public class CustomPagerAdapter  {
     class  SliderViewHolder extends RecyclerView.ViewHolder{
@@ -19,7 +19,7 @@ public class CustomPagerAdapter  {
             roundedImageView = itemView.findViewById(R.id.imgSlide);
 
         }
-        public void setImage(ShortMeals shortMeals){
+        public void setImage(MealsItem shortMeals){
             //roundedImageView.setImageResource(shortMeals.getStrMealThumb());
         }
     }

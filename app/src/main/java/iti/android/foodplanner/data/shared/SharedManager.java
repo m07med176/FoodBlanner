@@ -38,8 +38,10 @@ public class SharedManager {
     public User getUser(){
         String userStr = sharedPreferences.getString(USER_INFO,null);
         User user = new User();
-        if (userStr != null)
-            user = new Gson().fromJson(userStr,User.class);
+        if (userStr != null) {
+            user = new Gson().fromJson(userStr, User.class);
+            saveEntrance();
+        }
         return user;
     }
     public boolean isFirstEntrance(){

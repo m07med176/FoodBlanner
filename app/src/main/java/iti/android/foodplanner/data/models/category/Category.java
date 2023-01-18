@@ -1,4 +1,4 @@
-package iti.android.foodplanner.data.models;
+package iti.android.foodplanner.data.models.category;
 
 public class Category {
     private String strCategory;

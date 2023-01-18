@@ -18,23 +18,24 @@ import com.bumptech.glide.request.RequestOptions;
 import java.util.List;
 
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.models.ShortMeals;
+import iti.android.foodplanner.data.models.meal.MealsItem;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private final Context context;
-    private List<ShortMeals> values;
+    private List<MealsItem> values;
+    
     private static final String TAG="RECYCLEVIEW";
 
 
-    public void setValues(List<ShortMeals> values) {
+    public void setValues(List<MealsItem> values) {
         this.values = values;
     }
 
-    public List<ShortMeals> getValues() {
+    public List<MealsItem> getValues() {
         return values;
     }
 
-    public MyAdapter (Context context, List<ShortMeals> dataSet){
+    public MyAdapter (Context context, List<MealsItem> dataSet){
         this.context=context;
         values=dataSet;
 
@@ -53,7 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ShortMeals shortMeals=values.get(position);
+        MealsItem MealsItem=values.get(position);
         holder.descriptionTxtView.setText("Price : "+values.get(position).getStrMeal());
 
         Glide.with(context).

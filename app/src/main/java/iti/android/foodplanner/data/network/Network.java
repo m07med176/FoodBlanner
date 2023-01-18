@@ -20,11 +20,10 @@ public class Network {
         if (instance == null) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
             OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
-            Gson gson = new GsonBuilder()
-                    .setLenient()
-                    .create();
+            Gson gson = new GsonBuilder().setLenient().create();
 
             instance = new Retrofit.Builder()
                     .baseUrl(ApiCalls.BASE_URL)

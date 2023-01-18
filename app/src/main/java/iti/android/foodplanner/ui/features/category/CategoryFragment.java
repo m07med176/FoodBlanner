@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.models.ShortMeals;
+import iti.android.foodplanner.data.models.meal.MealsItem;
 
 public class CategoryFragment extends Fragment {
     RecyclerView recyclerView;
     MyAdapter myAdapter;
-    List<ShortMeals>shortMeals;
+    List<iti.android.foodplanner.data.models.meal.MealsItem>MealsItem;
 
 
 
@@ -30,28 +30,28 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        shortMeals=new ArrayList<>();
-        ShortMeals meals=new ShortMeals();
+        MealsItem=new ArrayList<>();
+        MealsItem meals=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals1=new ShortMeals();
+        MealsItem meals1=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals2=new ShortMeals();
+        MealsItem meals2=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals3=new ShortMeals();
+        MealsItem meals3=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals4=new ShortMeals();
+        MealsItem meals4=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals5=new ShortMeals();
+        MealsItem meals5=new MealsItem();
         meals.setStrMeal("moamen");
-        ShortMeals meals6=new ShortMeals();
+        MealsItem meals6=new MealsItem();
         meals.setStrMeal("moamen");
-        shortMeals.add(meals);
-        shortMeals.add(meals1);
-        shortMeals.add(meals2);
-        shortMeals.add(meals3);
-        shortMeals.add(meals4);
-        shortMeals.add(meals5);
-        shortMeals.add(meals6);
+        MealsItem.add(meals);
+        MealsItem.add(meals1);
+        MealsItem.add(meals2);
+        MealsItem.add(meals3);
+        MealsItem.add(meals4);
+        MealsItem.add(meals5);
+        MealsItem.add(meals6);
 
 
 
@@ -77,7 +77,7 @@ public class CategoryFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),2);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        myAdapter = new MyAdapter(getContext(),shortMeals);
+        myAdapter = new MyAdapter(getContext(),MealsItem);
         recyclerView.setAdapter(myAdapter);
 
     }

@@ -3,12 +3,11 @@ package iti.android.foodplanner.data.network;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Observable;
-import iti.android.foodplanner.data.models.Area;
-import iti.android.foodplanner.data.models.CategoriesItem;
-import iti.android.foodplanner.data.models.Category;
-import iti.android.foodplanner.data.models.Ingredient;
-import iti.android.foodplanner.data.models.MealsItem;
-import iti.android.foodplanner.data.models.ShortMeals;
+import iti.android.foodplanner.data.models.area.AreasList;
+import iti.android.foodplanner.data.models.categoryFeed.CategoriesItem;
+import iti.android.foodplanner.data.models.category.CategoriesList;
+import iti.android.foodplanner.data.models.Ingredient.IngredientsList;
+import iti.android.foodplanner.data.models.meal.MealsList;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -20,7 +19,7 @@ public interface ApiCalls {
      * @return List<MealsItem>
      */
     @GET("random.php")
-    public Observable<List<MealsItem>> lookupSingleRandomMeal();
+    public Observable<MealsList> lookupSingleRandomMeal();
 
 
     /**
@@ -28,7 +27,7 @@ public interface ApiCalls {
      * @return List<Ingredient>
      */
     @GET("list.php?i=list")
-    public Observable<List<Ingredient>> ingredientsList();
+    public Observable<IngredientsList> ingredientsList();
 
 
     /**
@@ -36,14 +35,14 @@ public interface ApiCalls {
      * @return List<Category>
      */
     @GET("list.php?c=list")
-    public Observable<List<Category>> categoriesList();
+    public Observable<CategoriesList> categoriesList();
 
     /**
      * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?a=list">List of Areas</a>
      * @return List<Area>
      */
     @GET("list.php?a=list")
-    public Observable<List<Area>> areasList();
+    public Observable<AreasList> areasList();
 
 
     /**
@@ -52,7 +51,7 @@ public interface ApiCalls {
      */
 
     @GET("filter.php")
-    public Observable<List<ShortMeals>> retrieveFilterResults(
+    public Observable<MealsList> retrieveFilterResults(
             @Query("c") String category,
             @Query("i") String ingredient,
             @Query("a") String area
@@ -71,18 +70,14 @@ public interface ApiCalls {
      * @return List<MealsItem>
      */
     @GET("search.php")
-    public Observable<List<MealsItem>> searchMealsByName(
-            @Query("s") String search
-    );
+    public Observable<MealsList> searchMealsByName(@Query("s") String search);
 
     /**
      * Link <a href="https://www.themealdb.com/api/json/v1/1/lookup.php?i='525'">Retrieve Meals By ID</a>
      * @return List<MealsItem>
      */
     @GET("lookup.php")
-    public Observable<List<MealsItem>> retrieveMealByID(
-            @Query("i") String id
-    );
+    public Observable<MealsList> retrieveMealByID(@Query("i") String id);
 
 
 

@@ -1,4 +1,4 @@
-package iti.android.foodplanner.data.models;
+package iti.android.foodplanner.data.models.Ingredient;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,6 +7,7 @@ public class Ingredient{
 	@SerializedName("strDescription")
 	private String strDescription;
 
+	private String thumnail;
 	@SerializedName("strIngredient")
 	private String strIngredient;
 
@@ -46,6 +47,14 @@ public class Ingredient{
 
 	public String getIdIngredient(){
 		return idIngredient;
+	}
+
+	public String getThumnail() {
+		return thumnail;
+	}
+
+	public void setThumnail() {
+		this.thumnail = "https://www.themealdb.com/images/ingredients/"+strIngredient+".png";
 	}
 
 	@Override
