@@ -30,7 +30,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".SignUpOrLoginActivity"
+            android:name=".ui.features.sign_in_with_google.SignUpOrLoginActivity"
             android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
@@ -46,11 +46,7 @@
         </activity>
         <activity android:name=".data.TestActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -60,6 +56,11 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

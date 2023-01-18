@@ -1,7 +1,10 @@
 package iti.android.foodplanner.ui.features.register;
 
-import static iti.android.foodplanner.ui.features.login.LoginActivity.isValidEmail;
-import static iti.android.foodplanner.ui.features.login.LoginActivity.isValidPassword;
+
+
+
+import static iti.android.foodplanner.ui.util.Utils.isValidEmail;
+import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,10 +26,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import iti.android.foodplanner.MainActivity;
+
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.authentication.Authentication;
+import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
 
-public class RegisterActivity extends AppCompatActivity {
+
+public class RegisterActivity extends AppCompatActivity implements RegisterInterface{
     TextView signUpEmailTv;
     TextView signUpPasswordTv;
     Button signUpButton;
@@ -38,27 +45,20 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private static final String TAG="GOOGLEAUTHENTCATION";
 
-
+    private  Authentication authentication;
+    private AuthenticationFactory authenticationFactory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
         getSupportActionBar().hide();
 
-        signUpEmailTv=findViewById(R.id.signupEmailTxtView);
-        signUpPasswordTv=findViewById(R.id.passwordSignupTxtView);
-        signUpButton=findViewById(R.id.signUpBtn);
-        loginTxtViewBtn=findViewById(R.id.loginTxtView);
-        buttonStates();
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addNewUser(signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString());
-            }
-        });
+        authenticationFactory=new AuthenticationFactory();
+        authentication= authenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
+
+        initUi();
+
         loginTxtViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                     buttonStates();
                 }
             }
+
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -113,31 +114,21 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                authentication.register(RegisterActivity.this,signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString());
+            }
+        });
     }
-    public void addNewUser(String email,String password){
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {Exception exception = task.getException();
-                            if (exception == null) {
-                                Toast.makeText(getApplicationContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
-                });
 
 
-
+    public void initUi(){
+        signUpEmailTv=findViewById(R.id.signupEmailTxtView);
+        signUpPasswordTv=findViewById(R.id.passwordSignupTxtView);
+        signUpButton=findViewById(R.id.signUpBtn);
+        loginTxtViewBtn=findViewById(R.id.loginTxtView);
+        signUpButton.setEnabled(false);
     }
 
     public void updateUI(FirebaseUser user) {
@@ -149,5 +140,19 @@ public class RegisterActivity extends AppCompatActivity {
             signUpButton.setEnabled(true);
         else
             signUpButton.setEnabled(false);
+    }
+
+    @Override
+    public void onSuccess(FirebaseUser user) {
+        updateUI(user);
+    }
+
+    @Override
+    public void onFail(Exception exception) {
+        if (exception == null) {
+            Toast.makeText(getApplicationContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }

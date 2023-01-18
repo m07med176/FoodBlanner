@@ -6,6 +6,9 @@ public class AuthenticationFactory {
     public final static int TWITTER = 3;
     public final static int GOOGLE = 4;
 
+    public AuthenticationFactory() {
+    }
+
     public Authentication authenticationManager(int authType){
         Authentication authentication = null;
         switch (authType){

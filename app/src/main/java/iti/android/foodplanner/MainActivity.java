@@ -1,5 +1,6 @@
 package iti.android.foodplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -10,16 +11,14 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import iti.android.foodplanner.data.authentication.Authentication;
+import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
 
 public class MainActivity extends AppCompatActivity {
-/*
-TODO
 
-
-
- */
     private ActivityMainAppBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +38,7 @@ TODO
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
+
+
 
 }

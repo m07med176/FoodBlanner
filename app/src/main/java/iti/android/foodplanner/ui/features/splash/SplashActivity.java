@@ -5,13 +5,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.SignUpOrLoginActivity;
+import iti.android.foodplanner.data.authentication.Authentication;
+import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 
 
 
 public class SplashActivity extends AppCompatActivity {
 
+
+
+    private FirebaseAuth mAuth;
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth=FirebaseAuth.getInstance();
+        if(mAuth.getCurrentUser() != null){
+            reload();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,5 +47,9 @@ public class SplashActivity extends AppCompatActivity {
             }
         }).start();
 
+    }
+    public void reload() {
+
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

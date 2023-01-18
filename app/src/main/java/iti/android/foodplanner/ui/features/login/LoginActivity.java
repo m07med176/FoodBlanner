@@ -1,5 +1,8 @@
 package iti.android.foodplanner.ui.features.login;
 
+import static iti.android.foodplanner.ui.util.Utils.isValidEmail;
+import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,84 +10,59 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.identity.BeginSignInRequest;
-import com.google.android.gms.auth.api.identity.SignInClient;
-import com.google.android.gms.auth.api.identity.SignInCredential;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.google.firebase.auth.FirebaseUser;
+
 
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.authentication.Authentication;
+import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
 
-public class LoginActivity extends AppCompatActivity {
+
+public class LoginActivity extends AppCompatActivity implements LoginInterface{
     private static final String TAG = "GOOGLEAUTHENTCATION";
 
     TextView emailTV;
     TextView passwordTV;
     TextView createNewAccountTV;
     Button loginButton;
-
+    Authentication authentication;
+    AuthenticationFactory authenticationFactory;
     private static boolean statesFlagEmail=false;
     private static boolean statesFlagPassword=false;
 
-    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
+        authenticationFactory=new AuthenticationFactory();
+        authentication= authenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 
+        initUi();
 
-        emailTV = findViewById(R.id.emailTxtView);
-        passwordTV = findViewById(R.id.passwordTxtView);
-        loginButton = findViewById(R.id.loginBtn);
-
-        createNewAccountTV = findViewById(R.id.createNewAccountTxtView);
-
-        mAuth = FirebaseAuth.getInstance();
-
-        loginButton.setEnabled(false);
         createNewAccountTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
+
         passwordTV.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (isValidPassword(charSequence))
@@ -95,8 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                     statesFlagPassword=false;
                     buttonStates();
                 }
-
-
             }
 
             @Override
@@ -132,34 +108,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                login(emailTV.getText().toString(), passwordTV.getText().toString());
-
+               authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString());
 
             }
         });
 
     }
 
-    public void login(String email, String Password) {
 
-        mAuth.signInWithEmailAndPassword(email, Password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
 
-                            Toast.makeText(LoginActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI((FirebaseUser) null);
-                        }
-                    }
-                });
-    }
+
 
     public void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -167,27 +125,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public static boolean isValidEmail(CharSequence target) {
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$");
-        matcher = pattern.matcher(target);
-        return (!TextUtils.isEmpty(target) && matcher.matches());
+    public void initUi(){
+        emailTV = findViewById(R.id.emailTxtView);
+        passwordTV = findViewById(R.id.passwordTxtView);
+        loginButton = findViewById(R.id.loginBtn);
+        createNewAccountTV = findViewById(R.id.createNewAccountTxtView);
+        loginButton.setEnabled(false);
     }
 
-    public static boolean isValidPassword(CharSequence password) {
-
-        Pattern pattern;
-        Matcher matcher;
-
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{4,}$";
-
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-
-        return matcher.matches();
-
-    }
 
     public void buttonStates() {
         if (statesFlagEmail&&statesFlagPassword)
@@ -196,5 +141,16 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.setEnabled(false);
     }
 
+    @Override
+    public void onSuccess(FirebaseUser user) {
+            updateUI(user);
+    }
 
+    @Override
+    public void onFail(String task) {
+        Toast.makeText(LoginActivity.this, task,
+                Toast.LENGTH_SHORT).show();
+        updateUI((FirebaseUser) null);
+
+    }
 }
