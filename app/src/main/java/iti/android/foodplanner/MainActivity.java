@@ -13,12 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
 
 public class MainActivity extends AppCompatActivity {
-/*
-TODO
 
-
-
- */
     private ActivityMainAppBinding binding;
 
     @Override
