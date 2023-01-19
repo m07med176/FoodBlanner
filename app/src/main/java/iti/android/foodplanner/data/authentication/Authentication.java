@@ -18,6 +18,6 @@ public abstract class Authentication {
     public abstract boolean logout();
     public void googleIntializer(Context context, @NonNull FragmentActivity fragmentActivity, SignInWithGoogleInterface signInWithGoogleInterface){}
     public void chekRequestCode(int requestCode, Intent data){}
-    public abstract Intent loginWithGoogle();
-
+    public  Intent loginWithGoogle(){return null;};
+    public  FirebaseUser getCurrentUser(){return null;};
 }

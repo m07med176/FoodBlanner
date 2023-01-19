@@ -33,12 +33,6 @@ public class EmailAndPasswordAuth extends EmailAuthentication {
     }
 
 
-
-    @Override
-    public Intent loginWithGoogle() {
-        return null;
-    }
-
     @Override
     public void login(LoginInterface loginInterface, String email, String Password) {
         this.loginInterface=loginInterface;

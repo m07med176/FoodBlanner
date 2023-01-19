@@ -19,17 +19,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
 
-    private FirebaseAuth mAuth;
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mAuth=FirebaseAuth.getInstance();
-        if(mAuth.getCurrentUser() != null){
-            reload();
-        }
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

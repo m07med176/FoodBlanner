@@ -11,12 +11,6 @@ public class FacebookAuth extends SocialAuthentication {
     }
 
 
-
-    @Override
-    public Intent loginWithGoogle() {
-        return null;
-    }
-
     @Override
     public void login() {
 
