@@ -12,60 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.DataFetch;
+import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
-public class CategoryFragment extends Fragment {
-    RecyclerView recyclerView;
-    MyAdapter myAdapter;
-    List<iti.android.foodplanner.data.models.meal.MealsItem>MealsItem;
+public class CategoryFragment extends Fragment implements CategoryInterface {
+    private RecyclerView recyclerView;
+    private CategoryPresenter categoryPresenter;
 
+    private CategoryGridViewAdapter categoryGridViewAdapter;
+    private List<MealsItem> mealsItem = new ArrayList<>();;
 
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        MealsItem=new ArrayList<>();
-        MealsItem meals=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals1=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals2=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals3=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals4=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals5=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem meals6=new MealsItem();
-        meals.setStrMeal("moamen");
-        MealsItem.add(meals);
-        MealsItem.add(meals1);
-        MealsItem.add(meals2);
-        MealsItem.add(meals3);
-        MealsItem.add(meals4);
-        MealsItem.add(meals5);
-        MealsItem.add(meals6);
-
-
-
-
-
-
-
-    }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
@@ -73,12 +41,38 @@ public class CategoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager linearLayoutManager = new GridLayoutManager(getContext(),2);
-        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        myAdapter = new MyAdapter(getContext(),MealsItem);
-        recyclerView.setAdapter(myAdapter);
+        categoryPresenter = new CategoryPresenter(getContext());
 
+        categoryGridViewAdapter = new CategoryGridViewAdapter(getContext(),mealsItem,this);
+        handleRecyclerView();
+
+        categoryPresenter.getCategories(new DataFetch<List<MealsItem>>() {
+            @Override
+            public void onDataSuccessResponse(List<MealsItem> data) {
+                mealsItem.clear();
+                mealsItem.addAll(data);
+                categoryGridViewAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
+
+    }
+
+    private void handleRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(categoryGridViewAdapter);
+    }
+
+    @Override
+    public void onClickItem() {
+        Toast.makeText(getContext(), "Item Clicked", Toast.LENGTH_SHORT).show();
     }
 }

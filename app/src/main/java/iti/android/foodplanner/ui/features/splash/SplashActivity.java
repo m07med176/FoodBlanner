@@ -9,8 +9,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.authentication.Authentication;
-import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 
 
@@ -33,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
         getSupportActionBar().hide();
 
         new Thread(() -> {

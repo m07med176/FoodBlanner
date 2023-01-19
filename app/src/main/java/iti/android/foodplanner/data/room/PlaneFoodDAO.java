@@ -8,18 +8,20 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 
 
 @Dao
 public interface PlaneFoodDAO {
    @Query("SELECT * FROM plans")
-    public Observable<List<MealPlan>> showPlanMeals();
+    public Single<List<MealPlan>> showPlanMeals();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public void insertPlanMeal(MealPlan mealPlan);
+    public Completable insertPlanMeal(MealPlan mealPlan);
 
-    @Delete()
-    public void deletePlanMeal(MealPlan mealPlan);
+    @Delete
+    public Completable deletePlanMeal(MealPlan mealPlan);
 }

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="iti.android.foodplanner.ui.features.favorite.FavoriteFragment">
-    <!--TODO Design Favorite UI-->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list_favorite"
         android:layout_width="match_parent"
@@ -14,6 +14,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/favorite_item_list" />
+        tools:listitem="@layout/card_fav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

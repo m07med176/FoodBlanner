@@ -53,6 +53,8 @@ dependencies {
     // GLIDE
     implementation 'com.github.bumptech.glide:glide:4.14.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
+    //RoundedImageView
+    implementation 'com.makeramen:roundedimageview:2.3.0'
     // on Boarding
 //    implementation 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     // endregion
@@ -113,5 +115,7 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation 'io.reactivex.rxjava3:rxjava:3.1.5'
     // endregion
+
+
 
 }

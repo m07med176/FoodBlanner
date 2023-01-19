@@ -43,6 +43,7 @@ public class TestActivity extends AppCompatActivity {
         mealPlan.setDay(Week.SAT);
         mealPlan.setIdMeal("254");
         repository = new Repository(this);
+
         //new Thread(()->{deletePlanMealTEST(mealPlan);});
 
 //       Observable observable =Observable.just(mealsItem);
@@ -98,7 +99,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
 
-
+/*
     private Observer insertPlanMeal(){
         Observer observer=new Observer() {
             @Override
@@ -160,7 +161,22 @@ public class TestActivity extends AppCompatActivity {
         repository.deleteFavorite(mealsItem);
     }
     public void deletePlanMealTEST(MealPlan mealPlan){
-        repository.deletePlanMeal(mealPlan);
+        repository.deletePlanMeal(mealPlan, new DataFetch<Void>() {
+            @Override
+            public void onDataSuccessResponse(Void data) {
+
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
     }
     private void handleResults(AreasList marketList) {
         Log.d(TAG, "onCreate: "+marketList.getAreas().size());
@@ -172,4 +188,6 @@ public class TestActivity extends AppCompatActivity {
         Toast.makeText(this, "ERROR IN FETCHING API RESPONSE. Try again",
                 Toast.LENGTH_LONG).show();
     }
+
+ */
 }

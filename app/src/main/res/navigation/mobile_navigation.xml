@@ -13,19 +13,53 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_favorite"
         android:name="iti.android.foodplanner.ui.features.favorite.FavoriteFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_plan"
         android:name="iti.android.foodplanner.ui.features.plan.PlanFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_plane"
         tools:layout="@layout/fragment_plan" />
     <fragment
-        android:id="@+id/categoryFragment"
+        android:id="@+id/navigation_category"
         android:name="iti.android.foodplanner.ui.features.category.CategoryFragment"
         android:label="fragment_category"
         tools:layout="@layout/fragment_category" />
+    <activity
+        android:id="@+id/splashActivity"
+        android:name="iti.android.foodplanner.ui.features.splash.SplashActivity"
+        android:label="SplashActivity" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="iti.android.foodplanner.ui.features.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
+    <activity
+        android:id="@+id/registerActivity"
+        android:name="iti.android.foodplanner.ui.features.register.RegisterActivity"
+        android:label="activity_sign_up"
+        tools:layout="@layout/activity_sign_up" />
+    <activity
+        android:id="@+id/signUpOrLoginActivity"
+        android:name="iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity"
+        android:label="activity_sign_up_or_login"
+        tools:layout="@layout/activity_sign_up_or_login" />
+    <dialog
+        android:id="@+id/addToPlaneDialog"
+        android:name="iti.android.foodplanner.ui.features.details.AddToPlaneDialog"
+        android:label="fragment_add_to_plane_dialog"
+        tools:layout="@layout/fragment_add_to_plane_dialog" />
+    <fragment
+        android:id="@+id/navigation_details"
+        android:name="iti.android.foodplanner.ui.features.details.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="iti.android.foodplanner.ui.features.onBoarding.OnBoardingFragment"
+        android:label="fragment_on_boarding"
+        tools:layout="@layout/fragment_on_boarding" />
 </navigation>

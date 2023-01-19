@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="2dp">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        card_view:cardCornerRadius="5dp"
+        android:clickable="true"
+        android:foreground="@android:color/transparent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/image_thum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.9"
+        android:background="@drawable/image_corner"
+        android:scaleType="fitXY"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#40000000">
+
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="cursive"
+        android:padding="5dp"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="2"
+        android:text="Text"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+</RelativeLayout>
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:background="#30000000">
+
+    <ImageButton
+        android:id="@+id/fav_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        card_view:srcCompat="@drawable/ic_favorite_border_black_24dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:id="@+id/plane_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        android:layout_marginLeft="10dp"
+
+        card_view:srcCompat="@drawable/ic_favorite"
+        android:layout_alignTop="@+id/fav_btn"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/priceofproduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="2"
+        tools:text="Price"
+        android:textColor="@android:color/white"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true" />
+</RelativeLayout>
+
+</RelativeLayout>
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
