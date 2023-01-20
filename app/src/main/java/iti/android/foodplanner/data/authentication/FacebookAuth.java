@@ -4,10 +4,15 @@ import android.content.Intent;
 
 import com.google.firebase.auth.FirebaseUser;
 
-public class FacebookAuth extends SocialAuthentication {
+public class FacebookAuth extends SocialAuthentication<FacebookAuth> {
     @Override
     public boolean logout() {
         return false;
+    }
+
+    @Override
+    public FacebookAuth instance() {
+        return this;
     }
 
 

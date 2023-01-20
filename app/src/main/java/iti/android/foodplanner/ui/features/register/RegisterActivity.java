@@ -43,7 +43,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     private static boolean statesFlagPassword=false;
 
     private FirebaseAuth mAuth;
-    private static final String TAG="GOOGLEAUTHENTCATION";
+    private static final String TAG="RegisterActivity";
 
     private  Authentication authentication;
     private AuthenticationFactory authenticationFactory;
@@ -54,8 +54,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
         setContentView(R.layout.activity_sign_up);
         getSupportActionBar().hide();
 
-        authenticationFactory=new AuthenticationFactory();
-        authentication= authenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
+        authentication= AuthenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 
         initUi();
 

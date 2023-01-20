@@ -1,11 +1,23 @@
 package iti.android.foodplanner.data.models;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String UID;
     private String name;
     private String imageUrl;
     private String email;
+
+    public User() {
+    }
+
+    public User(String UID, String name, String imageUrl, String email) {
+        this.UID = UID;
+        this.name = name;
+        this.imageUrl = imageUrl;
+        this.email = email;
+    }
 
     public String getUID() {
         return UID;

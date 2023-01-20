@@ -2,35 +2,29 @@ package iti.android.foodplanner.ui.features.sign_in_with_google;
 
 
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.SignInButton;
-
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.authentication.Authentication;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.data.authentication.GoogleAuth;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
 
 public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWithGoogleInterface {
-    private static final String TAG="GOOGLEAUTHENTCATION";
+    private static final String TAG="SignUpOrLoginActivity";
     private static final int RC_SIGN_IN = 9001;
 
     Button signUpButton;
@@ -38,8 +32,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     TextView loginTxtViewBtn;
     Button guestButton;
 
-    private Authentication authentication;
-    private AuthenticationFactory authenticationFactory;
+    GoogleAuth.Google google;
 
     SignInWithGooglePresenter signInWithGooglePresenter;
 
@@ -49,7 +42,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     protected void onStart() {
         super.onStart();
 
-        if(authentication.getCurrentUser()!=null){
+        if(google.getCurrentUser()!=null){
             reload();
         }
     }
@@ -61,46 +54,31 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
         getSupportActionBar().hide();
         initUi();
 
-        authenticationFactory=new AuthenticationFactory();
         signInWithGooglePresenter=new SignInWithGooglePresenter(this);
 
-        authentication=authenticationFactory.authenticationManager(AuthenticationFactory.GOOGLE);
-        authentication.googleIntializer(SignUpOrLoginActivity.this,SignUpOrLoginActivity.this,this);
+        GoogleAuth authentication=(GoogleAuth)AuthenticationFactory.authenticationManager(AuthenticationFactory.GOOGLE);
+        google = authentication.instance();
+        google.googleIntializer(SignUpOrLoginActivity.this,SignUpOrLoginActivity.this,this);
 
         loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(authentication.loginWithGoogle(), RC_SIGN_IN);
+                startActivityForResult(google.loginWithGoogle(), RC_SIGN_IN);
             }
         });
 
-        signUpButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-            }
-        });
+        signUpButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
 
-        loginTxtViewBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-            }
-        });
+        loginTxtViewBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
-        guestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
-        });
+        guestButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       authentication.chekRequestCode(requestCode,data);
+       google.checkRequestCode(requestCode,data);
     }
 
     public void updateUI(GoogleSignInAccount user) {

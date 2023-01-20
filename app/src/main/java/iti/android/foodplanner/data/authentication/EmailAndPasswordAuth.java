@@ -1,10 +1,6 @@
 package iti.android.foodplanner.data.authentication;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -14,22 +10,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.concurrent.Executor;
-
-import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.features.login.LoginInterface;
-import iti.android.foodplanner.ui.features.login.LoginPresenter;
 import iti.android.foodplanner.ui.features.register.RegisterInterface;
 
-public class EmailAndPasswordAuth extends EmailAuthentication {
+public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAuth> {
     private FirebaseAuth mAuth;
-    private static final String TAG="LOGINWITHEMAILANDPASSWORD";
+    private static final String TAG="EmailAndPasswordAuth";
     private LoginInterface loginInterface;
     private RegisterInterface registerInterface;
 
     @Override
     public boolean logout() {
         return false;
+    }
+
+    @Override
+    public EmailAndPasswordAuth instance() {
+        return this;
     }
 
 
@@ -75,4 +72,5 @@ public class EmailAndPasswordAuth extends EmailAuthentication {
                 });
 
     }
+
 }

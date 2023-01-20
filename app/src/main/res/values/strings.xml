@@ -61,5 +61,6 @@
     <string name="title_activity_checkout">Checkout</string>
     <string name="emptyfav">What\'s my favourite food? Once you order out..\n -ABIGAIL BRESLIN. </string>
     <string name="autocomplete_result_show">Data result</string>
+    <string name="guest">Guest</string>
 
 </resources>

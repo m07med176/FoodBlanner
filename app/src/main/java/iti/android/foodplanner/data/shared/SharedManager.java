@@ -23,7 +23,7 @@ public class SharedManager {
         final String SHARE_KEY = "shareRoom";
         sharedPreferences = context.getSharedPreferences(SHARE_KEY,Context.MODE_PRIVATE);
     }
-    public static synchronized SharedManager getInstance(Context context) {
+    public static  SharedManager getInstance(Context context) {
         if (instance == null)
             instance = new SharedManager(context);
         return instance;

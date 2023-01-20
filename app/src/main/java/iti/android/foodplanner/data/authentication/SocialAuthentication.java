@@ -7,6 +7,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignInWithGoogleInterface;
 
-public abstract class SocialAuthentication extends Authentication{
+public abstract class SocialAuthentication<T> extends Authentication<T>{
     public abstract void login();
 }
