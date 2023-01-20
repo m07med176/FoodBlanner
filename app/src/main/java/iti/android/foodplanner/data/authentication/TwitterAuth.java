@@ -11,12 +11,6 @@ public class TwitterAuth extends SocialAuthentication {
     }
 
 
-
-    @Override
-    public Intent loginWithGoogle() {
-        return null;
-    }
-
     @Override
     public void login() {
 

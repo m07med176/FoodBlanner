@@ -19,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.SignInButton;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import iti.android.foodplanner.MainActivity;
@@ -35,6 +36,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     Button signUpButton;
     SignInButton loginWithGoogleButton;
     TextView loginTxtViewBtn;
+    Button guestButton;
 
     private Authentication authentication;
     private AuthenticationFactory authenticationFactory;
@@ -42,20 +44,28 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     SignInWithGooglePresenter signInWithGooglePresenter;
 
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(authentication.getCurrentUser()!=null){
+            reload();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_or_login);
         getSupportActionBar().hide();
-        authenticationFactory=new AuthenticationFactory();
-        authentication=authenticationFactory.authenticationManager(AuthenticationFactory.GOOGLE);
+        initUi();
 
-        authentication.googleIntializer(SignUpOrLoginActivity.this,SignUpOrLoginActivity.this,this);
+        authenticationFactory=new AuthenticationFactory();
         signInWithGooglePresenter=new SignInWithGooglePresenter(this);
 
-        loginWithGoogleButton=findViewById(R.id.signInWithGoogle);
-        signUpButton=findViewById(R.id.signUpWithMailBtn);
-        loginTxtViewBtn=findViewById(R.id.loginTxtView);
+        authentication=authenticationFactory.authenticationManager(AuthenticationFactory.GOOGLE);
+        authentication.googleIntializer(SignUpOrLoginActivity.this,SignUpOrLoginActivity.this,this);
 
         loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,12 +73,14 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
                 startActivityForResult(authentication.loginWithGoogle(), RC_SIGN_IN);
             }
         });
+
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
+
         loginTxtViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +88,12 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
             }
         });
 
+        guestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
     }
 
 
@@ -120,5 +138,11 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     public void onFailedSignIn( GoogleSignInAccount account) {
         updateUI((GoogleSignInAccount) null);
     }
+    public void initUi(){
+        loginWithGoogleButton=findViewById(R.id.signInWithGoogle);
+        signUpButton=findViewById(R.id.signUpWithMailBtn);
+        loginTxtViewBtn=findViewById(R.id.loginTxtView);
+        guestButton=findViewById(R.id.guestButton);
 
+    }
 }
