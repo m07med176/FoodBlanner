@@ -117,5 +117,8 @@ dependencies {
     // endregion
 
 
+    implementation 'com.google.firebase:firebase-database:16.0.1'
+    implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-firestore:22.1.1'
 
 }
