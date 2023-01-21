@@ -29,10 +29,22 @@ public class SharedManager {
         return instance;
     }
 
+
+
+    public void clearAllData(){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
     public void saveUser(User user){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_INFO,new Gson().toJson(user));
         editor.apply();
+    }
+
+    public boolean isUser(){
+        return sharedPreferences.contains(USER_INFO);
     }
 
     public User getUser(){

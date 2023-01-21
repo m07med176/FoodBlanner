@@ -15,7 +15,7 @@ import iti.android.foodplanner.ui.features.sign_in_with_google.SignInWithGoogleI
 public abstract class Authentication<T> {
     public void login(LoginInterface loginInterface, String email, String password){}
     public void register(RegisterInterface registerInterface, String email, String password){}
-    public abstract boolean logout();
+    public abstract void logout(Context context);
     public abstract T instance();
 
 }

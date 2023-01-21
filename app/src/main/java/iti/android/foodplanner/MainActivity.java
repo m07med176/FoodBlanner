@@ -1,16 +1,25 @@
 package iti.android.foodplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -21,7 +30,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import iti.android.foodplanner.data.TestActivity;
+import iti.android.foodplanner.data.authentication.Authentication;
+import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.data.backup.BackupManager;
+import iti.android.foodplanner.data.models.BackupHolder;
+import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
+import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,50 +51,20 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        User user = new User("das","asda","asdas","asd");
-//        db.collection("users")
-//                .add(user)
-//                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                    @Override
-//                    public void onSuccess(DocumentReference documentReference) {
-//                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error adding document", e);
-//                    }
-//                });
+        navigationUiSettings();
 
-//        Map<String, Object> user = new HashMap<>();
-//        user.put("first", "Alan");
-//        user.put("middle", "Mathison");
-//        user.put("last", "Turing");
-//        user.put("born", 1912);
+        BackupManager.getInstance(SharedManager.getInstance(this)).restoreData( new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.exists()){
+                    BackupHolder backupHolder = value.toObject(BackupHolder.class);
+                    Toast.makeText(MainActivity.this, "Hello OOO+: "+backupHolder.getFAV().size(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
-//                        .document()
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
-//        db
-//                .collection("users")
-//                .add(user)
-//                .addOnCompleteListener(task -> Toast.makeText(MainActivity.this, "Gooooolge", Toast.LENGTH_SHORT).show())
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(MainActivity.this, "Errrorrrr", Toast.LENGTH_SHORT).show();
-//                    }
-//                }).addOnCanceledListener(new OnCanceledListener() {
-//                    @Override
-//                    public void onCanceled() {
-//                        Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
+    private void navigationUiSettings() {
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_favorite, R.id.navigation_plan)
@@ -89,5 +75,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.option_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.settings_option:
+                break;
+            case R.id.signout_option:
+                logoutFromApp();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logoutFromApp() {
+        int autProvider = SharedManager.getInstance(this).getUser().getAuthProvider();
+        AuthenticationFactory.authenticationManager(autProvider)
+                .logout(this);
+        startActivity(new Intent(this, SignUpOrLoginActivity.class));
+        finish();
+    }
 }

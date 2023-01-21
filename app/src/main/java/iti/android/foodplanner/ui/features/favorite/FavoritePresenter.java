@@ -18,7 +18,7 @@ public class FavoritePresenter {
 
     Repository repository;
     public FavoritePresenter(Context context, FavoriteInterface favoriteInterface) {
-        repository  =new Repository(context);
+        repository  =Repository.getInstance(context);
         this.favoriteInterface = favoriteInterface;
     }
 

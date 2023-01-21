@@ -7,18 +7,17 @@ import java.util.List;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import iti.android.foodplanner.data.authentication.Authentication;
-import iti.android.foodplanner.data.authentication.AuthenticationFactory;
-import iti.android.foodplanner.data.models.area.Area;
-import iti.android.foodplanner.data.models.area.AreasList;
-import iti.android.foodplanner.data.models.categoryFeed.CategoriesFeed;
-import iti.android.foodplanner.data.models.categoryFeed.CategoriesItem;
-import iti.android.foodplanner.data.models.category.CategoriesList;
-import iti.android.foodplanner.data.models.Ingredient.IngredientsList;
+import iti.android.foodplanner.data.backup.BackupManager;
+import iti.android.foodplanner.data.models.User;
+import iti.android.foodplanner.data.models.selections.area.Area;
+import iti.android.foodplanner.data.models.selections.area.AreasList;
+import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
+import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesItem;
+import iti.android.foodplanner.data.models.selections.category.CategoriesList;
+import iti.android.foodplanner.data.models.selections.Ingredient.IngredientsList;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.models.meal.MealsList;
@@ -31,18 +30,49 @@ import iti.android.foodplanner.data.shared.SharedManager;
  * Gather all functions from Network, Room Database And Shared Manager
  */
 public class Repository {
-    private ApiCalls apiCalls;
-    private RoomDatabase roomDatabase;
-    private SharedManager sharedManager;
+    private final ApiCalls apiCalls;
+    private final RoomDatabase roomDatabase;
+    private final BackupManager backupManager;
+    private final SharedManager sharedManager;
+    public static Repository repository = null;
+    public static Repository getInstance(Context context){
+        if (repository==null)
+            repository = new Repository(context);
+        return repository;
+    }
 
-    public Repository(Context context) {
+    private Repository(Context context) {
             apiCalls = Network.apiCalls;
             roomDatabase = RoomDatabase.getInstance(context);
             sharedManager = SharedManager.getInstance(context);
+            backupManager = BackupManager.getInstance(sharedManager);
     }
 
+    // region Shared
+    public boolean isUser(){
+        return sharedManager.isUser();
+    }
+
+    public void saveUser(User user){
+        sharedManager.saveUser(user);
+    }
+
+    public User getUser(){
+        return sharedManager.getUser();
+    }
+    public boolean isFirstEntrance(){
+        return sharedManager.isFirstEntrance();
+    }
+
+
+    public void saveEntrance(){
+        sharedManager.saveEntrance();
+    }
+
+
+    // endregion Shared
     // region ROOM
-    public void insertFavoriteMealDataBase(MealsItem mealsItem,DataFetch<Void> dataFetch){
+    private void insertFavoriteToRoom(MealsItem mealsItem,DataFetch<Void> dataFetch){
         roomDatabase
                 .FavoriteDAO()
                 .insertFavoriteMeal(mealsItem)
@@ -56,14 +86,37 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                        backupManager.saveFavorite(mealsItem);
                         dataFetch.onDataSuccessResponse(null);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                            dataFetch.onDataFailedResponse(e.getMessage());
+                        dataFetch.onDataFailedResponse(e.getMessage());
                     }
                 });
+    }
+    public void insertFavoriteMealDataBase(MealsItem mealsItem,DataFetch<Void> dataFetch){
+        apiCalls.retrieveMealByID(mealsItem.getIdMeal())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MealsList>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull MealsList mealsList) {
+                        insertFavoriteToRoom(mealsList.getMeals().get(0),dataFetch);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+
     }
 
     public void showFavouriteMealsDataBase(DataFetch<List<MealsItem>> dataFetch){
@@ -90,6 +143,7 @@ public class Repository {
                 });
     }
     public void deleteFavorite(MealsItem mealsItem,DataFetch<Void> dataFetch){
+        backupManager.deleteFavorite(mealsItem);
         roomDatabase.FavoriteDAO()
                 .deleteFavouriteMeal(mealsItem)
                 .subscribeOn(Schedulers.io())
@@ -180,8 +234,7 @@ public class Repository {
                 });
     }
     // endregion ROOM
-
-    // region APIs
+    // region API
 
     /**
      * link: <a href="https://www.themealdb.com/api/json/v1/1/random.php">Single Random Meal</a>

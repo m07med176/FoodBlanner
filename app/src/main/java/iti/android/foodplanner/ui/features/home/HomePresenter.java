@@ -14,7 +14,7 @@ public class HomePresenter {
 
     public HomePresenter(Context context, HomeInterface homeInterface) {
         this.homeInterface = homeInterface;
-        repository = new Repository(context);
+        repository = Repository.getInstance(context);
     }
 
     public void getRandomMeals(DataFetch<List<MealsItem>> dataFetch){

@@ -1,5 +1,6 @@
 package iti.android.foodplanner.data.authentication;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -20,8 +21,7 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
     private RegisterInterface registerInterface;
 
     @Override
-    public boolean logout() {
-        return false;
+    public void logout(Context context){
     }
 
     @Override

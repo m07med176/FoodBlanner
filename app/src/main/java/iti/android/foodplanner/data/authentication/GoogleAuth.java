@@ -24,6 +24,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.backup.BackupManager;
+import iti.android.foodplanner.data.models.BackupHolder;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignInWithGoogleInterface;
@@ -35,13 +36,12 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
     private FirebaseAuth mAuth;
     private GoogleApiClient googleApiClient;
     private SignInWithGoogleInterface signInWithGoogleInterface;
-    private BackupManager backupManager;
 
     private Context context;
 
+
     public GoogleAuth() {
         mAuth = FirebaseAuth.getInstance();
-        backupManager = BackupManager.getInstance();
     }
 
 
@@ -52,14 +52,17 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     @Override
     public void login() {
-        if (googleApiClient!=null)
-            context.startActivity(Auth.GoogleSignInApi.getSignInIntent(googleApiClient));
-    }
+      }
+
+
 
     @Override
-    public boolean logout() {
-        return false;
+    public void logout(Context context) {
+        SharedManager.getInstance(context).clearAllData();
+        mAuth.signOut();
     }
+
+
 
     @Override
     public GoogleAuth.Google instance() {
@@ -68,13 +71,14 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     public class Google {
         public void googleIntializer(Activity activity, @NonNull FragmentActivity fragmentActivity, SignInWithGoogleInterface signInWithGoogleInterface) {
-            GoogleAuth.this.signInWithGoogleInterface = signInWithGoogleInterface;
             GoogleAuth.this.context = activity.getApplicationContext();
+            GoogleAuth.this.signInWithGoogleInterface = signInWithGoogleInterface;
 
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestIdToken(activity.getApplicationContext().getString(R.string.default_web_client_id))
                     .requestEmail()
                     .build();
+
             googleApiClient = new GoogleApiClient.Builder(activity.getApplicationContext()).enableAutoManage(fragmentActivity, GoogleAuth.this).
                     addApi(Auth.GOOGLE_SIGN_IN_API, gso).
                     build();
@@ -94,27 +98,14 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
             try {
                 GoogleSignInAccount account = completedTask.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
-//                User user = getUserData();
-//                SharedManager.getInstance(context).saveUser(user);
-                signInWithGoogleInterface.onSuccessFullSignIn(account);
-//                backupManager.saveUser(user, task -> {
-//                    if (task.isSuccessful()){
-//                        SharedManager.getInstance(context).saveUser(user);
-//                        signInWithGoogleInterface.onSuccessFullSignIn(account);
-//                    }else{
-//                        signInWithGoogleInterface.onFailedSignIn(null);
-//                    }
-//                });
+
             } catch (ApiException e) {
-                Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-                signInWithGoogleInterface.onFailedSignIn(null);
+                Log.w(TAG, "SignInResult : Failed code==>" + e.getStatusCode());
+                signInWithGoogleInterface.onFailedFireBaseAuth();
             }
         }
 
-
-
         public FirebaseUser getCurrentUser() {
-            mAuth=FirebaseAuth.getInstance();
             return mAuth.getCurrentUser();
         }
 
@@ -122,7 +113,16 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
             mAuth.signInWithCredential(credential)
                     .addOnSuccessListener(authResult -> {
-                        signInWithGoogleInterface.onSuccessFullFireBaseAuth();
+                        User user = getUserData();
+                        SharedManager sharedManager = SharedManager.getInstance(context);
+                        BackupManager.getInstance(sharedManager).saveUser(user, task -> {
+                            if (task.isSuccessful()){
+                                sharedManager.saveUser(user);
+                                signInWithGoogleInterface.onSuccessFullFireBaseAuth();
+                            }else{
+                                signInWithGoogleInterface.onFailedFireBaseAuth();
+                            }
+                        });
                     })
                     .addOnFailureListener(e -> signInWithGoogleInterface.onFailedFireBaseAuth());
         }
@@ -134,6 +134,6 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     private User getUserData() {
         FirebaseUser user = mAuth.getCurrentUser();
-        return new User("5585", "Mohamed", "sdfjsdhl", "meado@mail.com");
+        return new User(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), user.getEmail(),AuthenticationFactory.GOOGLE);
     }
 }

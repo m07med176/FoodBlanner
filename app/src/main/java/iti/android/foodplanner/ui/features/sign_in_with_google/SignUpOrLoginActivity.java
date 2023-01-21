@@ -6,19 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.SignInButton;
 
 
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.authentication.Authentication;
-import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.data.authentication.GoogleAuth;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
@@ -32,71 +28,62 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     TextView loginTxtViewBtn;
     Button guestButton;
 
-    GoogleAuth.Google google;
 
-    SignInWithGooglePresenter signInWithGooglePresenter;
-
-
+    SignInWithGooglePresenter presenter;
 
     @Override
     protected void onStart() {
         super.onStart();
-
-        if(google.getCurrentUser()!=null){
-            reload();
-        }
+        if(presenter.isUser())
+            gotoApp();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_or_login);
+        presenter =new SignInWithGooglePresenter(this,this);
+
         getSupportActionBar().hide();
         initUi();
+        presenter.googleAuthInitialize(this);
 
-        signInWithGooglePresenter=new SignInWithGooglePresenter(this);
+        buttonsEvents();
 
-        GoogleAuth authentication=(GoogleAuth)AuthenticationFactory.authenticationManager(AuthenticationFactory.GOOGLE);
-        google = authentication.instance();
-        google.googleIntializer(SignUpOrLoginActivity.this,SignUpOrLoginActivity.this,this);
+    }
 
-        loginWithGoogleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(google.loginWithGoogle(), RC_SIGN_IN);
-            }
-        });
+    private void buttonsEvents() {
+        loginWithGoogleButton.setOnClickListener(view -> startActivityForResult(presenter.loginWithGoogle(), RC_SIGN_IN));
 
         signUpButton.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), RegisterActivity.class)));
 
         loginTxtViewBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
         guestButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       google.checkRequestCode(requestCode,data);
+       presenter.checkRequestCode(requestCode,data);
     }
 
-    public void updateUI(GoogleSignInAccount user) {
-        if(user!=null){
 
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));}
-    }
 
-    public void reload() {
 
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+    public void initUi(){
+        loginWithGoogleButton=findViewById(R.id.signInWithGoogle);
+        signUpButton=findViewById(R.id.signUpWithMailBtn);
+        loginTxtViewBtn=findViewById(R.id.loginTxtView);
+        guestButton=findViewById(R.id.guestButton);
     }
 
     @Override
     public void onSuccessFullFireBaseAuth() {
-        startActivity(new Intent(SignUpOrLoginActivity.this, MainActivity.class));
-        finish();
-
+        gotoApp();
     }
 
     @Override
@@ -106,21 +93,8 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
 
     }
 
-    @Override
-    public void onSuccessFullSignIn( GoogleSignInAccount account) {
-        updateUI(account);
-
-    }
-
-    @Override
-    public void onFailedSignIn( GoogleSignInAccount account) {
-        updateUI((GoogleSignInAccount) null);
-    }
-    public void initUi(){
-        loginWithGoogleButton=findViewById(R.id.signInWithGoogle);
-        signUpButton=findViewById(R.id.signUpWithMailBtn);
-        loginTxtViewBtn=findViewById(R.id.loginTxtView);
-        guestButton=findViewById(R.id.guestButton);
-
+    public void gotoApp() {
+        startActivity(new Intent(SignUpOrLoginActivity.this, MainActivity.class));
+        finish();
     }
 }

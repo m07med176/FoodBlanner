@@ -6,7 +6,4 @@ import com.google.firebase.auth.FirebaseUser;
 public interface SignInWithGoogleInterface {
     public void onSuccessFullFireBaseAuth();
     public void onFailedFireBaseAuth();
-
-    public void onSuccessFullSignIn( GoogleSignInAccount account);
-    public void onFailedSignIn( GoogleSignInAccount account);
 }

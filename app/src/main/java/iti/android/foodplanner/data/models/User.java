@@ -9,14 +9,25 @@ public class User implements Serializable {
     private String imageUrl;
     private String email;
 
+    private int authProvider;
+
     public User() {
     }
 
-    public User(String UID, String name, String imageUrl, String email) {
+    public User(String UID, String name, String imageUrl, String email,int authProvider) {
         this.UID = UID;
         this.name = name;
         this.imageUrl = imageUrl;
         this.email = email;
+        this.authProvider = authProvider;
+    }
+
+    public int getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(int authProvider) {
+        this.authProvider = authProvider;
     }
 
     public String getUID() {

@@ -62,5 +62,7 @@
     <string name="emptyfav">What\'s my favourite food? Once you order out..\n -ABIGAIL BRESLIN. </string>
     <string name="autocomplete_result_show">Data result</string>
     <string name="guest">Guest</string>
+    <string name="signout_option">Signout</string>
+    <string name="settings_option">Settings</string>
 
 </resources>

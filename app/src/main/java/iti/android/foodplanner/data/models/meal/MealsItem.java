@@ -49,68 +49,68 @@ public class MealsItem{
 
 	@ColumnInfo
 	@SerializedName("strIngredient10")
-	private String strIngredient10;
+	private String strIngredient10 = "";
 	@ColumnInfo
 	@SerializedName("strIngredient12")
-	private String strIngredient12;
+	private String strIngredient12= "";
 	@ColumnInfo
 	@SerializedName("strIngredient11")
-	private String strIngredient11;
+	private String strIngredient11= "";
 	@ColumnInfo
 	@SerializedName("strIngredient14")
-	private String strIngredient14;
+	private String strIngredient14= "";
 
 	@ColumnInfo
 	@SerializedName("strIngredient13")
-	private String strIngredient13;
+	private String strIngredient13= "";
 
 	@ColumnInfo
 	@SerializedName("strIngredient16")
-	private String strIngredient16;
+	private String strIngredient16= "";
 	@ColumnInfo
 	@SerializedName("strIngredient15")
-	private String strIngredient15;
+	private String strIngredient15= "";
 	@ColumnInfo
 	@SerializedName("strIngredient18")
-	private String strIngredient18;
+	private String strIngredient18= "";
 	@ColumnInfo
 	@SerializedName("strIngredient17")
-	private String strIngredient17;
+	private String strIngredient17= "";
 
 	@ColumnInfo
 	@SerializedName("strIngredient19")
-	private String strIngredient19;
+	private String strIngredient19= "";
 
 	@ColumnInfo
 	@SerializedName("strIngredient1")
-	private String strIngredient1;
+	private String strIngredient1= "";
 	@ColumnInfo
 	@SerializedName("strIngredient3")
-	private String strIngredient3;
+	private String strIngredient3= "";
 	@ColumnInfo
 	@SerializedName("strIngredient2")
-	private String strIngredient2;
+	private String strIngredient2= "";
 	@ColumnInfo
 	@SerializedName("strIngredient20")
-	private String strIngredient20;
+	private String strIngredient20= "";
 	@ColumnInfo
 	@SerializedName("strIngredient5")
-	private String strIngredient5;
+	private String strIngredient5= "";
 	@ColumnInfo
 	@SerializedName("strIngredient4")
-	private String strIngredient4;
+	private String strIngredient4= "";
 	@ColumnInfo
 	@SerializedName("strIngredient7")
-	private String strIngredient7;
+	private String strIngredient7= "";
 	@ColumnInfo
 	@SerializedName("strIngredient6")
-	private String strIngredient6;
+	private String strIngredient6= "";
 	@ColumnInfo
 	@SerializedName("strIngredient9")
-	private String strIngredient9;
+	private String strIngredient9= "";
 	@ColumnInfo
 	@SerializedName("strIngredient8")
-	private String strIngredient8;
+	private String strIngredient8= "";
 	// endregion
 
 
