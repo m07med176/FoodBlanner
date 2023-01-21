@@ -20,5 +20,6 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="main_color">#FFFFFF</color>
+    <color name="main_color_2">#000000</color>
 
 </resources>

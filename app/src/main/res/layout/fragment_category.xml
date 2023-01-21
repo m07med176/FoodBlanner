@@ -1,236 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.features.category.CategoryFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.features.category.CategoryFragment">
-    <TextView
-        android:id="@+id/search_title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        style="@style/TextTitle"
-        android:textSize="30sp"
-        android:paddingTop="10dp"
-        android:layout_weight="1"
-        android:textStyle="bold"
-        android:text="@string/search_title"
+    android:layout_height="match_parent"
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-        app:layout_constraintBottom_toTopOf="@+id/search_view"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-    <EditText
-        android:id="@+id/search_view"
-        android:layout_margin="10dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/search_by_name"
-        android:background="@drawable/input_style"
-        android:drawableStart="@android:drawable/ic_search_category_default"
-        android:padding="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/section_title_category_holder"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:layout_constraintTop_toBottomOf="@+id/search_title">
-
-    </EditText>
-    <!--    <com.google.android.material.textfield.TextInputLayout-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        app:endIconMode="clear_text"-->
-    <!--        app:hintAnimationEnabled="false"-->
-    <!--        android:backgroundTint="@color/white"-->
-
-    <!--        app:hintEnabled="false">-->
-
-    <!--        <AutoCompleteTextView-->
-    <!--            android:id="@+id/searchBarTxtView"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="59dp"-->
-    <!--            android:layout_marginStart="8dp"-->
-    <!--            android:layout_marginTop="16dp"-->
-    <!--            android:layout_marginEnd="8dp"-->
-    <!--            android:autofillHints=""-->
-    <!--            android:background="@drawable/input_style"-->
-    <!--            android:completionHint="@string/autocomplete_result_show"-->
-    <!--            android:completionThreshold="1"-->
-    <!--            android:gravity="center_horizontal|center_vertical"-->
-    <!--            android:hint="@string/searchHere"-->
-    <!--            android:padding="5dp"-->
-    <!--            android:singleLine="true"-->
-    <!--            android:textSize="20sp"-->
-    <!--            android:textStyle="bold"-->
-    <!--            tools:ignore="OnClick" />-->
-    <!--    </com.google.android.material.textfield.TextInputLayout>-->
-    <LinearLayout
-        android:id="@+id/section_title_category_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toTopOf="@+id/rv_category"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:layout_constraintTop_toBottomOf="@+id/search_view">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:id="@+id/search_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="left"
             style="@style/TextTitle"
-            android:padding="2dp"
+            android:textSize="30sp"
+            android:paddingTop="10dp"
             android:layout_weight="1"
             android:textStyle="bold"
-            android:text="@string/search_by_country" />
+            android:text="@string/search_title"
 
-        <TextView
-            style="@style/TextTitle"
+            app:layout_constraintBottom_toTopOf="@+id/search_view"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
+        <EditText
+            android:id="@+id/search_view"
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_by_name"
+            android:background="@drawable/input_style"
+            android:drawableStart="@android:drawable/ic_search_category_default"
+            android:padding="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/section_title_category_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/search_title">
+
+        </EditText>
+        <LinearLayout
+            android:id="@+id/section_title_category_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/rv_category"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/search_by_country" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_category"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_category_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            tools:layout_editor_absoluteY="78dp"
+            tools:listitem="@layout/item_filter_area_and_category_list" />
+
+
+        <LinearLayout
+            android:id="@+id/section_title_area_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/rv_areas"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/rv_category">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/search_by_country" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_areas"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_area_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            tools:listitem="@layout/item_filter_area_and_category_list" />
+
+        <LinearLayout
+            android:id="@+id/section_title_ingredient_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/rv_areas">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:text="@string/search_by_ingredient" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="0dp"
+            android:layout_height="287dp"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:spanCount="2"
+            tools:layout_editor_absoluteY="78dp"
+            tools:listitem="@layout/item_filter_ingredient_list" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
             android:layout_width="wrap_content"
-
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:padding="2dp"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:text="@string/see_more" />
-
-
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_category"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:textColor="@color/black"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/section_title_category_holder"
-        app:layout_constraintBottom_toTopf="@+id/section_title_area_holder"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        tools:layout_editor_absoluteY="78dp"
-        tools:listitem="@layout/item_filter_area_and_category_list" />
-
-
-    <LinearLayout
-        android:id="@+id/section_title_area_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toTopOf="@+id/rv_areas"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:layout_constraintTop_toBottomOf="@+id/rv_category">
-
-        <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="5dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            style="@style/TextTitle"
-            android:padding="2dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/search_by_country" />
-
-        <TextView
-            style="@style/TextTitle"
-            android:layout_width="wrap_content"
-
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:padding="2dp"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:text="@string/see_more" />
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_areas"
-        android:layout_width="0dp"
-        android:layout_height="150dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:textColor="@color/black"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/section_title_area_holder"
-        app:layout_constraintBottom_toTopf="@+id/section_title_ingredient_holder"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        tools:layout_editor_absoluteY="78dp"
-        tools:listitem="@layout/item_filter_area_and_category_list" />
-
-    <LinearLayout
-        android:id="@+id/section_title_ingredient_holder"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:padding="5dp"
-        android:orientation="horizontal"
-
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:layout_constraintTop_toBottomOf="@+id/rv_areas">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            style="@style/TextTitle"
-            android:padding="2dp"
-            android:layout_weight="1"
-            android:textStyle="bold"
-            android:text="@string/search_by_ingredient" />
-
-        <TextView
-            style="@style/TextTitle"
-            android:layout_width="wrap_content"
-
-            android:layout_height="match_parent"
-            android:gravity="right"
-            android:padding="2dp"
-            android:textAllCaps="true"
-            android:textStyle="italic"
-            android:text="@string/see_more" />
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="287dp"
-        android:layout_margin="5dp"
-        android:orientation="horizontal"
-        android:textColor="@color/black"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
-        app:layout_constraintEnd_toEndOf="@+id/guideEnd"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/guideStart"
-        app:spanCount="2"
-        tools:layout_editor_absoluteY="78dp"
-        tools:listitem="@layout/item_filter_ingredient_list" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="5dp" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_end="5dp" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="5dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
