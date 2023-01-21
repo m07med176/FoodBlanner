@@ -64,5 +64,10 @@
     <string name="guest">Guest</string>
     <string name="signout_option">Signout</string>
     <string name="settings_option">Settings</string>
+    <string name="search_by_ingredient">Search By Ingredient</string>
+    <string name="search_by_country">Search By Country</string>
+    <string name="see_more">See More</string>
+    <string name="search_by_name">Search By Name</string>
+    <string name="search_title">Search</string>
 
 </resources>

@@ -12,7 +12,7 @@ public class CategoryPresenter {
     Repository repository;
 
     public CategoryPresenter(Context context) {
-        repository = new Repository(context);
+        repository = Repository.getInstance(context);
     }
 
     public void getCategories(DataFetch<List<MealsItem>> dataFetch){
