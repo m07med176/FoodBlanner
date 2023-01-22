@@ -77,12 +77,13 @@ public class BackupManager  {
                 .set(mealsItem);
     }
 
-    public void restoreData(EventListener<DocumentSnapshot> onCompleteListener){
+    public void restoreData(EventListener<QuerySnapshot> onQuerySnapshot){
 
         firebaseFirestore
                 .collection(ROOT_KEY)
                 .document(sharedManager.getUser().getUID())
-                .addSnapshotListener(onCompleteListener);
+                .collection(PLANE_KEY)
+                .addSnapshotListener(onQuerySnapshot);
     }
 
     public void deletePlane(MealPlan mealPlan){
