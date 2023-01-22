@@ -145,7 +145,6 @@ public class Repository {
                 });
     }
     public void deleteFavorite(MealsItem mealsItem,DataFetch<Void> dataFetch){
-        backupManager.deleteFavorite(mealsItem);
         roomDatabase.FavoriteDAO()
                 .deleteFavouriteMeal(mealsItem)
                 .subscribeOn(Schedulers.io())
@@ -158,6 +157,7 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                        backupManager.deleteFavorite(mealsItem);
                         dataFetch.onDataSuccessResponse(null);
                     }
 
@@ -168,7 +168,30 @@ public class Repository {
                 });
     }
 
-    public void insertPlanMeal(MealPlan mealPlan,DataFetch<Void> dataFetch){
+    public void insertPlaneMealDataBase(MealPlan mealPlan,DataFetch<Void> dataFetch){
+        apiCalls.retrieveMealByID(mealPlan.getIdMeal())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MealsList>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull MealsList mealsList) {
+                        insertPlanMealRoom(mealPlan.migrateMealsToPlaneModel(mealsList.getMeals().get(0)),dataFetch);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+
+    }
+
+    private void insertPlanMealRoom(MealPlan mealPlan, DataFetch<Void> dataFetch){
         roomDatabase.PlaneFoodDAO().insertPlanMeal(mealPlan)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -226,6 +249,7 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                            backupManager.deletePlane(mealPlan);
                             dataFetch.onDataSuccessResponse(null);
                     }
 

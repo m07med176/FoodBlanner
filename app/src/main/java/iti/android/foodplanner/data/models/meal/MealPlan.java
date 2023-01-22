@@ -122,6 +122,38 @@ public class MealPlan{
     @Ignore
     private ArrayList<String> ingredients;
 
+    public MealPlan migrateMealsToPlaneModel(MealsItem mealsItem){
+        this.idMeal = mealsItem.getIdMeal();
+        this.strArea = mealsItem.getStrArea();
+        this.strInstructions = mealsItem.getStrInstructions();
+        this.strMealThumb = mealsItem.getStrMealThumb();
+        this.strYoutube = mealsItem.getStrYoutube();
+        this.strMeal = mealsItem.getStrMeal();
+        this.strCategory = mealsItem.getStrCategory();
+        this.strIngredient10 = mealsItem.getStrIngredient10();
+        this.strIngredient12 = mealsItem.getStrIngredient12();
+        this.strIngredient11 = mealsItem.getStrIngredient11();
+        this.strIngredient14 = mealsItem.getStrIngredient14();
+        this.strIngredient13 = mealsItem.getStrIngredient13();
+        this.strIngredient16 = mealsItem.getStrIngredient16();
+        this.strIngredient15 = mealsItem.getStrIngredient15();
+        this.strIngredient18 = mealsItem.getStrIngredient18();
+        this.strIngredient17 = mealsItem.getStrIngredient17();
+        this.strIngredient19 = mealsItem.getStrIngredient19();
+        this.strIngredient1 = mealsItem.getStrIngredient1();
+        this.strIngredient3 = mealsItem.getStrIngredient3();
+        this.strIngredient2 = mealsItem.getStrIngredient2();
+        this.strIngredient20 = mealsItem.getStrIngredient20();
+        this.strIngredient5 = mealsItem.getStrIngredient5();
+        this.strIngredient4 = mealsItem.getStrIngredient4();
+        this.strIngredient7 = mealsItem.getStrIngredient7();
+        this.strIngredient6 = mealsItem.getStrIngredient6();
+        this.strIngredient9 = mealsItem.getStrIngredient9();
+        this.strIngredient8 = mealsItem.getStrIngredient8();
+        this.ingredients = mealsItem.getIngredients();
+        return this;
+    }
+
 
     public void setStrIngredient10(String strIngredient10){
         this.strIngredient10 = strIngredient10;
