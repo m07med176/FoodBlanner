@@ -17,6 +17,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
 
+
     </style>
     <style name="Theme.FoodPlanner.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -51,4 +52,11 @@
     </style>
     <style name="Theme.FoodPlanner.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.FoodPlanner.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+    <!--Component Style-->
+    <style name="TextTitle" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

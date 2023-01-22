@@ -26,12 +26,14 @@ import java.util.Map;
 
 
 import iti.android.foodplanner.data.models.User;
+import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.shared.SharedManager;
 
 public class BackupManager  {
     public static final String ROOT_KEY = "USERS";
     public static final String FAV_KEY = "FAV";
+    public static final String PLANE_KEY = "PLANE";
     private SharedManager sharedManager;
     FirebaseFirestore firebaseFirestore;
     private BackupManager(SharedManager sharedManager){
@@ -75,11 +77,30 @@ public class BackupManager  {
                 .set(mealsItem);
     }
 
-    public void restoreData(EventListener<DocumentSnapshot> onCompleteListener){
+    public void restoreData(EventListener<QuerySnapshot> onQuerySnapshot){
 
         firebaseFirestore
                 .collection(ROOT_KEY)
                 .document(sharedManager.getUser().getUID())
-                .addSnapshotListener(onCompleteListener);
+                .collection(PLANE_KEY)
+                .addSnapshotListener(onQuerySnapshot);
     }
+
+    public void deletePlane(MealPlan mealPlan){
+        firebaseFirestore
+                .collection(ROOT_KEY)
+                .document(sharedManager.getUser().getUID())
+                .collection(PLANE_KEY).document(mealPlan.getIdMeal()).delete();
+
+    }
+    public void savePlane(MealPlan mealPlan){
+        firebaseFirestore
+                .collection(ROOT_KEY)
+                .document(sharedManager.getUser().getUID())
+                .collection(FAV_KEY)
+                .document(mealPlan.getIdMeal())
+                .set(mealPlan);
+    }
+
+
 }

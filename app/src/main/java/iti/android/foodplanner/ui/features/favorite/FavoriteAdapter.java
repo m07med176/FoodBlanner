@@ -34,14 +34,15 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @NonNull
     @Override
     public FavoriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_fav,parent,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorit_list,parent,false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteAdapter.ViewHolder holder, int position) {
         MealsItem item = itemsList.get(position);
         holder.tvName.setText(item.getStrMeal());
-        holder.tvName.setText(item.getStrCategory());
+        holder.tvCategory.setText(item.getStrCategory());
+        holder.tvArea.setText(item.getStrArea());
         Glide.with(context).load(item.getStrMealThumb()).into(holder.imagefav);
         holder.addToPlaneBtn.setOnClickListener(view -> {
             Toast.makeText(context, "Add This to Plan", Toast.LENGTH_SHORT).show();
@@ -67,16 +68,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        TextView tvName, tvCategory;
-        AppCompatButton addToPlaneBtn,removeBtn;
+        TextView tvName, tvCategory,tvArea;
+        AppCompatButton addToPlaneBtn;
+        ImageView removeBtn;
         ImageView imagefav;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.food_name_tv);
+            tvArea = itemView.findViewById(R.id.area_tv);
             imagefav = itemView.findViewById(R.id.imagefav);
             tvCategory = itemView.findViewById(R.id.category_tv);
             addToPlaneBtn = itemView.findViewById(R.id.btn_plane);
-            removeBtn = itemView.findViewById(R.id.deletebutton);
+            removeBtn = itemView.findViewById(R.id.btn_delete);
 
         }
     }

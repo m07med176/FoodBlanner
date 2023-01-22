@@ -1,18 +1,271 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context="iti.android.foodplanner.ui.features.home.HomeFragment">
+    >
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_list_random"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/card_menu" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/title_holder"
+            android:layout_marginTop="30dp"
+            android:layout_width="0dp"
+            android:orientation="vertical"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/search_title"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining"/>
+                <TextView
+                    style="@style/TextTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:text="FOOD"
+                    android:textColor="@color/color_primary_variant"
+                    android:textSize="30sp"
+                     />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/TextTitle"
+                    android:textSize="30sp"
+                    android:paddingTop="10dp"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/color_secondary_variant"
+                    android:text="PLANNER"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    style="@style/TextTitle"
+                    android:paddingTop="5dp"
+                    android:textStyle="bold"
+                    android:text="Eat and Enjoy"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+        <TextView
+            android:id="@+id/search_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            style="@style/TextTitle"
+            android:textSize="30sp"
+            android:paddingTop="10dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:text="@string/dialy_inspire_title"
+
+            app:layout_constraintBottom_toTopOf="@+id/search_view"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toTopOf="@+id/title_holder"
+            tools:ignore="RtlHardcoded" />
+        <LinearLayout
+            android:id="@+id/search_view"
+            android:layout_margin="10dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/section_title_category_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/search_title">
+            <include layout="@layout/card_menu"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/section_title_category_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_area"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/search_view">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:textStyle="bold"
+                android:padding="2dp"
+                android:textSize="22sp"
+                android:layout_weight="1"
+
+                android:text="You might like this" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+
+
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_random_area"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/meals_recyclerview_hight"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_category_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            tools:layout_editor_absoluteY="78dp"
+            tools:listitem="@layout/item_meals_list" />
+
+
+        <LinearLayout
+            android:id="@+id/section_title_area_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_category"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/rv_random_area">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+
+                android:text="More Feed about category" />
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_random_category"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/meals_recyclerview_hight"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_area_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            tools:listitem="@layout/item_meals_list" />
+
+        <LinearLayout
+            android:id="@+id/section_title_ingredient_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_ingredien"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            app:layout_constraintTop_toBottomOf="@+id/rv_random_category">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                style="@style/TextTitle"
+                android:padding="2dp"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="20sp"
+
+                android:text="You Might like this Ingredients"/>
+
+            <TextView
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+
+                android:layout_height="match_parent"
+                android:gravity="right"
+                android:padding="2dp"
+                android:textAllCaps="true"
+                android:textStyle="italic"
+                android:text="@string/see_more" />
+        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_random_ingredien"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/meals_recyclerview_hight"
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:textColor="@color/black"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
+            app:layout_constraintEnd_toEndOf="@+id/guideEnd"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideStart"
+            tools:layout_editor_absoluteY="78dp"
+            tools:listitem="@layout/item_meals_list" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="5dp" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="5dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

@@ -1,6 +1,7 @@
 package iti.android.foodplanner.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -12,7 +13,14 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.User;
-
+import iti.android.foodplanner.data.models.selections.Ingredient.Ingredient;
+import iti.android.foodplanner.data.models.selections.area.Area;
+import iti.android.foodplanner.data.models.selections.area.AreasList;
+import iti.android.foodplanner.data.models.selections.category.Category;
+import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
+import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesItem;
+import iti.android.foodplanner.data.models.selections.category.CategoriesList;
+import iti.android.foodplanner.data.models.selections.Ingredient.IngredientsList;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.models.meal.MealsList;
@@ -25,6 +33,11 @@ import iti.android.foodplanner.data.shared.SharedManager;
  * Gather all functions from Network, Room Database And Shared Manager
  */
 public class Repository {
+    private static final String TAG = "Repository";
+
+    public static final int DELETE_FAV = 1;
+    public static final int DELETE_PLAN = 2;
+    public static final int DELETE_PLAN_AND_FAV = 3;
     private final ApiCalls apiCalls;
     private final RoomDatabase roomDatabase;
     private final BackupManager backupManager;
@@ -67,6 +80,52 @@ public class Repository {
 
     // endregion Shared
     // region ROOM
+
+    public void deleteAllTable(int type){
+        CompletableObserver completableObserver = new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: TABLE HASE BEEN DELETED");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onComplete: TABLE HASE BEEN FAILED TO DELETE "+e.getMessage());
+            }
+        };
+            switch (type){
+                case DELETE_FAV:
+                    roomDatabase.FavoriteDAO()
+                            .removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    break;
+                case DELETE_PLAN:
+                    roomDatabase.PlaneFoodDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+
+                    break;
+                case DELETE_PLAN_AND_FAV:
+                    roomDatabase.FavoriteDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    roomDatabase.PlaneFoodDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    break;
+
+            }
+    }
     private void insertFavoriteToRoom(MealsItem mealsItem,DataFetch<Void> dataFetch){
         roomDatabase
                 .FavoriteDAO()
@@ -138,7 +197,6 @@ public class Repository {
                 });
     }
     public void deleteFavorite(MealsItem mealsItem,DataFetch<Void> dataFetch){
-        backupManager.deleteFavorite(mealsItem);
         roomDatabase.FavoriteDAO()
                 .deleteFavouriteMeal(mealsItem)
                 .subscribeOn(Schedulers.io())
@@ -151,6 +209,7 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                        backupManager.deleteFavorite(mealsItem);
                         dataFetch.onDataSuccessResponse(null);
                     }
 
@@ -161,7 +220,30 @@ public class Repository {
                 });
     }
 
-    public void insertPlanMeal(MealPlan mealPlan,DataFetch<Void> dataFetch){
+    public void insertPlaneMealDataBase(MealPlan mealPlan,DataFetch<Void> dataFetch){
+        apiCalls.retrieveMealByID(mealPlan.getIdMeal())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MealsList>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull MealsList mealsList) {
+                        insertPlanMealRoom(mealPlan.migrateMealsToPlaneModel(mealsList.getMeals().get(0)),dataFetch);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+
+    }
+
+    private void insertPlanMealRoom(MealPlan mealPlan, DataFetch<Void> dataFetch){
         roomDatabase.PlaneFoodDAO().insertPlanMeal(mealPlan)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -219,6 +301,7 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                            backupManager.deletePlane(mealPlan);
                             dataFetch.onDataSuccessResponse(null);
                     }
 
@@ -235,7 +318,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/random.php">Single Random Meal</a>
      * @return List<MealsItem>
      */
-    public void lookupSingleRandomMeal(DataFetch<MealsList> dataFetch){
+    public void lookupSingleRandomMeal(DataFetch<List<MealsItem>> dataFetch){
         apiCalls.lookupSingleRandomMeal().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealsList>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -244,7 +327,7 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull MealsList mealsList) {
-                dataFetch.onDataSuccessResponse(mealsList);
+                dataFetch.onDataSuccessResponse(mealsList.getMeals());
             }
 
             @Override
@@ -259,7 +342,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?i=list">List of Ingredients</a>
      * @return List<Ingredient>
      */
-    public void ingredientsList(DataFetch<IngredientsList> dataFetch){
+    public void ingredientsList(DataFetch<List<Ingredient>> dataFetch){
         apiCalls.ingredientsList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<IngredientsList>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -268,7 +351,7 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull IngredientsList ingredientsList) {
-                dataFetch.onDataSuccessResponse(ingredientsList);
+                dataFetch.onDataSuccessResponse(ingredientsList.getMeals());
             }
 
             @Override
@@ -283,7 +366,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?c=list">List of Categories</a>
      * @return List<Category>
      */
-    public void categoriesList(DataFetch<CategoriesList> dataFetch){
+    public void categoriesList(DataFetch<List<Category>> dataFetch){
         apiCalls.categoriesList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<CategoriesList>() {
                     @Override
@@ -293,7 +376,7 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull CategoriesList categoriesList) {
-                        dataFetch.onDataSuccessResponse(categoriesList);
+                        dataFetch.onDataSuccessResponse(categoriesList.getCategory());
                     }
 
                     @Override
@@ -450,6 +533,7 @@ public class Repository {
                      }
                  });
     };
+
 
     // endregion APIs
 }

@@ -4,34 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
 public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHolder> {
-    private List<MealsItem> itemsList;
+    private List<MealsItem> itemsList = new ArrayList<>();
     private Context context;
     HomeInterface homeInterface;
 
-
-    public HomeFeedAdapter(Context context, List<MealsItem> itemsList, HomeInterface homeInterface) {
-        this.itemsList = itemsList;
+    public HomeFeedAdapter(Context context, HomeInterface homeInterface) {
         this.context = context;
         this.homeInterface = homeInterface;
     }
@@ -39,7 +36,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     @NonNull
     @Override
     public HomeFeedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.card_menu,parent,false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meals_list,parent,false));
     }
 
     @Override
@@ -62,19 +59,20 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
             }
         });
 
-        holder.addToFavBtn.setOnClickListener(view -> {
-                    homeInterface.onSaveFavorite(item);
-        });
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.addToFavBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-                HomeFragmentDirections.ActionNavigationHomeToNavigationDetails action=HomeFragmentDirections.actionNavigationHomeToNavigationDetails();
-                action.setMealsItem(item);
-                Navigation.findNavController(v).navigate(action);
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                    homeInterface.onSaveFavorite(item);
             }
         });
 
+
+    }
+
+    public void setItemsList(List<MealsItem> itemsList){
+        this.itemsList = itemsList;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -83,18 +81,18 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        ImageButton addToPlaneBtn,addToFavBtn;
+        AppCompatButton addToPlaneBtn;
+        CheckBox addToFavBtn;
         TextView foodNameTv;
         ImageView thumnailView;
-        RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            addToPlaneBtn = itemView.findViewById(R.id.plane_btn);
-            addToFavBtn = itemView.findViewById(R.id.fav_btn);
-            thumnailView = itemView.findViewById(R.id.image_thum);
-            foodNameTv = itemView.findViewById(R.id.food_name);
-           relativeLayout=itemView.findViewById(R.id.homeItemLayout);
+
+            addToPlaneBtn = itemView.findViewById(R.id.btn_plane);
+            foodNameTv = itemView.findViewById(R.id.tv_title);
+            addToFavBtn = itemView.findViewById(R.id.fav_ceheck);
+            thumnailView = itemView.findViewById(R.id.thumnail_image);
         }
     }
 

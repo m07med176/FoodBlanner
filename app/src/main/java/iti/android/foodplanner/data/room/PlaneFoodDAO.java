@@ -19,9 +19,15 @@ public interface PlaneFoodDAO {
    @Query("SELECT * FROM plans")
     public Single<List<MealPlan>> showPlanMeals();
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+  @Query("DELETE FROM meals")
+  public Completable removeAllTable();
+
+ @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertPlanMeal(MealPlan mealPlan);
 
     @Delete
     public Completable deletePlanMeal(MealPlan mealPlan);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public Completable insertAllTable(List<MealPlan> mealPlanList);
 }

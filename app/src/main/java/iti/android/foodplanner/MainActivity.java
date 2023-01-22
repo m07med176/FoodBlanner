@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,9 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import iti.android.foodplanner.data.TestActivity;
@@ -34,6 +37,7 @@ import iti.android.foodplanner.data.authentication.Authentication;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.BackupHolder;
+import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
@@ -53,12 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
         navigationUiSettings();
 
-        BackupManager.getInstance(SharedManager.getInstance(this)).restoreData( new EventListener<DocumentSnapshot>() {
+        BackupManager.getInstance(SharedManager.getInstance(this)).restoreData(new EventListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (value.exists()){
-                    BackupHolder backupHolder = value.toObject(BackupHolder.class);
-                    Toast.makeText(MainActivity.this, "Hello OOO+: "+backupHolder.getFAV().size(), Toast.LENGTH_SHORT).show();
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    List<MealsItem> mealsItemList = new ArrayList<>();
+                    for(DocumentSnapshot ds : value)   {
+                        MealsItem mealsItem = ds.toObject(MealsItem.class);
+                        mealsItemList.add(mealsItem);
+                    }
+                    Toast.makeText(MainActivity.this, "Hello OOO+: "+mealsItemList.size(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

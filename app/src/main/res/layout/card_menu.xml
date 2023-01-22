@@ -1,101 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeItemLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="2dp">
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:elevation="20dp"
+        card_view:cardCornerRadius="20dp"
         android:clickable="true"
         android:foreground="@android:color/transparent"
-        card_view:cardCornerRadius="5dp">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/image_thum"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:alpha="0.9"
-                android:background="@drawable/image_corner"
-                android:scaleType="fitXY" />
+    <ImageView
+        android:id="@+id/image_thum"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-1dp"
+        android:layout_marginBottom="0dp"
+        android:alpha="0.9"
+        android:background="@drawable/image_corner"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#40000000">
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#40000000">
 
-                <TextView
-                    android:id="@+id/food_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginRight="5dp"
-                    android:fontFamily="cursive"
-                    android:padding="5dp"
-                    android:shadowColor="@android:color/black"
-                    android:shadowRadius="2"
-                    android:text="Text"
-                    android:textAlignment="center"
-                    android:textColor="@android:color/white"
-                    android:textSize="20dp" />
-            </RelativeLayout>
+    <TextView
+        android:id="@+id/food_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="cursive"
+        android:padding="5dp"
+        android:shadowColor="@android:color/black"
+        android:shadowRadius="2"
+        tools:text="Salsa"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="22dp" />
+</RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:background="#30000000">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentBottom="true"
+    android:background="#30000000">
 
-                <ImageButton
-                    android:id="@+id/fav_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    card_view:srcCompat="@drawable/ic_favorite_border_black_24dp" />
+    <ImageButton
+        android:id="@+id/fav_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="9dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        card_view:srcCompat="@drawable/ic_favorite_border_black_menu_24dp" />
 
-                <ImageButton
-                    android:id="@+id/plane_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_alignTop="@+id/fav_btn"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginLeft="10dp"
+    <TextView
+        android:id="@+id/plane_btn"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="10dp"
+        android:text="Add To Calender"
+        style="@style/TextTitle"
+        android:textStyle="bold"
+        android:drawableStart="@drawable/ic_plane"
+        android:layout_alignTop="@+id/fav_btn"
+        android:layout_alignParentStart="true" />
 
-                    android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
-                    card_view:srcCompat="@drawable/ic_favorite" />
 
-                <TextView
-                    android:id="@+id/priceofproduct"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:shadowColor="@android:color/black"
-                    android:shadowRadius="2"
-                    android:textColor="@android:color/white"
-                    tools:text="Price" />
-            </RelativeLayout>
+</RelativeLayout>
 
-        </RelativeLayout>
+</RelativeLayout>
+
 
 
     </androidx.cardview.widget.CardView>
