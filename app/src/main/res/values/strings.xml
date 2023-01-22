@@ -64,5 +64,6 @@
     <string name="guest">Guest</string>
     <string name="signout_option">Signout</string>
     <string name="settings_option">Settings</string>
+    <string name="addToPlan">Add to your plan</string>
 
 </resources>

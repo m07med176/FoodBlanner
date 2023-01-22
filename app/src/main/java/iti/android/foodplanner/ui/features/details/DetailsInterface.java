@@ -1,8 +1,13 @@
 package iti.android.foodplanner.ui.features.details;
 
+import iti.android.foodplanner.data.models.meal.MealPlan;
+import iti.android.foodplanner.data.models.meal.MealsItem;
+
 public interface DetailsInterface {
 
-    // TODO add to Plane
-    // TODO add to Favorite
-    // TODO get food details model
+    public void addToPlan(MealPlan mealPlan);
+    public void addToFav(MealsItem mealsItem);
+    public void deleteFromPlan(MealPlan mealPlan);
+    public void deleteFromFav(MealsItem mealsItem);
+
 }

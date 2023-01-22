@@ -1,5 +1,9 @@
 package iti.android.foodplanner.data.models.meal;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -12,7 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 @Entity(tableName = "meals")
-public class MealsItem{
+
+public class MealsItem implements Parcelable {
 
 	@PrimaryKey
 	@ColumnInfo(name = "idMealCode")
@@ -116,7 +121,52 @@ public class MealsItem{
 
 	@Ignore
 	private ArrayList<String> ingredients;
+	public MealsItem(){
 
+	}
+
+	protected MealsItem(Parcel in) {
+		idMeal = in.readString();
+		strArea = in.readString();
+		strInstructions = in.readString();
+		strMealThumb = in.readString();
+		strYoutube = in.readString();
+		strMeal = in.readString();
+		strCategory = in.readString();
+		strIngredient10 = in.readString();
+		strIngredient12 = in.readString();
+		strIngredient11 = in.readString();
+		strIngredient14 = in.readString();
+		strIngredient13 = in.readString();
+		strIngredient16 = in.readString();
+		strIngredient15 = in.readString();
+		strIngredient18 = in.readString();
+		strIngredient17 = in.readString();
+		strIngredient19 = in.readString();
+		strIngredient1 = in.readString();
+		strIngredient3 = in.readString();
+		strIngredient2 = in.readString();
+		strIngredient20 = in.readString();
+		strIngredient5 = in.readString();
+		strIngredient4 = in.readString();
+		strIngredient7 = in.readString();
+		strIngredient6 = in.readString();
+		strIngredient9 = in.readString();
+		strIngredient8 = in.readString();
+		ingredients = in.createStringArrayList();
+	}
+
+	public static final Creator<MealsItem> CREATOR = new Creator<MealsItem>() {
+		@Override
+		public MealsItem createFromParcel(Parcel in) {
+			return new MealsItem(in);
+		}
+
+		@Override
+		public MealsItem[] newArray(int size) {
+			return new MealsItem[size];
+		}
+	};
 
 	public void setStrIngredient10(String strIngredient10){
 		this.strIngredient10 = strIngredient10;
@@ -410,5 +460,42 @@ public class MealsItem{
 
 	public void setIngredients(ArrayList<String> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(@NonNull Parcel dest, int flags) {
+		dest.writeString(idMeal);
+		dest.writeString(strArea);
+		dest.writeString(strInstructions);
+		dest.writeString(strMealThumb);
+		dest.writeString(strYoutube);
+		dest.writeString(strMeal);
+		dest.writeString(strCategory);
+		dest.writeString(strIngredient10);
+		dest.writeString(strIngredient12);
+		dest.writeString(strIngredient11);
+		dest.writeString(strIngredient14);
+		dest.writeString(strIngredient13);
+		dest.writeString(strIngredient16);
+		dest.writeString(strIngredient15);
+		dest.writeString(strIngredient18);
+		dest.writeString(strIngredient17);
+		dest.writeString(strIngredient19);
+		dest.writeString(strIngredient1);
+		dest.writeString(strIngredient3);
+		dest.writeString(strIngredient2);
+		dest.writeString(strIngredient20);
+		dest.writeString(strIngredient5);
+		dest.writeString(strIngredient4);
+		dest.writeString(strIngredient7);
+		dest.writeString(strIngredient6);
+		dest.writeString(strIngredient9);
+		dest.writeString(strIngredient8);
+		dest.writeStringList(ingredients);
 	}
 }

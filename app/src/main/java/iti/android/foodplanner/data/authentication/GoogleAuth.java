@@ -24,7 +24,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.backup.BackupManager;
-import iti.android.foodplanner.data.models.BackupHolder;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignInWithGoogleInterface;

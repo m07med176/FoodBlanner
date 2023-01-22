@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     private List<MealsItem> itemsList;
     private Context context;
     HomeInterface homeInterface;
+
 
     public HomeFeedAdapter(Context context, List<MealsItem> itemsList, HomeInterface homeInterface) {
         this.itemsList = itemsList;
@@ -62,7 +65,15 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         holder.addToFavBtn.setOnClickListener(view -> {
                     homeInterface.onSaveFavorite(item);
         });
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                HomeFragmentDirections.ActionNavigationHomeToNavigationDetails action=HomeFragmentDirections.actionNavigationHomeToNavigationDetails();
+                action.setMealsItem(item);
+                Navigation.findNavController(v).navigate(action);
+            }
+        });
 
     }
 
@@ -75,6 +86,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         ImageButton addToPlaneBtn,addToFavBtn;
         TextView foodNameTv;
         ImageView thumnailView;
+        RelativeLayout relativeLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -82,6 +94,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
             addToFavBtn = itemView.findViewById(R.id.fav_btn);
             thumnailView = itemView.findViewById(R.id.image_thum);
             foodNameTv = itemView.findViewById(R.id.food_name);
+           relativeLayout=itemView.findViewById(R.id.homeItemLayout);
         }
     }
 

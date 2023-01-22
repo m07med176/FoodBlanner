@@ -12,12 +12,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.User;
-import iti.android.foodplanner.data.models.selections.area.Area;
-import iti.android.foodplanner.data.models.selections.area.AreasList;
-import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
-import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesItem;
-import iti.android.foodplanner.data.models.selections.category.CategoriesList;
-import iti.android.foodplanner.data.models.selections.Ingredient.IngredientsList;
+
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.models.meal.MealsList;
@@ -455,7 +450,6 @@ public class Repository {
                      }
                  });
     };
-
 
     // endregion APIs
 }
