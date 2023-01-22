@@ -12,8 +12,10 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.User;
+import iti.android.foodplanner.data.models.selections.Ingredient.Ingredient;
 import iti.android.foodplanner.data.models.selections.area.Area;
 import iti.android.foodplanner.data.models.selections.area.AreasList;
+import iti.android.foodplanner.data.models.selections.category.Category;
 import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
 import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesItem;
 import iti.android.foodplanner.data.models.selections.category.CategoriesList;
@@ -264,7 +266,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?i=list">List of Ingredients</a>
      * @return List<Ingredient>
      */
-    public void ingredientsList(DataFetch<IngredientsList> dataFetch){
+    public void ingredientsList(DataFetch<List<Ingredient>> dataFetch){
         apiCalls.ingredientsList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<IngredientsList>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -273,7 +275,7 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull IngredientsList ingredientsList) {
-                dataFetch.onDataSuccessResponse(ingredientsList);
+                dataFetch.onDataSuccessResponse(ingredientsList.getMeals());
             }
 
             @Override
@@ -288,7 +290,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/list.php?c=list">List of Categories</a>
      * @return List<Category>
      */
-    public void categoriesList(DataFetch<CategoriesList> dataFetch){
+    public void categoriesList(DataFetch<List<Category>> dataFetch){
         apiCalls.categoriesList().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<CategoriesList>() {
                     @Override
@@ -298,7 +300,7 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull CategoriesList categoriesList) {
-                        dataFetch.onDataSuccessResponse(categoriesList);
+                        dataFetch.onDataSuccessResponse(categoriesList.getCategory());
                     }
 
                     @Override

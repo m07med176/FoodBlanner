@@ -21,38 +21,71 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.data.models.selections.Ingredient.Ingredient;
+import iti.android.foodplanner.data.models.selections.area.Area;
+import iti.android.foodplanner.data.models.selections.category.Category;
+import iti.android.foodplanner.databinding.FragmentCategoryBinding;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class CategoryFragment extends Fragment implements CategoryInterface {
-    private RecyclerView recyclerView;
     private CategoryPresenter categoryPresenter;
-
-    private CategoryGridViewAdapter categoryGridViewAdapter;
-    private List<MealsItem> mealsItem = new ArrayList<>();;
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_category, container, false);
-    }
-
+    private FragmentCategoryBinding binding;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recyclerView);
         categoryPresenter = new CategoryPresenter(getContext());
+        RecyclerView rvArea = Utils.recyclerViewHandler(binding.rvAreas,getContext());
+        RecyclerView rvCategory = Utils.recyclerViewHandler(binding.rvCategory,getContext());
+        RecyclerView rvIngredient = Utils.recyclerViewHandler(binding.rvIngredient,getContext());
 
-        categoryGridViewAdapter = new CategoryGridViewAdapter(getContext(),mealsItem,this);
-        handleRecyclerView();
+        FilterCategoryAdapter filterCategoryAdapter = new FilterCategoryAdapter(getContext(),this);
+        FilterAreaAdapter filterAreaAdapter = new FilterAreaAdapter(getContext(),this);
+        FilterIngredientAdapter filterIngredientAdapter = new FilterIngredientAdapter(getContext(),this);
 
-        categoryPresenter.getCategories(new DataFetch<List<MealsItem>>() {
+        rvArea.setAdapter(filterAreaAdapter);
+        rvIngredient.setAdapter(filterIngredientAdapter);
+        rvCategory.setAdapter(filterCategoryAdapter);
+
+        categoryPresenter.getFilterAreaResults(new DataFetch<List<Area>>() {
             @Override
-            public void onDataSuccessResponse(List<MealsItem> data) {
-                mealsItem.clear();
-                mealsItem.addAll(data);
-                categoryGridViewAdapter.notifyDataSetChanged();
+            public void onDataSuccessResponse(List<Area> data) {
+                filterAreaAdapter.setItemsList(data);
             }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
+
+
+        categoryPresenter.getFilterCategoryResults(new DataFetch<List<Category>>() {
+            @Override
+            public void onDataSuccessResponse(List<Category> data) {
+                filterCategoryAdapter.setItemsList(data);
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
+        categoryPresenter.getFilterIngredientResults(new DataFetch<List<Ingredient>>() {
+            @Override
+            public void onDataSuccessResponse(List<Ingredient> data) {
+                filterIngredientAdapter.setItemsList(data);
+            }
+
             @Override
             public void onDataFailedResponse(String message) {
 
@@ -66,13 +99,14 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
 
     }
 
-    private void handleRecyclerView() {
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(categoryGridViewAdapter);
-    }
-
     @Override
     public void onClickItem() {
         Toast.makeText(getContext(), "Item Clicked", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentCategoryBinding.inflate(inflater,container,false);
+        return binding.getRoot();
     }
 }

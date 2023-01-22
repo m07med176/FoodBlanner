@@ -33,11 +33,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
     private HomePresenter presenter;
     private FragmentHomeBinding binding;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {

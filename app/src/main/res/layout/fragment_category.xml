@@ -66,7 +66,7 @@
                 android:padding="2dp"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:text="@string/search_by_country" />
+                android:text="@string/search_by_category" />
 
             <TextView
                 style="@style/TextTitle"
@@ -153,7 +153,7 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintBottom_toTopOf="@+id/rv_ingredient"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/rv_areas">
@@ -180,7 +180,7 @@
                 android:text="@string/see_more" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv_ingredient"
             android:layout_width="0dp"
             android:layout_height="287dp"
             android:layout_margin="5dp"
