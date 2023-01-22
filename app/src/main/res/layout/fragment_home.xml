@@ -105,7 +105,7 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/rv_category"
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_area"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/search_view">
@@ -136,7 +136,7 @@
 
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_category"
+            android:id="@+id/rv_random_area"
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
@@ -148,7 +148,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             tools:layout_editor_absoluteY="78dp"
-            tools:listitem="@layout/item_card_list" />
+            tools:listitem="@layout/item_meals_list" />
 
 
         <LinearLayout
@@ -159,10 +159,10 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/rv_areas"
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_category"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            app:layout_constraintTop_toBottomOf="@+id/rv_category">
+            app:layout_constraintTop_toBottomOf="@+id/rv_random_area">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -188,7 +188,7 @@
                 android:text="@string/see_more" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_areas"
+            android:id="@+id/rv_random_category"
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
@@ -199,7 +199,7 @@
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            tools:listitem="@layout/item_card_list" />
+            tools:listitem="@layout/item_meals_list" />
 
         <LinearLayout
             android:id="@+id/section_title_ingredient_holder"
@@ -209,10 +209,10 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintBottom_toTopOf="@+id/rv_random_ingredien"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            app:layout_constraintTop_toBottomOf="@+id/rv_areas">
+            app:layout_constraintTop_toBottomOf="@+id/rv_random_category">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -238,7 +238,7 @@
                 android:text="@string/see_more" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv_random_ingredien"
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
@@ -250,7 +250,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             tools:layout_editor_absoluteY="78dp"
-            tools:listitem="@layout/item_card_list" />
+            tools:listitem="@layout/item_meals_list" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideStart"

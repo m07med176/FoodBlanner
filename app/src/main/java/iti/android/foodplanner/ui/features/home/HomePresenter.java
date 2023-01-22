@@ -9,6 +9,10 @@ import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
 public class HomePresenter {
+    public static final String AREA= "AREA";
+    public static final String CATEGORY= "CATEGORY";
+    public static final String INGREDIENT= "INGREDIENT";
+    public static final String SINGLE= "SINGLE";
     private HomeInterface homeInterface;
     private Repository repository;
 
@@ -17,8 +21,24 @@ public class HomePresenter {
         repository = Repository.getInstance(context);
     }
 
-    public void getRandomMeals(DataFetch<List<MealsItem>> dataFetch){
-        repository.retrieveFilterResults(null, null, "Egyptian",dataFetch);
+
+    public void getRandomMeals(String type,DataFetch<List<MealsItem>> dataFetch){
+        switch (type){
+            case AREA:
+                repository.retrieveFilterResults(null, null, "Egyptian",dataFetch);
+                break;
+            case CATEGORY:
+                repository.retrieveFilterResults("Beef", null, null,dataFetch);
+                break;
+            case INGREDIENT:
+                repository.retrieveFilterResults(null, "Chicken", null,dataFetch);
+                break;
+            case SINGLE:
+                repository.lookupSingleRandomMeal(dataFetch);
+                break;
+
+
+        }
     }
 
     public void saveFavorite(MealsItem item,DataFetch<Void> dataFetch){

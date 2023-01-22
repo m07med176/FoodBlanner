@@ -240,7 +240,7 @@ public class Repository {
      * link: <a href="https://www.themealdb.com/api/json/v1/1/random.php">Single Random Meal</a>
      * @return List<MealsItem>
      */
-    public void lookupSingleRandomMeal(DataFetch<MealsList> dataFetch){
+    public void lookupSingleRandomMeal(DataFetch<List<MealsItem>> dataFetch){
         apiCalls.lookupSingleRandomMeal().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<MealsList>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
@@ -249,7 +249,7 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull MealsList mealsList) {
-                dataFetch.onDataSuccessResponse(mealsList);
+                dataFetch.onDataSuccessResponse(mealsList.getMeals());
             }
 
             @Override
