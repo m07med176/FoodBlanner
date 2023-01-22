@@ -27,4 +27,7 @@ public interface PlaneFoodDAO {
 
     @Delete
     public Completable deletePlanMeal(MealPlan mealPlan);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    public Completable insertAllTable(List<MealPlan> mealPlanList);
 }
