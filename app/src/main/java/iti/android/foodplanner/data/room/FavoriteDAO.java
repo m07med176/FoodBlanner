@@ -19,6 +19,9 @@ public interface FavoriteDAO {
     @Query("SELECT * FROM meals")
     public Single<List<MealsItem>> showFavouriteMeals();
 
+    @Query("DELETE FROM meals")
+    public Completable removeAllTable();
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertFavoriteMeal(MealsItem mealsItem);
 

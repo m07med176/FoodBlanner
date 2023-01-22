@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.BackupHolder;
 import iti.android.foodplanner.data.models.User;
@@ -58,10 +59,10 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     @Override
     public void logout(Context context) {
+        Repository.getInstance(context).deleteAllTable(Repository.DELETE_PLAN_AND_FAV);
         SharedManager.getInstance(context).clearAllData();
         mAuth.signOut();
     }
-
 
 
     @Override
@@ -134,6 +135,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     private User getUserData() {
         FirebaseUser user = mAuth.getCurrentUser();
+
         return new User(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), user.getEmail(),AuthenticationFactory.GOOGLE);
     }
 }

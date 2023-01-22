@@ -1,6 +1,7 @@
 package iti.android.foodplanner.data;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ import iti.android.foodplanner.data.shared.SharedManager;
  * Gather all functions from Network, Room Database And Shared Manager
  */
 public class Repository {
+    private static final String TAG = "Repository";
+
+    public static final int DELETE_FAV = 1;
+    public static final int DELETE_PLAN = 2;
+    public static final int DELETE_PLAN_AND_FAV = 3;
     private final ApiCalls apiCalls;
     private final RoomDatabase roomDatabase;
     private final BackupManager backupManager;
@@ -74,6 +80,52 @@ public class Repository {
 
     // endregion Shared
     // region ROOM
+
+    public void deleteAllTable(int type){
+        CompletableObserver completableObserver = new CompletableObserver() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                Log.d(TAG, "onComplete: TABLE HASE BEEN DELETED");
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+                Log.d(TAG, "onComplete: TABLE HASE BEEN FAILED TO DELETE "+e.getMessage());
+            }
+        };
+            switch (type){
+                case DELETE_FAV:
+                    roomDatabase.FavoriteDAO()
+                            .removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    break;
+                case DELETE_PLAN:
+                    roomDatabase.PlaneFoodDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+
+                    break;
+                case DELETE_PLAN_AND_FAV:
+                    roomDatabase.FavoriteDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    roomDatabase.PlaneFoodDAO().removeAllTable()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(completableObserver);
+                    break;
+
+            }
+    }
     private void insertFavoriteToRoom(MealsItem mealsItem,DataFetch<Void> dataFetch){
         roomDatabase
                 .FavoriteDAO()
