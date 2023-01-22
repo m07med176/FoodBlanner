@@ -71,5 +71,6 @@
     <string name="search_by_name">Search By Name</string>
     <string name="search_title">Search</string>
     <string name="dialy_inspire_title">Daily Inspiration</string>
+    <string name="addToPlan">Add to plan</string>
 
 </resources>

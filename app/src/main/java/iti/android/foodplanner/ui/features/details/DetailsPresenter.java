@@ -2,6 +2,9 @@ package iti.android.foodplanner.ui.features.details;
 
 import android.content.Context;
 
+import java.util.List;
+
+import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
@@ -28,12 +31,12 @@ public class DetailsPresenter {
 
     public void addToPlan(MealPlan mealPlan){
 
-        repository.insertPlanMeal(mealPlan,null);
+        repository.insertPlaneMealDataBase(mealPlan,null);
 
     }
 
-    public void addToFav(MealsItem mealsItem){
-        repository.insertFavoriteMealDataBase(mealsItem,null);
+    public void addToFav(MealsItem mealsItem, DataFetch<Void> dataFetch){
+        repository.insertFavoriteMealDataBase(mealsItem,dataFetch);
     }
     // TODO function Fetch data from ROOM or Network [ Details of food ]
     // TODO function Initialize Dialog of Add to Card

@@ -29,6 +29,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 import java.util.List;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
@@ -149,7 +150,22 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
     @Override
     public void addToFav(MealsItem mealsItem) {
-        presenter.addToFav(mealsItem);
+        presenter.addToFav(mealsItem, new DataFetch<Void>() {
+            @Override
+            public void onDataSuccessResponse(Void data) {
+
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
     }
 
     @Override
