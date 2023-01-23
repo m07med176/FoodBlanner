@@ -2,6 +2,8 @@ package iti.android.foodplanner.ui.features.details;
 
 import static iti.android.foodplanner.R.*;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -38,14 +41,10 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
+import iti.android.foodplanner.data.room.Week;
 import iti.android.foodplanner.databinding.FragmentDetailsBinding;
 
 public class DetailsFragment extends Fragment implements DetailsInterface{
-    // TODO Implementing Video Player From Youtube
-    //  see https://github.com/PierfrancescoSoffritti/android-youtube-player
-
-    // TODO Implementing Loading Photo using GLIDE
-    //  see https://github.com/bumptech/glide
 
     private YouTubePlayerView youTubePlayerView;
     private ImageView imageView;
@@ -74,6 +73,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         initUi();
         presenter = new DetailsPresenter(getContext(),this);
 
+
         mealId=DetailsFragmentArgs.fromBundle(getArguments()).getMealId();
         presenter.getMeal(mealId, new DataFetch<List<MealsItem>>() {
 
@@ -81,6 +81,8 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
                 mealsItem=data.get(0);
+                mealPlan=mealsItem.convertMealsItemToMealsPlan(mealsItem);
+                Log.i("TAG", "meal plan obj: "+mealPlan.getStrCategory());
                 detailsName.setText(mealsItem.getStrMeal());
                 areaName.setText(mealsItem.getStrArea());
                 categoryName.setText(mealsItem.getStrCategory());
@@ -121,21 +123,16 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
             }
         });
 
-
       addToPlan.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-                mealPlan=mealsItem.convertMealsItemToMealsPlan(mealsItem);
-                addToPlan(mealPlan);
-              Toast.makeText(requireContext(),"Added to plan successfully",Toast.LENGTH_SHORT).show();
+              createDialog();
           }
       });
 
         addTofavBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO check data fetch interface
-
                 addToFav(mealsItem);
                 Toast.makeText(requireContext(), "Meal added to your favorite successfully", Toast.LENGTH_SHORT).show();
 
@@ -218,4 +215,64 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
 
 
+    public void createDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(requireContext());
+        dialogBuilder.setIcon(R.drawable.ic_plane);
+        dialogBuilder.setTitle("Choose any day you want");
+
+        final ArrayAdapter<String> days = new ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_singlechoice);
+        days.add(Week.SATURDAY.toString());
+        days.add(Week.SUNDAY.toString());
+        days.add(Week.MONDAY.toString());
+        days.add(Week.THURSDAY.toString());
+        days.add(Week.WEDNESDAY.toString());
+        days.add(Week.TUESDAY.toString());
+        days.add(Week.FRIDAY.toString());
+
+        dialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialogBuilder.setAdapter(days, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Log.i("TAG", "meal plan at dialog: " + mealPlan.getStrCategory());
+                if(which==0)
+                {
+                    mealPlan.setDay(Week.SATURDAY);
+                }
+                if(which==1)
+                {
+                    mealPlan.setDay(Week.SUNDAY);
+                }
+                if(which==2)
+                {
+                    mealPlan.setDay(Week.MONDAY);
+                }
+                if(which==3)
+                {
+                    mealPlan.setDay(Week.THURSDAY);
+                }
+                if(which==4)
+                {
+                    mealPlan.setDay(Week.WEDNESDAY);
+                }
+                if(which==5)
+                {
+                    mealPlan.setDay(Week.TUESDAY);
+                }
+                if(which==6)
+                {
+                    mealPlan.setDay(Week.FRIDAY);
+                }
+                addToPlan(mealPlan);
+                Toast.makeText(requireContext(),"Added to plan successfully",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+       dialogBuilder.show();
+    }
 }
