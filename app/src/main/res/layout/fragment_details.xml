@@ -10,40 +10,157 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <LinearLayout
 
-        <ImageView
-            android:id="@+id/mealImageView"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/app_logo"
+            android:background="@drawable/input_style"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="horizontal"
+            android:padding="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <ToggleButton
-            android:id="@+id/favButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/heart"
-            android:textOff="@null"
-            android:textOn="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/mealImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@tools:sample/avatars" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/nameDetailsTextView"
+                        style="@style/TextTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        tools:text="@tools:sample/cities" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_grade_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/categoryTextView"
+                            style="@style/TextTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"
+                            tools:text="@tools:sample/first_names" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingTop="2dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/ic_home_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/countryTextView"
+                            style="@style/TextTitle"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal"
+                            android:textStyle="bold"
+                            tools:text="@tools:sample/first_names" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp">
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/addTOPlanButton"
+                        android:layout_width="270dp"
+                        android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_weight="1"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:gravity="center"
+                        android:padding="3dp"
+                        android:text="Add To Calender" />
+
+                    <ImageView
+                        android:id="@+id/addToFavoriteButton"
+                        android:layout_width="67dp"
+                        android:layout_height="46dp"
+                        android:layout_weight=".25"
+                        android:padding="5dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/favorite_effect" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:text="Instructions"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/mealImageView"
-            app:layout_constraintTop_toBottomOf="@+id/addToPlanButton" />
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <TextView
             android:id="@+id/instructionsTextView"
@@ -55,18 +172,6 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
-
-        <TextView
-            android:id="@+id/detailsTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="#72000000"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/mealImageView"
-            app:layout_constraintEnd_toEndOf="@+id/mealImageView"
-            app:layout_constraintStart_toStartOf="@+id/mealImageView" />
 
         <TextView
             android:id="@+id/textView15"
@@ -85,7 +190,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/textView15"
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -104,20 +209,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:autoPlay="true"
-                app:videoId="S0Q4gqBUs7c" />
+                app:videoId="" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/addToPlanButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@color/purbleButtonsEnabled"
-            android:text="@string/addToPlan"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/mealImageView"
-            app:layout_constraintStart_toStartOf="@+id/mealImageView"
-            app:layout_constraintTop_toBottomOf="@+id/mealImageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

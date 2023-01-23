@@ -17,7 +17,7 @@
         app:cardCornerRadius="10dp"
         android:layout_height="120dp">
         <ImageView
-            android:id="@+id/imagefav"
+            android:id="@+id/mealImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:src="@tools:sample/avatars"
@@ -36,7 +36,7 @@
             android:layout_weight="1"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/food_name_tv"
+                android:id="@+id/nameDetailsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
@@ -64,7 +64,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_grade_black_24dp"/>
                 <TextView
-                    android:id="@+id/category_tv"
+                    android:id="@+id/categoryTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -83,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/ic_home_black_24dp"/>
                 <TextView
-                    android:id="@+id/area_tv"
+                    android:id="@+id/countryTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
@@ -100,7 +100,7 @@
             android:paddingTop="2dp"
             android:orientation="horizontal">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_plane"
+                android:id="@+id/addTOPlanButton"
                 android:gravity="center"
 
                 android:background="@drawable/button_calender_effect"
@@ -115,7 +115,7 @@
                 />
 
             <ImageView
-                android:id="@+id/btn_delete"
+                android:id="@+id/addToFavoriteButton"
                 android:padding="5dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

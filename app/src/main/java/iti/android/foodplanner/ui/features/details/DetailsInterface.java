@@ -10,4 +10,5 @@ public interface DetailsInterface {
     public void deleteFromPlan(MealPlan mealPlan);
     public void deleteFromFav(MealsItem mealsItem);
 
+
 }

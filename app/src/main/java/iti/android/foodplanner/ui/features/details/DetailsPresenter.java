@@ -8,6 +8,7 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.data.models.meal.MealsList;
 
 public class DetailsPresenter {
     Context context;
@@ -29,15 +30,20 @@ public class DetailsPresenter {
         repository.deleteFavorite(mealsItem,null);
     }
 
-    public void addToPlan(MealPlan mealPlan){
+    public void addToPlan(MealPlan mealPlan,DataFetch<Void> dataFetch){
 
-        repository.insertPlaneMealDataBase(mealPlan,null);
+        repository.insertPlaneMealDataBase(mealPlan,dataFetch);
 
     }
 
     public void addToFav(MealsItem mealsItem, DataFetch<Void> dataFetch){
         repository.insertFavoriteMealDataBase(mealsItem,dataFetch);
     }
+    public void getMeal(String mealId,DataFetch<List<MealsItem>> dataFetch )
+    {
+         repository.retrieveMealByID(mealId,dataFetch);
+    }
+
     // TODO function Fetch data from ROOM or Network [ Details of food ]
     // TODO function Initialize Dialog of Add to Card
     // TODO function add to Favorite [ROOM]

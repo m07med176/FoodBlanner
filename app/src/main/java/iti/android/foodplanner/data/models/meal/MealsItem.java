@@ -498,4 +498,36 @@ public class MealsItem implements Parcelable {
 		dest.writeString(strIngredient8);
 		dest.writeStringList(ingredients);
 	}
+
+	public MealPlan convertMealsItemToMealsPlan(MealsItem mealsItem){
+		MealPlan mealPlan=new MealPlan();
+		mealPlan.setIdMeal(mealsItem.getIdMeal());
+		mealPlan.setStrArea(mealsItem.getStrArea());
+		mealPlan.setStrCategory(mealsItem.getStrCategory());
+		mealPlan.setStrMeal(mealsItem.getStrMeal());
+		mealPlan.setStrMealThumb(mealsItem.getStrMealThumb());
+		mealPlan.setStrYoutube(mealsItem.getStrYoutube());
+		mealPlan.setStrInstructions(mealsItem.getStrInstructions());
+		mealPlan.setStrIngredient1(mealsItem.getStrIngredient1());
+		mealPlan.setStrIngredient2(mealsItem.getStrIngredient2());
+		mealPlan.setStrIngredient3(mealsItem.getStrIngredient3());
+		mealPlan.setStrIngredient4(mealsItem.getStrIngredient4());
+		mealPlan.setStrIngredient5(mealsItem.getStrIngredient5());
+		mealPlan.setStrIngredient6(mealsItem.getStrIngredient6());
+		mealPlan.setStrIngredient7(mealsItem.getStrIngredient7());
+		mealPlan.setStrIngredient8(mealsItem.getStrIngredient8());
+		mealPlan.setStrIngredient9(mealsItem.getStrIngredient9());
+		mealPlan.setStrIngredient10(mealsItem.getStrIngredient10());
+		mealPlan.setStrIngredient11(mealsItem.getStrIngredient11());
+		mealPlan.setStrIngredient12(mealsItem.getStrIngredient12());
+		mealPlan.setStrIngredient13(mealsItem.getStrIngredient13());
+		mealPlan.setStrIngredient14(mealsItem.getStrIngredient14());
+		mealPlan.setStrIngredient15(mealsItem.getStrIngredient15());
+		mealPlan.setStrIngredient16(mealsItem.getStrIngredient16());
+		mealPlan.setStrIngredient17(mealsItem.getStrIngredient17());
+		mealPlan.setStrIngredient18(mealsItem.getStrIngredient18());
+		mealPlan.setStrIngredient19(mealsItem.getStrIngredient19());
+		mealPlan.setStrIngredient20(mealsItem.getStrIngredient20());
+		return mealPlan;
+	}
 }

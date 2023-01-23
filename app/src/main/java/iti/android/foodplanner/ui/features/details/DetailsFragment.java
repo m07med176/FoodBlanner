@@ -2,23 +2,27 @@ package iti.android.foodplanner.ui.features.details;
 
 import static iti.android.foodplanner.R.*;
 
-import androidx.lifecycle.ViewModelProvider;
-
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.ImageView;
+
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,14 +32,13 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTube
 
 import java.util.List;
 
+
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
-import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+
 import iti.android.foodplanner.databinding.FragmentDetailsBinding;
-import iti.android.foodplanner.databinding.FragmentFavoriteBinding;
-import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
 
 public class DetailsFragment extends Fragment implements DetailsInterface{
     // TODO Implementing Video Player From Youtube
@@ -46,81 +49,98 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
     private YouTubePlayerView youTubePlayerView;
     private ImageView imageView;
-    private TextView detailsTv;
+    private TextView detailsName;
+    private TextView categoryName;
+    private TextView areaName;
     private TextView ingridientsTv;
     private TextView instructionsTv;
-    private ToggleButton addTofavBtn;
-    private Button addToPlan;
+    private AppCompatImageView addTofavBtn;
+    private AppCompatButton addToPlan;
     private MealsItem mealsItem;
+    private String mealId;
     private FragmentDetailsBinding binding;
     private DetailsPresenter presenter;
     private View root;
     private List<String> ingridients;
-    private int backGroungFlag;
+    MealPlan mealPlan;
+
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        backGroungFlag=0;
+
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
         initUi();
         presenter = new DetailsPresenter(getContext(),this);
 
-        mealsItem=DetailsFragmentArgs.fromBundle(getArguments()).getMealsItem();
+        mealId=DetailsFragmentArgs.fromBundle(getArguments()).getMealId();
+        presenter.getMeal(mealId, new DataFetch<List<MealsItem>>() {
 
-        detailsTv.setText("Name "+mealsItem.getStrMeal()+"\t"+"Category "+mealsItem.getStrCategory()+"\n"+"Country "+mealsItem.getStrArea());
-        instructionsTv.setText(mealsItem.getStrInstructions());
 
-        ingridients=mealsItem.getIngredients();
-        for(int i=0;i<ingridients.size();i++)
-        {
-            ingridientsTv.append(ingridients.get(i)+"\n");
-        }
-        Glide.with(requireContext()).
-                load(mealsItem.getStrMealThumb())
-                .apply(new RequestOptions().override(400,300).
-                        placeholder(drawable.app_logo).error(drawable.app_logo)).
-                into(imageView);
-
-        addToPlan.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                //TODO insert mealplan
-                //repository.insertPlanMeal(mealsItem,null);
+            public void onDataSuccessResponse(List<MealsItem> data) {
+                mealsItem=data.get(0);
+                detailsName.setText(mealsItem.getStrMeal());
+                areaName.setText(mealsItem.getStrArea());
+                categoryName.setText(mealsItem.getStrCategory());
+                Log.i("TAG", "category: "+mealsItem.getStrCategory());
+                instructionsTv.setText(mealsItem.getStrInstructions());
+                Log.i("TAG", "instructions: "+mealsItem.getStrInstructions());
+                ingridients=mealsItem.getIngredients();
+
+                for(int i=0;i<ingridients.size();i++)
+                {
+                    ingridientsTv.append("."+ingridients.get(i)+"\n");
+                    Log.i("TAG", "ingridients: "+ingridients.get(i));
+                }
+                Glide.with(requireContext()).
+                        load(mealsItem.getStrMealThumb())
+                        .apply(new RequestOptions().override(400,300).
+                                placeholder(drawable.app_logo).error(drawable.app_logo)).
+                        into(imageView);
+
+                youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                    @Override
+                    public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                        String[] videoId = mealsItem.getStrYoutube().split("=");
+
+                        youTubePlayer.loadVideo(videoId[1], 0);
+         }
+                    });
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
             }
         });
+
+
+      addToPlan.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+                mealPlan=mealsItem.convertMealsItemToMealsPlan(mealsItem);
+                addToPlan(mealPlan);
+              Toast.makeText(requireContext(),"Added to plan successfully",Toast.LENGTH_SHORT).show();
+          }
+      });
 
         addTofavBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO check data fetch interface
-                if(backGroungFlag==0)
-                {
-                addTofavBtn.setBackgroundResource(R.drawable.favorite);
+
                 addToFav(mealsItem);
                 Toast.makeText(requireContext(), "Meal added to your favorite successfully", Toast.LENGTH_SHORT).show();
-                backGroungFlag=1;
 
-                }
-                if(backGroungFlag==1)
-                {
-                    addTofavBtn.setBackgroundResource(drawable.heart);
-                    deleteFromFav(mealsItem);
-                    Toast.makeText(requireContext(), "Meal removed from your favorites successfully", Toast.LENGTH_SHORT).show();
-                    backGroungFlag=0;
-
-                }
             }
         });
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                youTubePlayer.loadVideo(mealsItem.getStrYoutube(), 0);
-            }
-
-        });
-
         return root;
     }
 
@@ -128,12 +148,15 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         root = binding.getRoot();
         youTubePlayerView = root.findViewById(id.youtube_player_view);
         getLifecycle().addObserver(youTubePlayerView);
-        detailsTv=root.findViewById(id.detailsTextView);
-        addTofavBtn=root.findViewById(id.favButton);
-        addToPlan=root.findViewById(id.addToPlanButton);
+        detailsName=root.findViewById(id.nameDetailsTextView);
+        categoryName=root.findViewById(id.categoryTextView);
+        areaName=root.findViewById(id.countryTextView);
+        addTofavBtn=root.findViewById(id.addToFavoriteButton);
+        addToPlan=root.findViewById(id.addTOPlanButton);
         imageView=root.findViewById(id.mealImageView);
         ingridientsTv=root.findViewById(id.ingredientsTextView);
         instructionsTv=root.findViewById(id.instructionsTextView);
+
     }
     @Override
     public void onDestroyView() {
@@ -145,7 +168,22 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
     @Override
     public void addToPlan(MealPlan mealPlan) {
-        presenter.addToPlan(mealPlan);
+        presenter.addToPlan(mealPlan, new DataFetch<Void>() {
+            @Override
+            public void onDataSuccessResponse(Void data) {
+
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
     }
 
     @Override
@@ -177,4 +215,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
     public void deleteFromFav(MealsItem mealsItem) {
         presenter.deleteFromFav(mealsItem);
     }
+
+
+
 }

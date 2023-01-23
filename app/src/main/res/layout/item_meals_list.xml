@@ -12,6 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/itemHome"
             android:layout_width="200dp"
             android:layout_height="200dp">
 
@@ -57,7 +58,7 @@
 />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_plane"
+            android:id="@+id/addTOPlanButton"
             android:gravity="center"
 
             android:background="@drawable/button_calender_effect"
