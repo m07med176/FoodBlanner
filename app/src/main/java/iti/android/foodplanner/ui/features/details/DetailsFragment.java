@@ -61,7 +61,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
     private DetailsPresenter presenter;
     private View root;
     private List<String> ingridients;
-    MealPlan mealPlan;
+    private MealPlan mealPlan;
 
 
 
