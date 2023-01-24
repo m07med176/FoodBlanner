@@ -1,5 +1,9 @@
 package iti.android.foodplanner.data.models.meal;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -12,7 +16,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 @Entity(tableName = "meals")
-public class MealsItem{
+
+public class MealsItem implements Parcelable {
 
 	@PrimaryKey
 	@ColumnInfo(name = "idMealCode")
@@ -116,7 +121,52 @@ public class MealsItem{
 
 	@Ignore
 	private ArrayList<String> ingredients;
+	public MealsItem(){
 
+	}
+
+	protected MealsItem(Parcel in) {
+		idMeal = in.readString();
+		strArea = in.readString();
+		strInstructions = in.readString();
+		strMealThumb = in.readString();
+		strYoutube = in.readString();
+		strMeal = in.readString();
+		strCategory = in.readString();
+		strIngredient10 = in.readString();
+		strIngredient12 = in.readString();
+		strIngredient11 = in.readString();
+		strIngredient14 = in.readString();
+		strIngredient13 = in.readString();
+		strIngredient16 = in.readString();
+		strIngredient15 = in.readString();
+		strIngredient18 = in.readString();
+		strIngredient17 = in.readString();
+		strIngredient19 = in.readString();
+		strIngredient1 = in.readString();
+		strIngredient3 = in.readString();
+		strIngredient2 = in.readString();
+		strIngredient20 = in.readString();
+		strIngredient5 = in.readString();
+		strIngredient4 = in.readString();
+		strIngredient7 = in.readString();
+		strIngredient6 = in.readString();
+		strIngredient9 = in.readString();
+		strIngredient8 = in.readString();
+		ingredients = in.createStringArrayList();
+	}
+
+	public static final Creator<MealsItem> CREATOR = new Creator<MealsItem>() {
+		@Override
+		public MealsItem createFromParcel(Parcel in) {
+			return new MealsItem(in);
+		}
+
+		@Override
+		public MealsItem[] newArray(int size) {
+			return new MealsItem[size];
+		}
+	};
 
 	public void setStrIngredient10(String strIngredient10){
 		this.strIngredient10 = strIngredient10;
@@ -410,5 +460,74 @@ public class MealsItem{
 
 	public void setIngredients(ArrayList<String> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(@NonNull Parcel dest, int flags) {
+		dest.writeString(idMeal);
+		dest.writeString(strArea);
+		dest.writeString(strInstructions);
+		dest.writeString(strMealThumb);
+		dest.writeString(strYoutube);
+		dest.writeString(strMeal);
+		dest.writeString(strCategory);
+		dest.writeString(strIngredient10);
+		dest.writeString(strIngredient12);
+		dest.writeString(strIngredient11);
+		dest.writeString(strIngredient14);
+		dest.writeString(strIngredient13);
+		dest.writeString(strIngredient16);
+		dest.writeString(strIngredient15);
+		dest.writeString(strIngredient18);
+		dest.writeString(strIngredient17);
+		dest.writeString(strIngredient19);
+		dest.writeString(strIngredient1);
+		dest.writeString(strIngredient3);
+		dest.writeString(strIngredient2);
+		dest.writeString(strIngredient20);
+		dest.writeString(strIngredient5);
+		dest.writeString(strIngredient4);
+		dest.writeString(strIngredient7);
+		dest.writeString(strIngredient6);
+		dest.writeString(strIngredient9);
+		dest.writeString(strIngredient8);
+		dest.writeStringList(ingredients);
+	}
+
+	public MealPlan convertMealsItemToMealsPlan(MealsItem mealsItem){
+		MealPlan mealPlan=new MealPlan();
+		mealPlan.setIdMeal(mealsItem.getIdMeal());
+		mealPlan.setStrArea(mealsItem.getStrArea());
+		mealPlan.setStrCategory(mealsItem.getStrCategory());
+		mealPlan.setStrMeal(mealsItem.getStrMeal());
+		mealPlan.setStrMealThumb(mealsItem.getStrMealThumb());
+		mealPlan.setStrYoutube(mealsItem.getStrYoutube());
+		mealPlan.setStrInstructions(mealsItem.getStrInstructions());
+		mealPlan.setStrIngredient1(mealsItem.getStrIngredient1());
+		mealPlan.setStrIngredient2(mealsItem.getStrIngredient2());
+		mealPlan.setStrIngredient3(mealsItem.getStrIngredient3());
+		mealPlan.setStrIngredient4(mealsItem.getStrIngredient4());
+		mealPlan.setStrIngredient5(mealsItem.getStrIngredient5());
+		mealPlan.setStrIngredient6(mealsItem.getStrIngredient6());
+		mealPlan.setStrIngredient7(mealsItem.getStrIngredient7());
+		mealPlan.setStrIngredient8(mealsItem.getStrIngredient8());
+		mealPlan.setStrIngredient9(mealsItem.getStrIngredient9());
+		mealPlan.setStrIngredient10(mealsItem.getStrIngredient10());
+		mealPlan.setStrIngredient11(mealsItem.getStrIngredient11());
+		mealPlan.setStrIngredient12(mealsItem.getStrIngredient12());
+		mealPlan.setStrIngredient13(mealsItem.getStrIngredient13());
+		mealPlan.setStrIngredient14(mealsItem.getStrIngredient14());
+		mealPlan.setStrIngredient15(mealsItem.getStrIngredient15());
+		mealPlan.setStrIngredient16(mealsItem.getStrIngredient16());
+		mealPlan.setStrIngredient17(mealsItem.getStrIngredient17());
+		mealPlan.setStrIngredient18(mealsItem.getStrIngredient18());
+		mealPlan.setStrIngredient19(mealsItem.getStrIngredient19());
+		mealPlan.setStrIngredient20(mealsItem.getStrIngredient20());
+		return mealPlan;
 	}
 }

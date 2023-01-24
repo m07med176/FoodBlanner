@@ -1,11 +1,12 @@
 package iti.android.foodplanner.data.network;
 
 import io.reactivex.rxjava3.core.Single;
-import iti.android.foodplanner.data.models.selections.area.AreasList;
-import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
-import iti.android.foodplanner.data.models.selections.category.CategoriesList;
-import iti.android.foodplanner.data.models.selections.Ingredient.IngredientsList;
+
 import iti.android.foodplanner.data.models.meal.MealsList;
+import iti.android.foodplanner.data.models.selections.Ingredient.IngredientsList;
+import iti.android.foodplanner.data.models.selections.area.AreasList;
+import iti.android.foodplanner.data.models.selections.category.CategoriesList;
+import iti.android.foodplanner.data.models.selections.categoryFeed.CategoriesFeed;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 

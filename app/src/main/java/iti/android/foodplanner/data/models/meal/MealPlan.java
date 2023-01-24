@@ -1,6 +1,10 @@
 package iti.android.foodplanner.data.models.meal;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -10,12 +14,13 @@ import com.google.gson.annotations.SerializedName;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import iti.android.foodplanner.data.room.Week;
 
 @Entity(tableName = "plans")
-public class MealPlan{
+public class MealPlan {
 
     @ColumnInfo
     private Week day;
@@ -121,6 +126,42 @@ public class MealPlan{
 
     @Ignore
     private ArrayList<String> ingredients;
+
+    public MealPlan() {
+    }
+
+    protected MealPlan(Parcel in) {
+        idMeal = in.readString();
+        strArea = in.readString();
+        strInstructions = in.readString();
+        strMealThumb = in.readString();
+        strYoutube = in.readString();
+        strMeal = in.readString();
+        strCategory = in.readString();
+        strIngredient10 = in.readString();
+        strIngredient12 = in.readString();
+        strIngredient11 = in.readString();
+        strIngredient14 = in.readString();
+        strIngredient13 = in.readString();
+        strIngredient16 = in.readString();
+        strIngredient15 = in.readString();
+        strIngredient18 = in.readString();
+        strIngredient17 = in.readString();
+        strIngredient19 = in.readString();
+        strIngredient1 = in.readString();
+        strIngredient3 = in.readString();
+        strIngredient2 = in.readString();
+        strIngredient20 = in.readString();
+        strIngredient5 = in.readString();
+        strIngredient4 = in.readString();
+        strIngredient7 = in.readString();
+        strIngredient6 = in.readString();
+        strIngredient9 = in.readString();
+        strIngredient8 = in.readString();
+        ingredients = in.createStringArrayList();
+    }
+
+
 
     public MealPlan migrateMealsToPlaneModel(MealsItem mealsItem){
         this.idMeal = mealsItem.getIdMeal();
@@ -454,4 +495,5 @@ public class MealPlan{
     public void setDay(Week day) {
         this.day = day;
     }
+
 }

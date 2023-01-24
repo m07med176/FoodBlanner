@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -67,7 +68,15 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
             }
         });
 
+        holder.itemHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                HomeFragmentDirections.ActionNavigationHomeToNavigationDetails action=HomeFragmentDirections.actionNavigationHomeToNavigationDetails();
+                action.setMealId(item.getIdMeal());
+                Navigation.findNavController(v).navigate(action);
+            }
+        });
     }
 
     public void setItemsList(List<MealsItem> itemsList){
@@ -85,14 +94,16 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         CheckBox addToFavBtn;
         TextView foodNameTv;
         ImageView thumnailView;
+        RelativeLayout itemHome;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            addToPlaneBtn = itemView.findViewById(R.id.btn_plane);
+            addToPlaneBtn = itemView.findViewById(R.id.addTOPlanButton);
             foodNameTv = itemView.findViewById(R.id.tv_title);
             addToFavBtn = itemView.findViewById(R.id.fav_ceheck);
             thumnailView = itemView.findViewById(R.id.thumnail_image);
+            itemHome=itemView.findViewById(R.id.itemHome);
         }
     }
 

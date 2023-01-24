@@ -74,12 +74,12 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         ImageView imagefav;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.food_name_tv);
-            tvArea = itemView.findViewById(R.id.area_tv);
-            imagefav = itemView.findViewById(R.id.imagefav);
-            tvCategory = itemView.findViewById(R.id.category_tv);
-            addToPlaneBtn = itemView.findViewById(R.id.btn_plane);
-            removeBtn = itemView.findViewById(R.id.btn_delete);
+            tvName = itemView.findViewById(R.id.nameDetailsTextView);
+            tvArea = itemView.findViewById(R.id.countryTextView);
+            imagefav = itemView.findViewById(R.id.mealImageView);
+            tvCategory = itemView.findViewById(R.id.categoryTextView);
+            addToPlaneBtn = itemView.findViewById(R.id.addTOPlanButton);
+            removeBtn = itemView.findViewById(R.id.addToFavoriteButton);
 
         }
     }
