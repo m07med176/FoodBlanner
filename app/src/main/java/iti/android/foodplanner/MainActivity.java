@@ -6,16 +6,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -28,19 +21,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import iti.android.foodplanner.data.TestActivity;
-import iti.android.foodplanner.data.authentication.Authentication;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.data.backup.BackupManager;
-import iti.android.foodplanner.data.models.BackupHolder;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
-import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,8 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigationUiSettings() {
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_favorite, R.id.navigation_plan)
+        int[] pages = {R.id.navigation_home,R.id.navigation_favorite,R.id.navigation_category, R.id.navigation_plan,R.id.navigation_details,R.id.navigation_onboarding};
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(pages)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main_app);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
