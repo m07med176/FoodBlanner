@@ -28,6 +28,7 @@ import iti.android.foodplanner.data.models.meal.MealsList;
 import iti.android.foodplanner.data.network.ApiCalls;
 import iti.android.foodplanner.data.network.Network;
 import iti.android.foodplanner.data.room.RoomDatabase;
+import iti.android.foodplanner.data.room.Week;
 import iti.android.foodplanner.data.shared.SharedManager;
 
 /**
@@ -289,6 +290,29 @@ public class Repository {
                     }
                 });
     }
+    //git conflict keep both changes
+    public void showPlanMealsByDay(Week dayName,DataFetch<List<MealPlan>> dataFetch)
+    {
+        roomDatabase.PlaneFoodDAO().showPlanMealsByDay(dayName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<MealPlan>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        dataFetch.onDataLoading();
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<MealPlan> mealPlans) {
+                        dataFetch.onDataSuccessResponse(mealPlans);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        dataFetch.onDataFailedResponse(e.getMessage());
+                    }
+                });
+    }
     public void deletePlanMeal(MealPlan mealPlan,DataFetch<Void> dataFetch){
         roomDatabase.PlaneFoodDAO()
                 .deletePlanMeal(mealPlan)
@@ -304,6 +328,9 @@ public class Repository {
                     public void onComplete() {
                             backupManager.deletePlane(mealPlan);
                             dataFetch.onDataSuccessResponse(null);
+
+
+
                     }
 
                     @Override
@@ -534,29 +561,8 @@ public class Repository {
                      }
                  });
     };
-     public void retriveMealDetail(String mealId,DataFetch<MealsItem> dataFetch){
-//
-//         apiCalls.retrieveMealByID(mealId).subscribeOn(Schedulers.io())
-//                 .observeOn(AndroidSchedulers.mainThread())
-//                 .subscribe(new SingleObserver<MealsItem>(){
-//                     @Override
-//                     public void onSubscribe(@NonNull Disposable d) {
-//
-//                     }
-//
-//                     @Override
-//                     public void onSuccess(@NonNull MealsItem mealsItem) {
-//
-//                     }
-//
-//                     @Override
-//                     public void onError(@NonNull Throwable e) {
-//
-//                     }
-//                 });
 
 
-     }
 
     // endregion APIs
 }

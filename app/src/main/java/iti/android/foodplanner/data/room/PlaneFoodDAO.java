@@ -22,7 +22,7 @@ public interface PlaneFoodDAO {
   @Query("DELETE FROM meals")
   public Completable removeAllTable();
 
- @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertPlanMeal(MealPlan mealPlan);
 
     @Delete
@@ -30,4 +30,7 @@ public interface PlaneFoodDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertAllTable(List<MealPlan> mealPlanList);
+    @Query("SELECT * FROM plans where day=:dayName" )
+    public Single<List<MealPlan>> showPlanMealsByDay(Week dayName);
 }
+

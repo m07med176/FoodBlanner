@@ -21,11 +21,14 @@ import iti.android.foodplanner.data.room.Week;
 
 @Entity(tableName = "plans")
 public class MealPlan {
-
+    @PrimaryKey(autoGenerate = true)
+    @NotNull
+    @ColumnInfo
+    @SerializedName("id")
+    private int id;
     @ColumnInfo
     private Week day;
-    @PrimaryKey
-    @NotNull
+
     @ColumnInfo(name = "idPlanCode")
     @SerializedName("idMeal")
     private String idMeal;
@@ -496,4 +499,11 @@ public class MealPlan {
         this.day = day;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

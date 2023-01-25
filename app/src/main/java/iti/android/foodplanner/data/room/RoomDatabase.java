@@ -9,7 +9,7 @@ import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
 
-@Database(entities = {MealsItem.class , MealPlan.class}, version = 9,exportSchema = false)
+@Database(entities = {MealsItem.class , MealPlan.class}, version = 10,exportSchema = false)
 public abstract class RoomDatabase extends androidx.room.RoomDatabase {
     public static final String DATABASE_FILE_NAME = "foodPlanner.db";
     private  static volatile RoomDatabase instance = null;
