@@ -30,21 +30,22 @@
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlHardcoded" />
-        <EditText
+        <TextView
             android:id="@+id/search_view"
             android:layout_margin="10dp"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/search_by_name"
             android:background="@drawable/input_style"
-            android:drawableStart="@android:drawable/ic_search_category_default"
-            android:padding="3dp"
+            android:drawableStart="@drawable/ic_search"
+            android:padding="7dp"
             app:layout_constraintBottom_toTopOf="@+id/section_title_category_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/search_title">
 
-        </EditText>
+        </TextView>
         <LinearLayout
             android:id="@+id/section_title_category_holder"
             android:layout_width="0dp"
@@ -70,8 +71,11 @@
 
             <TextView
                 style="@style/TextTitle"
+                android:id="@+id/seeMoreCategory"
+
                 android:layout_width="wrap_content"
 
+                android:background="@drawable/hover_effect"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 android:padding="2dp"
@@ -94,7 +98,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             tools:layout_editor_absoluteY="78dp"
-            tools:listitem="@layout/item_filter_area_and_category_list" />
+            tools:listitem="@layout/item_filter_category_list" />
 
 
         <LinearLayout
@@ -122,7 +126,10 @@
 
             <TextView
                 style="@style/TextTitle"
+                android:id="@+id/seeMoreArea"
+
                 android:layout_width="wrap_content"
+                android:background="@drawable/hover_effect"
 
                 android:layout_height="match_parent"
                 android:gravity="right"
@@ -143,7 +150,7 @@
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            tools:listitem="@layout/item_filter_area_and_category_list" />
+            tools:listitem="@layout/item_filter_category_list" />
 
         <LinearLayout
             android:id="@+id/section_title_ingredient_holder"
@@ -169,9 +176,10 @@
                 android:text="@string/search_by_ingredient" />
 
             <TextView
+                android:id="@+id/seeMoreIngredient"
                 style="@style/TextTitle"
                 android:layout_width="wrap_content"
-
+                android:background="@drawable/hover_effect"
                 android:layout_height="match_parent"
                 android:gravity="right"
                 android:padding="2dp"
@@ -180,18 +188,19 @@
                 android:text="@string/see_more" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
+            android:nestedScrollingEnabled="true"
             android:id="@+id/rv_ingredient"
             android:layout_width="0dp"
-            android:layout_height="287dp"
+            android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:textColor="@color/black"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            app:spanCount="2"
+            app:spanCount="3"
             tools:layout_editor_absoluteY="78dp"
             tools:listitem="@layout/item_filter_ingredient_list" />
 

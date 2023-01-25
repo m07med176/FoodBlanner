@@ -1,15 +1,14 @@
-package iti.android.foodplanner.ui.features.category;
+package iti.android.foodplanner.ui.features.category.adpaters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.AppCompatButton;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -20,9 +19,13 @@ import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.selections.Ingredient.Ingredient;
+import iti.android.foodplanner.ui.features.category.CategoryInterface;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class FilterIngredientAdapter extends RecyclerView.Adapter<FilterIngredientAdapter.ViewHolder> {
     private List<Ingredient> itemsList = new ArrayList<>();
+    public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
+
     private Context context;
     CategoryInterface categoryInterface;
 
@@ -42,13 +45,9 @@ public class FilterIngredientAdapter extends RecyclerView.Adapter<FilterIngredie
         Ingredient item = itemsList.get(position);
         holder.title.setText(item.getStrIngredient());
 
-        Glide.with(context)
-                .load(item.getThumnail())
-                .apply(new RequestOptions()
-                .override(400,300)
-                .placeholder(R.drawable.shippingback)
-                .error(R.drawable.ic_close_black_24dp))
-                .into(holder.thumnailView);
+
+        Utils.loadImage(context,item.getThumnail(),holder.thumnailView);
+
 
 
 
@@ -57,6 +56,8 @@ public class FilterIngredientAdapter extends RecyclerView.Adapter<FilterIngredie
     public void setItemsList(List<Ingredient> itemsList){
         this.itemsList = itemsList;
         notifyDataSetChanged();
+        isHaveData.postValue(itemsList.size()>0); // to notify if there is a data
+
     }
 
     @Override

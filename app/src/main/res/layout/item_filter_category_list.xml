@@ -20,6 +20,7 @@
             android:id="@+id/profile_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars"
             />
     </androidx.cardview.widget.CardView>
@@ -28,7 +29,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         style="@style/TextTitle"
-        android:textSize="22sp"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:lines="1"
         android:gravity="center"
         tools:text="@tools:sample/cities"/>
 </LinearLayout>

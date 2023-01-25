@@ -44,8 +44,6 @@
     <string name="dialog_negative_button">No</string>
 
 
-
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
@@ -67,12 +65,14 @@
     <string name="search_by_ingredient">Search By Ingredient</string>
     <string name="search_by_country">Search By Country</string>
     <string name="search_by_category">Search By Category</string>
-    <string name="see_more">See More</string>
-    <string name="search_by_name">Search By Name</string>
+    <string name="see_more"><u>See More</u></string>
+    <string name="search_by_name">Search by meal name</string>
     <string name="search_title">Search</string>
     <string name="dialy_inspire_title">Daily Inspiration</string>
     <string name="addToPlan">Add to plan</string>
     <string name="add">Add</string>
     <string name="title_details">Details</string>
+    <string name="add_to_plan">Add To Plan</string>
+    <string name="title_search">Search</string>
 
 </resources>

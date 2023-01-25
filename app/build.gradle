@@ -36,6 +36,7 @@ android {
     }
 }
 
+
 dependencies {
     // TODO Moamen [enhancement] : just sea enhancement of dependencies and
     //  unify versions and put it in variable
