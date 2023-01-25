@@ -36,34 +36,32 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
         View root = binding.getRoot();
 
         RecyclerView recyclerView = Utils.recyclerViewHandler(binding.rvListFavorite,getContext());
-        favoriteAdapter = new FavoriteAdapter(getContext(),mealsItemList, (item,position) -> {
-                presenter.removeFavorite(item, new DataFetch<Void>() {
-                    @Override
-                    public void onDataSuccessResponse(Void data) {
-                        mealsItemList.remove(item);
-                        favoriteAdapter.notifyItemRemoved(position);
-                    }
 
-                    @Override
-                    public void onDataFailedResponse(String message) {
-
-                    }
-
-                    @Override
-                    public void onDataLoading() {
-
-                    }
-                });
-        });
-        recyclerView.setAdapter(favoriteAdapter);
         presenter = new FavoritePresenter(getContext(),this);
 
         presenter.getFavorites(new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
-                mealsItemList.clear();
-                mealsItemList.addAll(data);
-                favoriteAdapter.notifyDataSetChanged();
+                favoriteAdapter = new FavoriteAdapter(getContext(),data, (item,position) -> {
+                    presenter.removeFavorite(item, new DataFetch<Void>() {
+                        @Override
+                        public void onDataSuccessResponse(Void data) {
+                            mealsItemList.remove(item);
+                            favoriteAdapter.notifyItemRemoved(position);
+                        }
+
+                        @Override
+                        public void onDataFailedResponse(String message) {
+
+                        }
+
+                        @Override
+                        public void onDataLoading() {
+
+                        }
+                    });
+                });
+                recyclerView.setAdapter(favoriteAdapter);
             }
 
 

@@ -33,6 +33,7 @@ import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActi
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainAppBinding binding;
+    private NavController navController;
 
 
     @Override
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(pages)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main_app);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main_app);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
@@ -96,5 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 .logout(this);
         startActivity(new Intent(this, SignUpOrLoginActivity.class));
         finish();
+    }
+
+    @Override
+    public boolean onNavigateUp() {
+        return navController.navigateUp() || super.onNavigateUp();
     }
 }

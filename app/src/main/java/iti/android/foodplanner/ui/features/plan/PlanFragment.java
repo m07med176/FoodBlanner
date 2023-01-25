@@ -20,7 +20,7 @@ public class PlanFragment extends Fragment {
         binding = FragmentPlanBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
+//        final TextView textView = binding.textNotifications;
         return root;
     }
 

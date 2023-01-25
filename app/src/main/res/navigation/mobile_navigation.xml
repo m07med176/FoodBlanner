@@ -59,7 +59,7 @@
     <fragment
         android:id="@+id/navigation_details"
         android:name="iti.android.foodplanner.ui.features.details.DetailsFragment"
-        android:label="fragment_details"
+        android:label="@string/title_details"
         tools:layout="@layout/fragment_details" >
         <argument
             android:name="mealId"
