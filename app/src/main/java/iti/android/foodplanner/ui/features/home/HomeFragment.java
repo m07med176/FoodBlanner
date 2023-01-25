@@ -13,20 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
+import iti.android.foodplanner.ui.features.category.CategoryFragment;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class HomeFragment extends Fragment implements HomeInterface {
@@ -43,6 +44,16 @@ public class HomeFragment extends Fragment implements HomeInterface {
         recycleriewIngredientsSettings();
         recycleriewCategorySettings();
         randomMealCardSettings(view);
+        navigateToSeeMore();
+
+//        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                binding.swipeRefresh.setRefreshing(false);
+//                Navigation.findNavController(view).navigate(R.id.navigation_home);
+//
+//            }
+//        });
     }
 
     private void recycleriewIngredientsSettings() {
@@ -62,16 +73,21 @@ public class HomeFragment extends Fragment implements HomeInterface {
         presenter.getRandomMeals(HomePresenter.INGREDIENT, new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
+                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
+                binding.shimmerHomeIngredient.setVisibility(View.GONE);
                 homeFeedAdapterIngredien.setItemsList(data);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
+                binding.shimmerHomeIngredient.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
+                binding.rvRandomIngredien.setVisibility(View.GONE);
+                binding.shimmerHomeIngredient.setVisibility(View.VISIBLE);
 
             }
         });
@@ -189,6 +205,18 @@ public class HomeFragment extends Fragment implements HomeInterface {
         return binding.getRoot();
     }
 
+    private void navigateToSeeMore() {
+        binding.seeMoreArea.setOnClickListener(view -> {
+            Utils.navigatorHomeToSearchFragment(view, CategoryFragment.AREA,"");
+        });
+        binding.seeMoreCategory.setOnClickListener(view -> {
+            Utils.navigatorHomeToSearchFragment(view,CategoryFragment.CATEGORY,"");
+        });
+        binding.seeMoreIngredients.setOnClickListener(view -> {
+            Utils.navigatorHomeToSearchFragment(view,CategoryFragment.INGREDIENT,"");
+        });
+
+    }
 
     @Override
     public void onSavePlane(MealsItem item) {

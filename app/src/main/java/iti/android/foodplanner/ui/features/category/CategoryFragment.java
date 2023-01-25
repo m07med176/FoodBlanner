@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -23,7 +22,6 @@ import iti.android.foodplanner.databinding.FragmentCategoryBinding;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterAreaAdapter;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterCategoryAdapter;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterIngredientAdapter;
-import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class CategoryFragment extends Fragment implements CategoryInterface {
@@ -48,16 +46,16 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
 
     private void navigateToSeeMore() {
         binding.seeMoreArea.setOnClickListener(view -> {
-            Utils.navigatorToSearchFragment(view,AREA,"");
+            Utils.navigatorCategoryToSearchFragment(view,AREA,"");
         });
         binding.seeMoreCategory.setOnClickListener(view -> {
-            Utils.navigatorToSearchFragment(view,CATEGORY,"");
+            Utils.navigatorCategoryToSearchFragment(view,CATEGORY,"");
         });
         binding.seeMoreIngredient.setOnClickListener(view -> {
-            Utils.navigatorToSearchFragment(view,INGREDIENT,"");
+            Utils.navigatorCategoryToSearchFragment(view,INGREDIENT,"");
         });
         binding.searchView.setOnClickListener(view -> {
-            Utils.navigatorToSearchFragment(view,SEARCH,"");
+            Utils.navigatorCategoryToSearchFragment(view,SEARCH,"");
         });
 
     }

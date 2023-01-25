@@ -1,27 +1,22 @@
 package iti.android.foodplanner.ui.util;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.ui.features.category.CategoryFragmentDirections;
+import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
 
 public class Utils {
     public static RecyclerView recyclerViewHandler(RecyclerView recyclerView, Context context){
@@ -48,8 +43,14 @@ public class Utils {
                         .error(R.drawable.shippingback))
                 .into(imageView);
     }
-    public static void navigatorToSearchFragment(View view, int type,String searchQuerry){
+    public static void navigatorCategoryToSearchFragment(View view, int type, String searchQuerry){
         CategoryFragmentDirections.ActionNavigationCategoryToNavigationSearch action = CategoryFragmentDirections.actionNavigationCategoryToNavigationSearch(type);
+        action.setSearch(searchQuerry);
+        Navigation.findNavController(view).navigate(action);
+    }
+
+    public static void navigatorHomeToSearchFragment(View view, int type,String searchQuerry){
+        HomeFragmentDirections.ActionNavigationHomeToNavigationSearch action = HomeFragmentDirections.actionNavigationHomeToNavigationSearch(type);
         action.setSearch(searchQuerry);
         Navigation.findNavController(view).navigate(action);
     }
