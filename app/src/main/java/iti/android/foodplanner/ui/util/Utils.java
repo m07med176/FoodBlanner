@@ -3,6 +3,8 @@ package iti.android.foodplanner.ui.util;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 
 import androidx.navigation.Navigation;
@@ -49,6 +51,11 @@ public class Utils {
         Navigation.findNavController(view).navigate(action);
     }
 
+    public static void setAutoCompleteCash(Context context,String[] data, AutoCompleteTextView search) {
+        // Auto Complete
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, data);
+        search.setAdapter(adapter);
+    }
     public static void navigatorHomeToSearchFragment(View view, int type,String searchQuerry){
         HomeFragmentDirections.ActionNavigationHomeToNavigationSearch action = HomeFragmentDirections.actionNavigationHomeToNavigationSearch(type);
         action.setSearch(searchQuerry);

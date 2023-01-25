@@ -12,27 +12,38 @@ import iti.android.foodplanner.data.models.selections.area.Area;
 import iti.android.foodplanner.data.models.selections.category.Category;
 
 public class SearchPresenter {
+    public static final String AREA= "AREA";
+    public static final String CATEGORY= "CATEGORY";
+    public static final String INGREDIENT= "INGREDIENT";
+    public static final String SEARCH= "SEARCH";
+    private Repository repository;
+    private SearchInterface searchInterface;
 
-    Repository repository;
 
-    public SearchPresenter(Context context) {
+    public SearchPresenter(Context context,SearchInterface searchInterface) {
+        this.searchInterface = searchInterface;
         repository = Repository.getInstance(context);
     }
 
-    public void getCategories(DataFetch<List<MealsItem>> dataFetch){
-        repository.retrieveFilterResults(null,null,"American",dataFetch);
-    }
+    public void getSearchResultMeals(String type,String query){
+        switch (type){
+            case AREA:
+                repository.retrieveFilterResults(null, null, query,searchInterface);
+                break;
+            case CATEGORY:
+                repository.retrieveFilterResults(query, null, null,searchInterface);
+                break;
+            case INGREDIENT:
+                repository.retrieveFilterResults(null, query, null,searchInterface);
+                break;
+            case SEARCH:
+                repository.searchMealsByName(query,searchInterface);
+                break;
 
-    public void getFilterAreaResults(DataFetch<List<Area>> dataFetch){
-        repository.areasList(dataFetch);
-    }
 
-    public void getFilterCategoryResults(DataFetch<List<Category>> dataFetch){
-        repository.categoriesList(dataFetch);
-    }
+        }
 
-    public void getFilterIngredientResults(DataFetch<List<Ingredient>> dataFetch){
-        repository.ingredientsList(dataFetch);
+
     }
 
 }

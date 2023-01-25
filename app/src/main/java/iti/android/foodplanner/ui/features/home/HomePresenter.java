@@ -2,11 +2,14 @@ package iti.android.foodplanner.ui.features.home;
 
 import android.content.Context;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.data.shared.SharedManager;
 
 public class HomePresenter {
     public static final String AREA= "AREA";
@@ -23,15 +26,23 @@ public class HomePresenter {
 
 
     public void getRandomMeals(String type,DataFetch<List<MealsItem>> dataFetch){
+        int random = 0;
+        String[] cashList;
         switch (type){
             case AREA:
-                repository.retrieveFilterResults(null, null, "Egyptian",dataFetch);
+                cashList = repository.getList(SharedManager.AREAS);
+                random = new Random().nextInt(cashList.length);
+                repository.retrieveFilterResults(null, null, cashList[random], dataFetch);
                 break;
             case CATEGORY:
-                repository.retrieveFilterResults("Beef", null, null,dataFetch);
+                cashList = repository.getList(SharedManager.CATEGORIES);
+                random = new Random().nextInt(cashList.length);
+                repository.retrieveFilterResults(cashList[random], null, null,dataFetch);
                 break;
             case INGREDIENT:
-                repository.retrieveFilterResults(null, "Chicken", null,dataFetch);
+                cashList = repository.getList(SharedManager.INGREDIENTS);
+                random = new Random().nextInt(cashList.length);
+                repository.retrieveFilterResults(null, cashList[random], null,dataFetch);
                 break;
             case SINGLE:
                 repository.lookupSingleRandomMeal(dataFetch);
@@ -44,12 +55,6 @@ public class HomePresenter {
     public void saveFavorite(MealsItem item,DataFetch<Void> dataFetch){
         repository.insertFavoriteMealDataBase(item,dataFetch);
     }
-
-
-
-
-    // TODO function get daily inspiration from [network or cash from ROOM]
-    // TODO function get ArrayList of Categories Food
 
 
 

@@ -42,26 +42,33 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
         presenter.getFavorites(new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
-                favoriteAdapter = new FavoriteAdapter(getContext(),data, (item,position) -> {
-                    presenter.removeFavorite(item, new DataFetch<Void>() {
-                        @Override
-                        public void onDataSuccessResponse(Void data) {
-                            mealsItemList.remove(item);
-                            favoriteAdapter.notifyItemRemoved(position);
-                        }
+                if (data.size() != 0){
+                    binding.rvListFavorite.setVisibility(View.GONE);
+                    binding.noDataHolder.setVisibility(View.VISIBLE);
+                }else {
+                    binding.rvListFavorite.setVisibility(View.VISIBLE);
+                    binding.noDataHolder.setVisibility(View.GONE);
+                    favoriteAdapter = new FavoriteAdapter(getContext(), data, (item, position) -> {
+                        presenter.removeFavorite(item, new DataFetch<Void>() {
+                            @Override
+                            public void onDataSuccessResponse(Void data) {
+                                mealsItemList.remove(item);
+                                favoriteAdapter.notifyItemRemoved(position);
+                            }
 
-                        @Override
-                        public void onDataFailedResponse(String message) {
+                            @Override
+                            public void onDataFailedResponse(String message) {
 
-                        }
+                            }
 
-                        @Override
-                        public void onDataLoading() {
+                            @Override
+                            public void onDataLoading() {
 
-                        }
+                            }
+                        });
                     });
-                });
-                recyclerView.setAdapter(favoriteAdapter);
+                    recyclerView.setAdapter(favoriteAdapter);
+                }
             }
 
 

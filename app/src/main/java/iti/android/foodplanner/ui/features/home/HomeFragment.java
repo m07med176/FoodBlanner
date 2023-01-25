@@ -51,7 +51,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
 //            public void onRefresh() {
 //                binding.swipeRefresh.setRefreshing(false);
 //                Navigation.findNavController(view).navigate(R.id.navigation_home);
-//
 //            }
 //        });
     }
@@ -60,16 +59,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
         RecyclerView rvRandomIngredien = Utils.recyclerViewHandler(binding.rvRandomIngredien, getContext());
         HomeFeedAdapter homeFeedAdapterIngredien = new HomeFeedAdapter(getContext(), this);
         rvRandomIngredien.setAdapter(homeFeedAdapterIngredien);
-        homeFeedAdapterIngredien.isHaveData.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean haveData) {
-                if (haveData){
-
-                }else{
-
-                }
-            }
-        });
         presenter.getRandomMeals(HomePresenter.INGREDIENT, new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
@@ -88,12 +77,8 @@ public class HomeFragment extends Fragment implements HomeInterface {
             public void onDataLoading() {
                 binding.rvRandomIngredien.setVisibility(View.GONE);
                 binding.shimmerHomeIngredient.setVisibility(View.VISIBLE);
-
             }
         });
-
-
-
     }
 
     private void recycleriewAreaSettings() {

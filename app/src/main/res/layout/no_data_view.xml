@@ -7,4 +7,4 @@
     android:background="@color/main_color"
     app:lottie_autoPlay="true"
     app:lottie_loop="true"
-    app:lottie_rawRes="@raw/offline_animation" />
+    app:lottie_rawRes="@raw/nothing_data_animation" />

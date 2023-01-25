@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.List;
+import java.util.function.Function;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -69,6 +70,10 @@ public class Repository {
 
     public User getUser(){
         return sharedManager.getUser();
+    }
+
+    public String[] getList(String type){
+        return sharedManager.getList(type);
     }
     public boolean isFirstEntrance(){
         return sharedManager.isFirstEntrance();
@@ -379,6 +384,8 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull IngredientsList ingredientsList) {
+                String[] arrayList  =(String[])ingredientsList.getMeals().stream().map(category -> category.getStrIngredient()).toArray();
+                sharedManager.saveList(SharedManager.INGREDIENTS,arrayList);
                 dataFetch.onDataSuccessResponse(ingredientsList.getMeals());
             }
 
@@ -404,6 +411,8 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull CategoriesList categoriesList) {
+                        String[] arrayList  =(String[])categoriesList.getCategory().stream().map(category -> category.getStrCategory()).toArray();
+                        sharedManager.saveList(SharedManager.CATEGORIES,arrayList);
                         dataFetch.onDataSuccessResponse(categoriesList.getCategory());
                     }
 
@@ -431,6 +440,8 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull AreasList areasList) {
+                        String[] arrayList  =(String[])areasList.getAreas().stream().map(category -> category.getStrArea()).toArray();
+                        sharedManager.saveList(SharedManager.AREAS,arrayList);
                         dataFetch.onDataSuccessResponse(areasList.getAreas());
                     }
 
