@@ -19,10 +19,14 @@ public class HomePresenter {
     private HomeInterface homeInterface;
     private Repository repository;
 
+    public boolean isUser = false;
+
     public HomePresenter(Context context, HomeInterface homeInterface) {
         this.homeInterface = homeInterface;
         repository = Repository.getInstance(context);
+        isUser = repository.isUser();
     }
+
 
 
     public void getRandomMeals(String type,DataFetch<List<MealsItem>> dataFetch){

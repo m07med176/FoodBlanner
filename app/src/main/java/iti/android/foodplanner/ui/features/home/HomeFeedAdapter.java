@@ -30,11 +30,13 @@ import iti.android.foodplanner.ui.util.Utils;
 public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHolder> {
     private List<MealsItem> itemsList = new ArrayList<>();
     public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
+    private HomePresenter presenter;
 
     private Context context;
     private HomeInterface homeInterface;
 
     public HomeFeedAdapter(Context context, HomeInterface homeInterface) {
+        presenter = new HomePresenter(context,homeInterface);
         this.context = context;
         this.homeInterface = homeInterface;
     }
@@ -53,6 +55,10 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
 
         Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
 
+        if (!presenter.isUser){
+            holder.addToPlaneBtn.setVisibility(View.GONE);
+            holder.addToFavBtn.setVisibility(View.GONE);
+        }
 
 
         holder.addToPlaneBtn.setOnClickListener(new View.OnClickListener() {
