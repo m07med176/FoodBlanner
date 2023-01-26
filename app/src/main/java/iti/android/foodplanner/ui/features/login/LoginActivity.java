@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -106,7 +107,8 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "",
+                        "Loading. Please wait...", true);
                authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString());
 
             }

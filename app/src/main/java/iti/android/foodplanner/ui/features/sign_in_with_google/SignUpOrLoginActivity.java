@@ -4,13 +4,16 @@ package iti.android.foodplanner.ui.features.sign_in_with_google;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 
 import iti.android.foodplanner.MainActivity;
@@ -27,8 +30,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     SignInButton loginWithGoogleButton;
     TextView loginTxtViewBtn;
     Button guestButton;
-
-
+    private ProgressDialog progressDialog;
     SignInWithGooglePresenter presenter;
 
     @Override
@@ -67,9 +69,14 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+                progressDialog=new ProgressDialog(SignUpOrLoginActivity.this);
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setMessage("Please Wait .....");
+                progressDialog.setTitle("Get Ready");
+                progressDialog.show();
        presenter.checkRequestCode(requestCode,data);
-    }
 
+    }
 
 
 
@@ -96,5 +103,14 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
     public void gotoApp() {
         startActivity(new Intent(SignUpOrLoginActivity.this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(progressDialog!=null)
+        {
+            progressDialog.dismiss();
+        }
     }
 }

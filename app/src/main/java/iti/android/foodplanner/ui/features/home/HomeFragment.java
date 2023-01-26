@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.home;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,12 +27,14 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
+import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class HomeFragment extends Fragment implements HomeInterface {
 
     private HomePresenter presenter;
     private FragmentHomeBinding binding;
+
 
 
     @Override

@@ -4,6 +4,7 @@ import static iti.android.foodplanner.R.*;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.appcompat.widget.AppCompatButton;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,8 +65,13 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
     private List<String> ingridients;
     private MealPlan mealPlan;
 
-
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        DetailsFragment.this.requireActivity().getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION|
+                        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -98,7 +105,8 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
                 }
                 Glide.with(requireContext()).
                         load(mealsItem.getStrMealThumb())
-                        .apply(new RequestOptions().override(400,300).
+                        .apply(new RequestOptions().override(1920,1080).
+
                                 placeholder(drawable.app_logo).error(drawable.app_logo)).
                         into(imageView);
 

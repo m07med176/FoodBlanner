@@ -10,157 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/input_style"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                app:cardCornerRadius="10dp">
-
-                <ImageView
-                    android:id="@+id/mealImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:src="@tools:sample/avatars" />
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingTop="10dp">
-
-                    <TextView
-                        android:id="@+id/nameDetailsTextView"
-                        style="@style/TextTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center_horizontal"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        tools:text="@tools:sample/cities" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
-                        android:orientation="horizontal"
-                        android:paddingTop="2dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_grade_black_24dp" />
-
-                        <TextView
-                            android:id="@+id/categoryTextView"
-                            style="@style/TextTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:textStyle="bold"
-                            tools:text="@tools:sample/first_names" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:paddingTop="2dp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_home_black_24dp" />
-
-                        <TextView
-                            android:id="@+id/countryTextView"
-                            style="@style/TextTitle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center_horizontal"
-                            android:textStyle="bold"
-                            tools:text="@tools:sample/first_names" />
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingTop="2dp">
-
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/addTOPlanButton"
-                        android:layout_width="270dp"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_weight="1"
-
-                        android:background="@drawable/button_calender_effect"
-                        android:drawableStart="@drawable/ic_plane"
-                        android:gravity="center"
-                        android:padding="3dp"
-                        android:text="Add To Calender" />
-
-                    <ImageView
-                        android:id="@+id/addToFavoriteButton"
-                        android:layout_width="67dp"
-                        android:layout_height="46dp"
-                        android:layout_weight=".25"
-                        android:padding="5dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/favorite_effect" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
         <TextView
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Instructions"
             android:textColor="@color/black"
             android:textSize="24sp"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addTOPlanButton" />
 
         <TextView
             android:id="@+id/instructionsTextView"
@@ -195,9 +55,9 @@
             app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -211,6 +71,165 @@
                 app:autoPlay="true"
                 app:videoId="" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addTOPlanButton"
+            android:layout_width="270dp"
+            android:layout_height="48dp"
+
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_calender_effect"
+            android:drawableStart="@drawable/ic_plane"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="Add To Calender"
+            android:elevation="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <ImageView
+            android:id="@+id/addToFavoriteButton"
+            android:layout_width="67dp"
+            android:layout_height="46dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight=".25"
+            android:padding="5dp"
+            android:elevation="30dp"
+            android:src="@drawable/favorite_effect"
+            app:layout_constraintBottom_toBottomOf="@+id/addTOPlanButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addTOPlanButton"
+            app:layout_constraintTop_toTopOf="@+id/addTOPlanButton" />
+
+        <ImageView
+            android:id="@+id/mealImageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-32dp"
+            app:cardCornerRadius="50dp"
+            app:cardElevation="10dp"
+            app:strokeColor="@color/black"
+            android:backgroundTint="@color/main_color"
+
+            app:strokeWidth="1dp"
+            app:layout_constraintEnd_toEndOf="@+id/mealImageView"
+            app:layout_constraintStart_toStartOf="@+id/mealImageView"
+            app:layout_constraintTop_toBottomOf="@+id/mealImageView">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                >
+
+                <TextView
+                    android:id="@+id/nameDetailsTextView"
+                    style="@style/TextTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    tools:text="@tools:sample/cities" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/countryTextView"
+                            style="@style/TextTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textStyle="italic"
+
+                            android:gravity="center_horizontal"
+                            tools:text="@tools:sample/first_names" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/country" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/categoryTextView"
+                        style="@style/TextTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="italic"
+                        android:gravity="center_horizontal"
+                        tools:text="@tools:sample/first_names" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/category" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toTopOf="@+id/textView11"
+            app:srcCompat="@drawable/instructors" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintTop_toTopOf="@+id/textView15"
+            app:srcCompat="@drawable/ingredient" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

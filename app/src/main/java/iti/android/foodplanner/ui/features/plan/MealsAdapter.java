@@ -39,6 +39,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
         LayoutInflater inflater=LayoutInflater.from(parent.getContext());
         View v =inflater.inflate(R.layout.meals_row,parent,false);
 
+
         return new MealsAdapter.ViewHolder(v);
     }
 
@@ -103,6 +104,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
         ImageView deleteButton;
         ImageView mealThumb;
 
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             mealName=itemView.findViewById(R.id.nameMealTxtView);
@@ -110,6 +113,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
             mealCountry=itemView.findViewById(R.id.countryTxtView);
             deleteButton=itemView.findViewById(R.id.removeFromPlanButton);
             mealThumb=itemView.findViewById(R.id.mealImgView);
+
         }
     }
 }

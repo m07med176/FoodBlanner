@@ -47,7 +47,10 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
-
+    <style name="Theme.App" parent="Theme.Material3.DayNight.Dialog">
+        ...
+        <item name="colorPrimary">@color/purbleButtonsEnabled</item>
+    </style>
 
     <style name="TextLabel" parent="Theme.Design">
         <!-- Hint color and label color in FALSE state -->

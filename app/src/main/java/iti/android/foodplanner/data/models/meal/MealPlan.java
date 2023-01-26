@@ -19,18 +19,13 @@ import java.util.ArrayList;
 
 import iti.android.foodplanner.data.room.Week;
 
-@Entity(tableName = "plans")
-public class MealPlan {
-    @PrimaryKey(autoGenerate = true)
-    @NotNull
-    @ColumnInfo
-    @SerializedName("id")
-    private int id;
-    @ColumnInfo
-    private Week day;
 
-    @ColumnInfo(name = "idPlanCode")
-    @SerializedName("idMeal")
+@Entity(primaryKeys = {"day","idMeal"})
+public class MealPlan {
+
+    @NonNull
+    private Week day;
+    @NonNull
     private String idMeal;
 
     @ColumnInfo(name = "country")
@@ -499,11 +494,4 @@ public class MealPlan {
         this.day = day;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

@@ -56,6 +56,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.SATURDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
@@ -76,6 +80,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.SUNDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
@@ -96,8 +104,14 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.MONDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter=new MealsAdapter(context,data);
-                        holder.mealsRecyclerView.setAdapter(mealsAdapter);
+                        if(!data.isEmpty())
+                        {
+                            holder.emptyView.setText(" ");
+                            mealsAdapter = new MealsAdapter(context, data);
+                            holder.mealsRecyclerView.setAdapter(mealsAdapter);
+                        }
+                        holder.emptyView.setText("View VISIBLE");
+
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
                     }
 
@@ -116,6 +130,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.TUESDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
@@ -136,6 +154,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.WEDNESDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
@@ -156,6 +178,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.THURSDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
                         Log.i("RoomTAG", "onDataSuccessResponse:from room "+data.size());
@@ -176,6 +202,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.FRIDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
+                        if(data.isEmpty())
+                        {
+                            holder.emptyView.setVisibility(View.VISIBLE);
+                        }
                         mealsAdapter=new MealsAdapter(context,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
@@ -197,6 +227,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
         }
 
+
     }
 
     @Override
@@ -206,11 +237,12 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView dayTxtView;
         RecyclerView mealsRecyclerView;
+        private TextView emptyView;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dayTxtView=itemView.findViewById(R.id.dayTextView);
             mealsRecyclerView=itemView.findViewById(R.id.mealsRecycleView);
-
+            emptyView = itemView.findViewById(R.id.empty_view);
 
         }
     }

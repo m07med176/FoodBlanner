@@ -16,11 +16,11 @@ import iti.android.foodplanner.data.models.meal.MealPlan;
 
 @Dao
 public interface PlaneFoodDAO {
-   @Query("SELECT * FROM plans")
+   @Query("SELECT * FROM MealPlan")
     public Single<List<MealPlan>> showPlanMeals();
 
-  @Query("DELETE FROM meals")
-  public Completable removeAllTable();
+    @Query("DELETE FROM meals")
+    public Completable removeAllTable();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertPlanMeal(MealPlan mealPlan);
@@ -30,7 +30,8 @@ public interface PlaneFoodDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertAllTable(List<MealPlan> mealPlanList);
-    @Query("SELECT * FROM plans where day=:dayName" )
+
+    @Query("SELECT * FROM MealPlan where day=:dayName" )
     public Single<List<MealPlan>> showPlanMealsByDay(Week dayName);
 }
 

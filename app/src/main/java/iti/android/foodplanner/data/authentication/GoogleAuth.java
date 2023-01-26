@@ -91,6 +91,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
         }
 
         public Intent loginWithGoogle() {
+
             return Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         }
 
@@ -112,6 +113,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
         private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
             AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
             mAuth.signInWithCredential(credential)
+
                     .addOnSuccessListener(authResult -> {
                         User user = getUserData();
                         SharedManager sharedManager = SharedManager.getInstance(context);
