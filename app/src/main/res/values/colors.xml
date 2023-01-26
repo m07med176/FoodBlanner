@@ -21,5 +21,7 @@
 
     <color name="main_color">#FFFFFF</color>
     <color name="main_color_2">#000000</color>
+    <color name="transperant">#33000000</color>
+    <color name="transparent_grey">#33000000</color>
 
 </resources>

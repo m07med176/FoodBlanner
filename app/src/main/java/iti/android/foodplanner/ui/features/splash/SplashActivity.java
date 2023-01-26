@@ -5,12 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
-
+import iti.android.foodplanner.ui.features.onBoarding.OnBoardingActivity;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -27,7 +24,7 @@ public class SplashActivity extends AppCompatActivity {
         new Thread(() -> {
             try {
                 Thread.sleep(4000);
-                startActivity(new Intent(getApplicationContext(), SignUpOrLoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), OnBoardingActivity.class));
                 finish();
 
             } catch (InterruptedException e) {

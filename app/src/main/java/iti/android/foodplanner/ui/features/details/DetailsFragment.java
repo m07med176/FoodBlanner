@@ -163,6 +163,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         instructionsTv=root.findViewById(id.instructionsTextView);
 
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

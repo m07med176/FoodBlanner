@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         navigationUiSettings();
 
         BackupManager.getInstance(SharedManager.getInstance(this)).restoreData(new EventListener<QuerySnapshot>() {
