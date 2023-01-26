@@ -5,7 +5,6 @@ import java.util.List;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 
-public interface FavoriteInterface  {
+public interface FavoriteInterface  extends DataFetch<List<MealsItem>>{
 
-    // TODO get data from favorite table
 }

@@ -1,24 +1,25 @@
 package iti.android.foodplanner.ui.features.favorite;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentFavoriteBinding;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.util.Utils;
 
 
@@ -28,67 +29,126 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
     private FavoritePresenter presenter;
     private FavoriteAdapter favoriteAdapter;
     private List<MealsItem> mealsItemList = new ArrayList<>();
+    private  RecyclerView recyclerView;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
 
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
-
-        RecyclerView recyclerView = Utils.recyclerViewHandler(binding.rvListFavorite,getContext());
-
         presenter = new FavoritePresenter(getContext(),this);
 
-        presenter.getFavorites(new DataFetch<List<MealsItem>>() {
-            @Override
-            public void onDataSuccessResponse(List<MealsItem> data) {
-                if (data.size() != 0){
-                    binding.rvListFavorite.setVisibility(View.GONE);
-                    binding.noDataHolder.setVisibility(View.VISIBLE);
-                }else {
-                    binding.rvListFavorite.setVisibility(View.VISIBLE);
-                    binding.noDataHolder.setVisibility(View.GONE);
-                    favoriteAdapter = new FavoriteAdapter(getContext(), data, (item, position) -> {
-                        presenter.removeFavorite(item, new DataFetch<Void>() {
-                            @Override
-                            public void onDataSuccessResponse(Void data) {
-                                mealsItemList.remove(item);
-                                favoriteAdapter.notifyItemRemoved(position);
-                            }
+        View view = binding.getRoot();
+        if (!presenter.isUser){
+            getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
+            Toast.makeText(getContext(), "Please Login First or Register", Toast.LENGTH_SHORT).show();
+            return view;
+        }
+        recyclerViewHandle();
+        presenter.getFavorites(this);
+        return view;
+    }
 
-                            @Override
-                            public void onDataFailedResponse(String message) {
+    private void recyclerViewHandle() {
+        recyclerView = Utils.recyclerViewHandler(binding.rvListFavorite,getContext());
+        favoriteAdapter = new FavoriteAdapter(getContext(), mealsItemList, (item, position) -> {
+            presenter.removeFavorite(item, new DataFetch<Void>() {
+                @Override
+                public void onDataSuccessResponse(Void data) {
+                    mealsItemList.remove(item);
+                    favoriteAdapter.notifyItemRemoved(position);
+                    if (mealsItemList.size() == 0)
+                        showNoData();
 
-                            }
 
-                            @Override
-                            public void onDataLoading() {
-
-                            }
-                        });
-                    });
-                    recyclerView.setAdapter(favoriteAdapter);
                 }
-            }
 
+                @Override
+                public void onDataFailedResponse(String message) {
+                    Toast.makeText(getContext(), "Problem happened during delete "+message, Toast.LENGTH_SHORT).show();
+                }
 
-            @Override
-            public void onDataFailedResponse(String message) {
+                @Override
+                public void onDataLoading() {
 
-            }
-
-            @Override
-            public void onDataLoading() {
-
-            }
+                }
+            });
         });
+        recyclerView.setAdapter(favoriteAdapter);
+    }
 
-        return root;
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (!presenter.isUser)
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_home);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (!presenter.isUser)
+            Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_home);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+
+    @Override
+    public void onDataSuccessResponse(List<MealsItem> data) {
+        if (data.size() == 0){
+            showNoData();
+        }else{
+            showData();
+            mealsItemList.clear();
+            mealsItemList.addAll(data);
+            favoriteAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    private void showNoData() {
+        binding.rvListFavorite.setVisibility(View.GONE);
+        binding.noDataHolder.setVisibility(View.VISIBLE);
+        binding.noNetworkHolder.setVisibility(View.GONE);
+        binding.shimmerHolder.setVisibility(View.GONE);
+
+    }
+
+    private void showData() {
+        binding.rvListFavorite.setVisibility(View.VISIBLE);
+        binding.noDataHolder.setVisibility(View.GONE);
+        binding.shimmerHolder.setVisibility(View.GONE);
+        binding.noNetworkHolder.setVisibility(View.GONE);
+    }
+
+    private void showError() {
+        binding.rvListFavorite.setVisibility(View.GONE);
+        binding.noDataHolder.setVisibility(View.GONE);
+        binding.shimmerHolder.setVisibility(View.GONE);
+        binding.noNetworkHolder.setVisibility(View.VISIBLE);
+
+    }
+
+    private void showShimmer() {
+        binding.rvListFavorite.setVisibility(View.GONE);
+        binding.noDataHolder.setVisibility(View.GONE);
+        binding.noNetworkHolder.setVisibility(View.GONE);
+        binding.shimmerHolder.setVisibility(View.VISIBLE);
+
+    }
+
+
+    @Override
+    public void onDataFailedResponse(String message) {
+        showError();
+        Toast.makeText(getContext(), "Error Happened "+message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDataLoading() {
+        showShimmer();
     }
 }

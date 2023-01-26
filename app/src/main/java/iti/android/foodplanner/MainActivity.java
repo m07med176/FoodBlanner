@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -51,8 +52,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.settings_option:
-                break;
             case R.id.signout_option:
                 logoutFromApp();
                 break;
@@ -62,11 +61,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logoutFromApp() {
-        int autProvider = SharedManager.getInstance(this).getUser().getAuthProvider();
-        AuthenticationFactory.authenticationManager(autProvider)
-                .logout(this);
-        startActivity(new Intent(this, SignUpOrLoginActivity.class));
-        finish();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(getResources().getString(R.string.logout_title));
+        alertDialog.setMessage(getResources().getString(R.string.logout_message_dialog));
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton(getResources().getString(R.string.dialog_positive_button), (dialog, which) ->
+        {
+            int autProvider = SharedManager.getInstance(this).getUser().getAuthProvider();
+            AuthenticationFactory.authenticationManager(autProvider)
+                    .logout(this);
+            startActivity(new Intent(this, SignUpOrLoginActivity.class));
+            finish();
+        });
+        alertDialog.setNegativeButton(getResources().getString(R.string.dialog_negative_button), (dialog, which) -> dialog.cancel());
+
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
+
     }
 
     @Override

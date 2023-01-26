@@ -63,19 +63,21 @@ public class BackupManager  {
                 .addOnCompleteListener(onCompleteListener);
     }
     public void deleteFavorite(MealsItem mealsItem){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(FAV_KEY).document(mealsItem.getIdMeal()).delete();
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY).document(mealsItem.getIdMeal()).delete();
 
     }
     public void saveFavorite(MealsItem mealsItem){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(FAV_KEY)
-                .document(mealsItem.getIdMeal())
-                .set(mealsItem);
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY)
+                    .document(mealsItem.getIdMeal())
+                    .set(mealsItem);
     }
 
     public void restoreDataFavorite(OnSuccessListener<QuerySnapshot> onQuerySnapshot){
@@ -98,19 +100,21 @@ public class BackupManager  {
     }
 
     public void deletePlane(MealPlan mealPlan){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(PLANE_KEY).document(mealPlan.getIdMeal()).delete();
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(PLANE_KEY).document(mealPlan.getIdMeal()).delete();
 
     }
     public void savePlane(MealPlan mealPlan){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(FAV_KEY)
-                .document(mealPlan.getIdMeal())
-                .set(mealPlan);
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY)
+                    .document(mealPlan.getIdMeal())
+                    .set(mealPlan);
     }
 
 

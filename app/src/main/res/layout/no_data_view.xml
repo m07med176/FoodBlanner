@@ -7,4 +7,5 @@
     android:background="@color/main_color"
     app:lottie_autoPlay="true"
     app:lottie_loop="true"
+    android:layout_marginTop="30dp"
     app:lottie_rawRes="@raw/nothing_data_animation" />
