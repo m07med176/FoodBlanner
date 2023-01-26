@@ -5,11 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
@@ -17,6 +15,8 @@ import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.data.shared.SharedManager;
@@ -82,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.setCancelable(false);
         alertDialog.setPositiveButton(getResources().getString(R.string.dialog_positive_button), (dialog, which) ->
         {
+
+
             int autProvider = SharedManager.getInstance(this).getUser().getAuthProvider();
             AuthenticationFactory.authenticationManager(autProvider)
                     .logout(this);

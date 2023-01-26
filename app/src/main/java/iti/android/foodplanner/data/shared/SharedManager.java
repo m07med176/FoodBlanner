@@ -4,20 +4,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import iti.android.foodplanner.data.models.User;
-import iti.android.foodplanner.data.network.ApiCalls;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SharedManager {
     public static final String DELEMETER = ",";
@@ -101,5 +91,8 @@ public class SharedManager {
         }
         return results;
     }
+
+
 }
+
 

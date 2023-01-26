@@ -1,6 +1,5 @@
 package iti.android.foodplanner.ui.features.home;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,8 +24,7 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
-import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
-import iti.android.foodplanner.ui.features.category.CategoryFragment;
+import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class HomeFragment extends Fragment implements HomeInterface {
@@ -42,8 +37,10 @@ public class HomeFragment extends Fragment implements HomeInterface {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new HomePresenter(getContext(), this);
-        recycleriewAreaSettings();
         recycleriewIngredientsSettings();
+
+        recycleriewAreaSettings();
+
         recycleriewCategorySettings();
         randomMealCardSettings(view);
         navigateToSeeMore();
@@ -57,32 +54,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 //        });
     }
 
-    private void recycleriewIngredientsSettings() {
-        RecyclerView rvRandomIngredien = Utils.recyclerViewHandler(binding.rvRandomIngredien, getContext());
-        HomeFeedAdapter homeFeedAdapterIngredien = new HomeFeedAdapter(getContext(), this);
-        rvRandomIngredien.setAdapter(homeFeedAdapterIngredien);
-        presenter.getRandomMeals(HomePresenter.INGREDIENT, new DataFetch<List<MealsItem>>() {
-            @Override
-            public void onDataSuccessResponse(List<MealsItem> data) {
-                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
-                binding.shimmerHomeIngredient.setVisibility(View.GONE);
-                homeFeedAdapterIngredien.setItemsList(data);
-            }
-
-            @Override
-            public void onDataFailedResponse(String message) {
-                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
-                binding.shimmerHomeIngredient.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onDataLoading() {
-                binding.rvRandomIngredien.setVisibility(View.GONE);
-                binding.shimmerHomeIngredient.setVisibility(View.VISIBLE);
-            }
-        });
-
-    private void recycleriewAreaSettings() {
+    private void recycleriewAreaSettings () {
         RecyclerView rvRandomArea = Utils.recyclerViewHandler(binding.rvRandomArea, getContext());
         HomeFeedAdapter homeFeedAdapterArea = new HomeFeedAdapter(getContext(), this);
         rvRandomArea.setAdapter(homeFeedAdapterArea);
@@ -105,7 +77,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     }
 
-    private void recycleriewCategorySettings() {
+    private void recycleriewCategorySettings () {
         RecyclerView rvRandomCategory = Utils.recyclerViewHandler(binding.rvRandomCategory, getContext());
         HomeFeedAdapter homeFeedAdapterCategory = new HomeFeedAdapter(getContext(), this);
         rvRandomCategory.setAdapter(homeFeedAdapterCategory);
@@ -129,16 +101,16 @@ public class HomeFragment extends Fragment implements HomeInterface {
         homeFeedAdapterCategory.isHaveData.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean haveData) {
-                if (haveData){
+                if (haveData) {
 
-                }else{
+                } else {
 
                 }
             }
         });
     }
 
-    private void randomMealCardSettings(View view) {
+    private void randomMealCardSettings (View view){
         ImageView imageViewSingleMeal = view.findViewById(R.id.image_thum);
         TextView foodSingleName = view.findViewById(R.id.food_name);
         TextView plane_btn = view.findViewById(R.id.plane_btn);
@@ -150,7 +122,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
                 Glide.with(getContext())
                         .load(mealsItem.getStrMealThumb())
                         .apply(new RequestOptions()
-                                .override(400,300)
+                                .override(400, 300)
                                 .placeholder(R.drawable.shippingback)
                                 .error(R.drawable.ic_close_black_24dp))
                         .into(imageViewSingleMeal);
@@ -176,33 +148,62 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
 
     }
+    private void recycleriewIngredientsSettings() {
+        RecyclerView rvRandomIngredien = Utils.recyclerViewHandler(binding.rvRandomIngredien, getContext());
+        HomeFeedAdapter homeFeedAdapterIngredien = new HomeFeedAdapter(getContext(), this);
+        rvRandomIngredien.setAdapter(homeFeedAdapterIngredien);
+        presenter.getRandomMeals(HomePresenter.INGREDIENT, new DataFetch<List<MealsItem>>() {
+            @Override
+            public void onDataSuccessResponse(List<MealsItem> data) {
+                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
+                binding.shimmerHomeIngredient.setVisibility(View.GONE);
+                homeFeedAdapterIngredien.setItemsList(data);
+            }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            @Override
+            public void onDataFailedResponse(String message) {
+                binding.rvRandomIngredien.setVisibility(View.VISIBLE);
+                binding.shimmerHomeIngredient.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onDataLoading() {
+                binding.rvRandomIngredien.setVisibility(View.GONE);
+                binding.shimmerHomeIngredient.setVisibility(View.VISIBLE);
+            }
+        });
+
+    }
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
-    private void navigateToSeeMore() {
+    private void navigateToSeeMore () {
         binding.seeMoreArea.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view, SearchInterface.AREA,"");
+            Utils.navigatorHomeToSearchFragment(view, SearchInterface.AREA, "");
         });
         binding.seeMoreCategory.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view,SearchInterface.CATEGORY,"");
+            Utils.navigatorHomeToSearchFragment(view, SearchInterface.CATEGORY, "");
         });
         binding.seeMoreIngredients.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view,SearchInterface.INGREDIENT,"");
+            Utils.navigatorHomeToSearchFragment(view, SearchInterface.INGREDIENT, "");
         });
 
     }
 
     @Override
-    public void onSavePlane(MealsItem item) {
+    public void onSavePlane (MealsItem item){
         Toast.makeText(getContext(), item.getStrMeal() + " Will Be Add to plane", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
-    public void onSaveFavorite(MealsItem item) {
+    public void onSaveFavorite (MealsItem item){
         presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
@@ -221,4 +222,5 @@ public class HomeFragment extends Fragment implements HomeInterface {
             }
         });
     }
+
 }
