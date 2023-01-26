@@ -58,6 +58,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
 
     @Override
     public void logout(Context context) {
+        // TODO make this function in login and register
         Repository.getInstance(context).deleteAllTable(Repository.DELETE_PLAN_AND_FAV);
         SharedManager.getInstance(context).clearAllData();
         mAuth.signOut();
@@ -115,6 +116,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
             mAuth.signInWithCredential(credential)
 
                     .addOnSuccessListener(authResult -> {
+                        // TODO make this function in login and register
                         User user = getUserData();
                         SharedManager sharedManager = SharedManager.getInstance(context);
                         BackupManager.getInstance(sharedManager).saveUser(user, task -> {
