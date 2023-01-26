@@ -8,18 +8,21 @@
     android:layout_gravity="center"
     android:padding="5dp"
     android:layout_margin="5dp"
+    android:id="@+id/item_holder"
+
     android:layout_height="wrap_content">
-<!--  de.hdodenhof.circleimageview.CircleImageView  -->
 
     <androidx.cardview.widget.CardView
-        android:layout_width="96dp"
+        android:layout_width="50dp"
         app:cardCornerRadius="50dp"
         android:elevation="10dp"
-        android:layout_height="96dp">
+        android:layout_height="50dp">
         <ImageView
             android:id="@+id/profile_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars"
             />
     </androidx.cardview.widget.CardView>
@@ -28,7 +31,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/title"
         style="@style/TextTitle"
-        android:textSize="22sp"
+        android:textSize="13sp"
+        android:ellipsize="end"
+        android:lines="1"
         android:gravity="center"
         tools:text="@tools:sample/cities"/>
 </LinearLayout>

@@ -389,66 +389,66 @@ public class MealsItem implements Parcelable {
 
 	public ArrayList<String> getIngredients() {
 		ArrayList<String> ingredientsList = new ArrayList<>();
-		if (!strIngredient1.isEmpty()){
+		if (strIngredient1!=null && !strIngredient1.isEmpty()){
 			ingredientsList.add(strIngredient1);
 		}
 
-		if (!strIngredient2.isEmpty()){
+		if (strIngredient2!=null && !strIngredient2.isEmpty()){
 			ingredientsList.add(strIngredient2);
 		}
 
-		if (!strIngredient3.isEmpty()){
+		if (strIngredient3!=null && !strIngredient3.isEmpty()){
 			ingredientsList.add(strIngredient3);
 		}
-		if (!strIngredient4.isEmpty()){
+		if (strIngredient4!=null && !strIngredient4.isEmpty()){
 			ingredientsList.add(strIngredient4);
 		}
-		if (!strIngredient5.isEmpty()){
+		if (strIngredient5!=null && !strIngredient5.isEmpty()){
 			ingredientsList.add(strIngredient5);
 		}
-		if (!strIngredient6.isEmpty()){
+		if (strIngredient6!=null && !strIngredient6.isEmpty()){
 			ingredientsList.add(strIngredient6);
 		}
-		if (!strIngredient7.isEmpty()){
+		if (strIngredient7!=null && !strIngredient7.isEmpty()){
 			ingredientsList.add(strIngredient7);
 		}
-		if (!strIngredient8.isEmpty()){
+		if (strIngredient8!=null && !strIngredient8.isEmpty()){
 			ingredientsList.add(strIngredient8);
 		}
-		if (!strIngredient9.isEmpty()){
+		if (strIngredient9!=null && !strIngredient9.isEmpty()){
 			ingredientsList.add(strIngredient9);
 		}
-		if (!strIngredient10.isEmpty()){
+		if (strIngredient10!=null && !strIngredient10.isEmpty()){
 			ingredientsList.add(strIngredient10);
 		}
-		if (!strIngredient11.isEmpty()){
+		if (strIngredient11!=null && !strIngredient11.isEmpty()){
 			ingredientsList.add(strIngredient11);
 		}
-		if (!strIngredient12.isEmpty()){
+		if (strIngredient12!=null && !strIngredient12.isEmpty()){
 			ingredientsList.add(strIngredient12);
 		}
-		if (!strIngredient13.isEmpty()){
+		if (strIngredient13!=null && !strIngredient13.isEmpty()){
 			ingredientsList.add(strIngredient13);
 		}
-		if (!strIngredient14.isEmpty()){
+		if (strIngredient14!=null && !strIngredient14.isEmpty()){
 			ingredientsList.add(strIngredient14);
 		}
-		if (!strIngredient15.isEmpty()){
+		if (strIngredient15!=null && !strIngredient15.isEmpty()){
 			ingredientsList.add(strIngredient15);
 		}
-		if (!strIngredient16.isEmpty()){
+		if (strIngredient16!=null && !strIngredient16.isEmpty()){
 			ingredientsList.add(strIngredient16);
 		}
-		if (!strIngredient17.isEmpty()){
+		if (strIngredient17!=null && !strIngredient17.isEmpty()){
 			ingredientsList.add(strIngredient17);
 		}
-		if (!strIngredient18.isEmpty()){
+		if (strIngredient18!=null && !strIngredient18.isEmpty()){
 			ingredientsList.add(strIngredient18);
 		}
-		if (!strIngredient19.isEmpty()){
+		if (strIngredient19!=null && !strIngredient19.isEmpty()){
 			ingredientsList.add(strIngredient19);
 		}
-		if (!strIngredient20.isEmpty()){
+		if (strIngredient20!=null && !strIngredient20.isEmpty()){
 			ingredientsList.add(strIngredient20);
 		}
 		this.ingredients=ingredientsList;

@@ -6,6 +6,7 @@ import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.Navigation;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -154,4 +155,5 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         updateUI((FirebaseUser) null);
 
     }
+
 }

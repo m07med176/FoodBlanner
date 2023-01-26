@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +25,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     private List<MealsItem> itemsList;
     private Context context;
     FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions;
+    public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
+
 
     public FavoriteAdapter(Context context,List<MealsItem> itemsList, FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions) {
         this.itemsList = itemsList;

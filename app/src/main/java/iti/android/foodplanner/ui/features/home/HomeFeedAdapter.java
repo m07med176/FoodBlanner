@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,13 +25,18 @@ import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHolder> {
     private List<MealsItem> itemsList = new ArrayList<>();
+    public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
+    private HomePresenter presenter;
+
     private Context context;
-    HomeInterface homeInterface;
+    private HomeInterface homeInterface;
 
     public HomeFeedAdapter(Context context, HomeInterface homeInterface) {
+        presenter = new HomePresenter(context,homeInterface);
         this.context = context;
         this.homeInterface = homeInterface;
     }
@@ -45,13 +52,14 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         MealsItem item = itemsList.get(position);
         holder.foodNameTv.setText(item.getStrMeal());
 
-        Glide.with(context)
-                .load(item.getStrMealThumb())
-                .apply(new RequestOptions()
-                .override(400,300)
-                .placeholder(R.drawable.shippingback)
-                .error(R.drawable.ic_close_black_24dp))
-                .into(holder.thumnailView);
+
+        Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
+
+        if (!presenter.isUser){
+            holder.addToPlaneBtn.setVisibility(View.GONE);
+            holder.addToFavBtn.setVisibility(View.GONE);
+        }
+
 
         holder.addToPlaneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +90,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     public void setItemsList(List<MealsItem> itemsList){
         this.itemsList = itemsList;
         notifyDataSetChanged();
+        isHaveData.postValue(itemsList.size()>0); // to notify if there is a data
     }
 
     @Override

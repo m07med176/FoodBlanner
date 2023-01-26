@@ -13,7 +13,17 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_details"
-            app:destination="@id/navigation_details" />
+            app:destination="@id/navigation_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_searchFragment"
+            app:destination="@id/navigation_search"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_search"
+            app:destination="@id/navigation_search" />
     </fragment>
 
     <fragment
@@ -30,8 +40,22 @@
     <fragment
         android:id="@+id/navigation_category"
         android:name="iti.android.foodplanner.ui.features.category.CategoryFragment"
-        android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        android:label="@string/title_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_navigation_category_to_navigation_details"
+            app:destination="@id/navigation_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_category_to_searchFragment"
+            app:destination="@id/navigation_search"
+            app:enterAnim="@anim/nav_default_pop_enter_anim"
+            app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_category_to_navigation_search"
+            app:destination="@id/navigation_search" />
+    </fragment>
     <activity
         android:id="@+id/splashActivity"
         android:name="iti.android.foodplanner.ui.features.splash.SplashActivity"
@@ -51,16 +75,16 @@
         android:name="iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity"
         android:label="activity_sign_up_or_login"
         tools:layout="@layout/activity_sign_up_or_login" />
-    <dialog
-        android:id="@+id/addToPlaneDialog"
-        android:name="iti.android.foodplanner.ui.features.details.AddToPlaneDialog"
-        android:label="fragment_add_to_plane_dialog"
-        tools:layout="@layout/fragment_add_to_plane_dialog" />
+<!--    <dialog-->
+<!--        android:id="@+id/addToPlaneDialog"-->
+<!--        android:name="iti.android.foodplanner.ui.features.details.AddToPlaneDialog"-->
+<!--        android:label="fragment_add_to_plane_dialog"-->
+<!--        tools:layout="@layout/fragment_add_to_plane_dialog" />-->
     <fragment
         android:id="@+id/navigation_details"
         android:name="iti.android.foodplanner.ui.features.details.DetailsFragment"
-        android:label="Meal details"
-        tools:layout="@layout/fragment_details">
+        android:label="@string/title_details"
+        tools:layout="@layout/fragment_details" >
         <argument
             android:name="mealId"
             android:defaultValue="@null"
@@ -68,8 +92,24 @@
             app:nullable="true" />
     </fragment>
     <fragment
-        android:id="@+id/onBoardingFragment"
+        android:id="@+id/navigation_onboarding"
         android:name="iti.android.foodplanner.ui.features.onBoarding.OnBoardingFragment"
         android:label="fragment_on_boarding"
         tools:layout="@layout/fragment_on_boarding" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="iti.android.foodplanner.ui.features.search.SearchFragment"
+        android:label="@string/title_search" >
+        <argument
+            android:name="search"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="Nothing" />
+        <argument
+            android:name="type"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
 </navigation>

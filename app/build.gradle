@@ -36,10 +36,8 @@ android {
     }
 }
 
-dependencies {
-    // TODO Moamen [enhancement] : just sea enhancement of dependencies and
-    //  unify versions and put it in variable
 
+dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     // region UI
@@ -58,6 +56,10 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     //RoundedImageView
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    // Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
     // on Boarding
 //    implementation 'com.codemybrainsout.onboarding:onboarder:1.0.4'
     // endregion

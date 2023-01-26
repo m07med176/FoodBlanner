@@ -6,6 +6,11 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.network.ApiCalls;
@@ -15,6 +20,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SharedManager {
+    public static final String DELEMETER = ",";
+    public static final String AREAS = "AREAS";
+    public static final String INGREDIENTS = "INGREDIENTS";
+    public static final String CATEGORIES = "CATEGORIES";
     public static final String IS_FIRST = "IS_FIRST";
     public static final String USER_INFO = "USER_INFO";
     private volatile static SharedManager instance = null;
@@ -69,5 +78,28 @@ public class SharedManager {
 
 
 
+
+    public void saveList(String type, List<String> cashList){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(type,String.join(DELEMETER,cashList));
+        editor.apply();
+    }
+
+        public String[] getList(String type){
+        String[] results = null;
+        switch (type){
+            case AREAS:
+                results = sharedPreferences.getString(AREAS,"Egyptian").split(DELEMETER);
+                break;
+            case INGREDIENTS:
+                results = sharedPreferences.getString(INGREDIENTS,"Chicken").split(DELEMETER);
+                break;
+            case CATEGORIES:
+                results = sharedPreferences.getString(CATEGORIES,"Beef").split(DELEMETER);
+                break;
+
+        }
+        return results;
+    }
 }
 

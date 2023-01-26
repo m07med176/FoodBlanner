@@ -16,9 +16,13 @@ public class FavoritePresenter {
     Context context;
     FavoriteInterface favoriteInterface;
 
+
     Repository repository;
+
+    public boolean isUser = false;
     public FavoritePresenter(Context context, FavoriteInterface favoriteInterface) {
         repository  =Repository.getInstance(context);
+        isUser = repository.isUser();
         this.favoriteInterface = favoriteInterface;
     }
 

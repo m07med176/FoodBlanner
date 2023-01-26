@@ -124,6 +124,7 @@
 
             <TextView
                 style="@style/TextTitle"
+                android:id="@+id/seeMoreArea"
                 android:layout_width="wrap_content"
 
                 android:layout_height="match_parent"
@@ -177,6 +178,7 @@
                 android:text="More Feed about category" />
 
             <TextView
+                android:id="@+id/seeMoreCategory"
                 style="@style/TextTitle"
                 android:layout_width="wrap_content"
 
@@ -189,6 +191,7 @@
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_random_category"
+
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
@@ -209,7 +212,7 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/rv_random_ingredien"
+            app:layout_constraintBottom_toTopOf="@+id/random_ingredient_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/rv_random_category">
@@ -227,6 +230,7 @@
                 android:text="You Might like this Ingredients"/>
 
             <TextView
+                android:id="@+id/seeMoreIngredients"
                 style="@style/TextTitle"
                 android:layout_width="wrap_content"
 
@@ -237,20 +241,35 @@
                 android:textStyle="italic"
                 android:text="@string/see_more" />
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_random_ingredien"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="@dimen/meals_recyclerview_hight"
-            android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:textColor="@color/black"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_height="290dp"
+            android:orientation="vertical"
+            android:id="@+id/random_ingredient_holder"
             app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            tools:layout_editor_absoluteY="78dp"
-            tools:listitem="@layout/item_meals_list" />
+            tools:layout_editor_absoluteY="78dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:id="@+id/shimmer_home_ingredient">
+                <include layout="@layout/simmer_home_ingredients"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_random_ingredien"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                android:textColor="@color/black"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_meals_list" />
+
+        </LinearLayout>
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideStart"

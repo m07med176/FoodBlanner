@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -62,44 +63,58 @@ public class BackupManager  {
                 .addOnCompleteListener(onCompleteListener);
     }
     public void deleteFavorite(MealsItem mealsItem){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(FAV_KEY).document(mealsItem.getIdMeal()).delete();
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY).document(mealsItem.getIdMeal()).delete();
 
     }
     public void saveFavorite(MealsItem mealsItem){
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY)
+                    .document(mealsItem.getIdMeal())
+                    .set(mealsItem);
+    }
+
+    public void restoreDataFavorite(OnSuccessListener<QuerySnapshot> onQuerySnapshot){
+
         firebaseFirestore
                 .collection(ROOT_KEY)
                 .document(sharedManager.getUser().getUID())
                 .collection(FAV_KEY)
-                .document(mealsItem.getIdMeal())
-                .set(mealsItem);
+                .get()
+                .addOnSuccessListener(onQuerySnapshot);
     }
 
-    public void restoreData(EventListener<QuerySnapshot> onQuerySnapshot){
-
+    public void restoreDataPlane(OnSuccessListener<QuerySnapshot> onQuerySnapshot){
         firebaseFirestore
                 .collection(ROOT_KEY)
                 .document(sharedManager.getUser().getUID())
                 .collection(PLANE_KEY)
-                .addSnapshotListener(onQuerySnapshot);
+                .get()
+                .addOnSuccessListener(onQuerySnapshot);
     }
 
     public void deletePlane(MealPlan mealPlan){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(PLANE_KEY).document(mealPlan.getIdMeal()).delete();
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(PLANE_KEY).document(mealPlan.getIdMeal()).delete();
 
     }
     public void savePlane(MealPlan mealPlan){
-        firebaseFirestore
-                .collection(ROOT_KEY)
-                .document(sharedManager.getUser().getUID())
-                .collection(FAV_KEY)
-                .document(mealPlan.getIdMeal())
-                .set(mealPlan);
+        if (sharedManager.isUser())
+            firebaseFirestore
+                    .collection(ROOT_KEY)
+                    .document(sharedManager.getUser().getUID())
+                    .collection(FAV_KEY)
+                    .document(mealPlan.getIdMeal())
+                    .set(mealPlan);
     }
 
 
