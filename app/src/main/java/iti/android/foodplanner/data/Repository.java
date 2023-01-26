@@ -3,8 +3,14 @@ package iti.android.foodplanner.data;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -88,6 +94,102 @@ public class Repository {
     // endregion Shared
     // region ROOM
 
+    /**
+     * this function is responsible for [restore all user data] <i>favorites</i> and <i>MealsPlane</i>
+     * <br><b>Steps</b><hr>
+     * <br> 1- call backup manager to restore all plane data from user
+     * <br> 2- gather array list of objects
+     * <br> 3- remove all current table for check [to prevent duplication]
+     * <br> 4- if remove happened successfully insert all data to room database
+     */
+    public void restoreAllData(){
+        backupManager.restoreDataPlane(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                // Gather all items from firebase
+                List<MealPlan> mealPlans = new ArrayList<>();
+                for(DocumentSnapshot ds : queryDocumentSnapshots)   {
+                    MealPlan mealPlan = ds.toObject(MealPlan.class);
+                    mealPlans.add(mealPlan);
+                }
+                Log.d(TAG, "restoreAllData: Gather all items from firebase");
+
+                // remove all data from room [for sure] there is no items to prevent duplication
+                roomDatabase.PlaneFoodDAO().removeAllTable()
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+                                Log.d(TAG, "onSubscribe: Remove all db");
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                Log.d(TAG, "onComplete: remove all data successfully");
+                                // insert all data in room db
+                                roomDatabase.PlaneFoodDAO()
+                                        .insertAllTable(mealPlans)
+                                        .subscribeOn(Schedulers.io())
+                                        .subscribe();
+
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.d(TAG, "onError: error happened during removing "+e.getMessage());
+                            }
+                        });
+            }
+        });
+        backupManager.restoreDataFavorite(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                // Gather all items from firebase
+                List<MealsItem> mealsItemList = new ArrayList<>();
+                for(DocumentSnapshot ds : queryDocumentSnapshots)   {
+                    MealsItem mealsItem = ds.toObject(MealsItem.class);
+                    mealsItemList.add(mealsItem);
+                }
+
+
+                // remove all data from room [for sure] there is no items to prevent duplication
+                roomDatabase.FavoriteDAO().removeAllTable()
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+                                Log.d(TAG, "onSubscribe:  Remove all db");
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                // insert all data in room db
+                                Log.d(TAG, "onComplete: remove all data successfully");
+
+                                roomDatabase.FavoriteDAO()
+                                        .insertAllTable(mealsItemList)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe();
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                Log.d(TAG, "onError: error happened during removing "+e.getMessage());
+                            }
+                        });
+
+
+            }
+        });
+    }
+
+    /**
+     * this function responsible for delete all room database or specify any room according type
+     * @param type
+     */
     public void deleteAllTable(int type){
         CompletableObserver completableObserver = new CompletableObserver() {
             @Override
@@ -333,9 +435,6 @@ public class Repository {
                     public void onComplete() {
                             backupManager.deletePlane(mealPlan);
                             dataFetch.onDataSuccessResponse(null);
-
-
-
                     }
 
                     @Override
@@ -360,7 +459,10 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull MealsList mealsList) {
-                dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                if (mealsList!=null && mealsList.getMeals()!=null)
+                    dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                else
+                    dataFetch.onDataSuccessResponse(new ArrayList<>());
             }
 
             @Override
@@ -384,9 +486,13 @@ public class Repository {
 
             @Override
             public void onSuccess(@NonNull IngredientsList ingredientsList) {
-                String[] arrayList  =(String[])ingredientsList.getMeals().stream().map(category -> category.getStrIngredient()).toArray();
-                sharedManager.saveList(SharedManager.INGREDIENTS,arrayList);
-                dataFetch.onDataSuccessResponse(ingredientsList.getMeals());
+                if (ingredientsList!=null && ingredientsList.getMeals()!=null) {
+                    List<String> arrayList = ingredientsList.getMeals().stream().map(category -> category.getStrIngredient()).collect(Collectors.toList());
+                    sharedManager.saveList(SharedManager.INGREDIENTS, arrayList);
+                    dataFetch.onDataSuccessResponse(ingredientsList.getMeals());
+                }else {
+                    dataFetch.onDataSuccessResponse(new ArrayList<>());
+                }
             }
 
             @Override
@@ -411,9 +517,13 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull CategoriesList categoriesList) {
-                        String[] arrayList  =(String[])categoriesList.getCategory().stream().map(category -> category.getStrCategory()).toArray();
-                        sharedManager.saveList(SharedManager.CATEGORIES,arrayList);
-                        dataFetch.onDataSuccessResponse(categoriesList.getCategory());
+                        if (categoriesList!=null && categoriesList.getCategory()!=null) {
+                            List<String> arrayList = categoriesList.getCategory().stream().map(category -> category.getStrCategory()).collect(Collectors.toList());
+                            sharedManager.saveList(SharedManager.CATEGORIES, arrayList);
+                            dataFetch.onDataSuccessResponse(categoriesList.getCategory());
+                        }else{
+                            dataFetch.onDataSuccessResponse(new ArrayList<>());
+                        }
                     }
 
                     @Override
@@ -440,9 +550,14 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull AreasList areasList) {
-                        String[] arrayList  =(String[])areasList.getAreas().stream().map(category -> category.getStrArea()).toArray();
-                        sharedManager.saveList(SharedManager.AREAS,arrayList);
-                        dataFetch.onDataSuccessResponse(areasList.getAreas());
+                        if (areasList!=null && areasList.getAreas()!=null){
+                            List<String> arrayList = areasList.getAreas().stream().map(category -> category.getStrArea()).collect(Collectors.toList());
+                            sharedManager.saveList(SharedManager.AREAS,arrayList);
+                            dataFetch.onDataSuccessResponse(areasList.getAreas());
+                        }else {
+                            dataFetch.onDataSuccessResponse(new ArrayList<>());
+                        }
+
                     }
 
                     @Override
@@ -477,7 +592,11 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull MealsList mealsList) {
-                        dataFetch.onDataSuccessResponse(mealsList.getMeals());
+
+                        if (mealsList !=null && mealsList.getMeals() != null)  // sometime api return null
+                            dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                        else
+                            dataFetch.onDataSuccessResponse(new ArrayList<>());
                     }
 
                     @Override
@@ -506,7 +625,10 @@ public class Repository {
 
                      @Override
                      public void onSuccess(@NonNull CategoriesFeed categoriesFeed) {
-                         dataFetch.onDataSuccessResponse(categoriesFeed.getCategories());
+                         if (categoriesFeed !=null && categoriesFeed.getCategories()!=null)
+                             dataFetch.onDataSuccessResponse(categoriesFeed.getCategories());
+                         else
+                             dataFetch.onDataSuccessResponse(new ArrayList<>());
                      }
 
                      @Override
@@ -535,7 +657,10 @@ public class Repository {
 
                     @Override
                     public void onSuccess(@NonNull MealsList mealsList) {
-                        dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                        if (mealsList!=null && mealsList.getMeals()!=null)
+                            dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                        else
+                            dataFetch.onDataSuccessResponse(new ArrayList<>());
                     }
 
                     @Override
@@ -563,7 +688,10 @@ public class Repository {
 
                      @Override
                      public void onSuccess(@NonNull MealsList mealsList) {
-                         dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                         if (mealsList!=null && mealsList.getMeals()!=null)
+                            dataFetch.onDataSuccessResponse(mealsList.getMeals());
+                         else
+                             dataFetch.onDataSuccessResponse(new ArrayList<>());
                      }
 
                      @Override

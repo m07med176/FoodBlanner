@@ -8,6 +8,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,9 @@ public class SearchFragment extends Fragment implements SearchInterface{
     private SearchPresenter presenter;
     private RecyclerView rvSearch;
     private SearchResultAdapter searchResultAdapter;
+
+    private int type;
+    private String query=  "";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater,container,false);
@@ -38,8 +43,69 @@ public class SearchFragment extends Fragment implements SearchInterface{
         searchResultAdapter = new SearchResultAdapter(getContext(), this);
         rvSearch.setAdapter(searchResultAdapter);
 
-        recycleriewIngredientsSettings();
+        type = SearchFragmentArgs.fromBundle(getArguments()).getType();
+        query = SearchFragmentArgs.fromBundle(getArguments()).getSearch();
+        Utils.setAutoCompleteCash(getContext(), presenter.getCashList(type), binding.searchView);
+
+
+        checkQueryType();
         return binding.getRoot();
+    }
+
+    private void checkQueryType() {
+        if (!query.isEmpty()){
+            binding.searchView.setText(query);
+            presenter.getSearchResultMeals(type,query);
+        }else{
+            presenter.getSearchResultMeals(type, presenter.getRandomList(type));
+        }
+
+        if (type == SEARCH){
+            binding.searchView.requestFocus();
+            binding.searchView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    presenter.getSearchResultMeals(type,charSequence.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }else{
+            binding.searchView.showDropDown();
+            binding.searchView.setOnItemClickListener((adapterView, view, i, l) -> {
+                query = binding.searchView.getText().toString().trim();
+                if (!query.isEmpty())
+                    presenter.getSearchResultMeals(type,query);
+            });
+
+            binding.searchView.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                            if (charSequence.toString().trim().isEmpty())
+                                binding.searchView.showDropDown();
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }
+
+
     }
 
 
@@ -49,17 +115,22 @@ public class SearchFragment extends Fragment implements SearchInterface{
         super.onDestroy();
     }
 
-    private void recycleriewIngredientsSettings() {
-        presenter.getSearchResultMeals(SearchPresenter.AREA, "Egyptian");
-    }
-
 
     @Override
     public void onDataSuccessResponse(List<MealsItem> data) {
-        binding.rvSearch.setVisibility(View.VISIBLE);
-        binding.shimmerHolder.setVisibility(View.GONE);
-        binding.noNetworkHolder.setVisibility(View.GONE);
-        searchResultAdapter.setItemsList(data);
+        if (data.size()==0){
+            binding.rvSearch.setVisibility(View.GONE);
+            binding.shimmerHolder.setVisibility(View.GONE);
+            binding.noNetworkHolder.setVisibility(View.GONE);
+            binding.noDataHolder.setVisibility(View.VISIBLE);
+        }else{
+            binding.rvSearch.setVisibility(View.VISIBLE);
+            binding.shimmerHolder.setVisibility(View.GONE);
+            binding.noNetworkHolder.setVisibility(View.GONE);
+            binding.noDataHolder.setVisibility(View.GONE);
+            searchResultAdapter.setItemsList(data);
+        }
+
     }
 
     @Override
@@ -67,6 +138,7 @@ public class SearchFragment extends Fragment implements SearchInterface{
         binding.rvSearch.setVisibility(View.GONE);
         binding.shimmerHolder.setVisibility(View.GONE);
         binding.noNetworkHolder.setVisibility(View.VISIBLE);
+        binding.noDataHolder.setVisibility(View.GONE);
     }
 
     @Override
@@ -74,6 +146,7 @@ public class SearchFragment extends Fragment implements SearchInterface{
         binding.rvSearch.setVisibility(View.GONE);
         binding.shimmerHolder.setVisibility(View.VISIBLE);
         binding.noNetworkHolder.setVisibility(View.GONE);
+        binding.noDataHolder.setVisibility(View.GONE);
     }
 
     @Override
@@ -83,27 +156,23 @@ public class SearchFragment extends Fragment implements SearchInterface{
 
     @Override
     public void onSaveFavorite(MealsItem item) {
-
-    }
-
-    private void adjustAutoComplete() {
-        // set data in autocomplete
-
-        Utils.setAutoCompleteCash(getContext(),"".split(","), binding.searchView);
-        // show result search
-
-        binding.searchView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @SuppressLint("SetTextI18n")
+        presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String search = binding.searchView.getText().toString().trim();
-                if (!search.isEmpty()) {
+            public void onDataSuccessResponse(Void data) {
+                Toast.makeText(getContext(), item.getStrMeal() + " Added To Favorite", Toast.LENGTH_SHORT).show();
+            }
 
-                } else {
-                    Toast.makeText(requireContext(), "يجب عليك كتابة رقم حساب العميل", Toast.LENGTH_LONG).show();
-                }
+            @Override
+            public void onDataFailedResponse(String message) {
+                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDataLoading() {
+
             }
         });
     }
+
 
 }

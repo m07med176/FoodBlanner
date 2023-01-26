@@ -8,6 +8,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
@@ -78,7 +79,7 @@ public class SharedManager {
 
 
 
-    public void saveList(String type,String[] cashList){
+    public void saveList(String type, List<String> cashList){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(type,String.join(DELEMETER,cashList));
         editor.apply();

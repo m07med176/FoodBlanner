@@ -107,7 +107,12 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
                     public void onReady(@NonNull YouTubePlayer youTubePlayer) {
                         String[] videoId = mealsItem.getStrYoutube().split("=");
 
-                        youTubePlayer.loadVideo(videoId[1], 0);
+                        try {
+                            youTubePlayer.loadVideo(videoId[1], 0);
+                        }catch (ArrayIndexOutOfBoundsException exception){
+                            exception.printStackTrace();
+                        }
+
          }
                     });
             }

@@ -118,6 +118,7 @@ public class GoogleAuth extends SocialAuthentication<GoogleAuth.Google> implemen
                         BackupManager.getInstance(sharedManager).saveUser(user, task -> {
                             if (task.isSuccessful()){
                                 sharedManager.saveUser(user);
+                                Repository.getInstance(context).restoreAllData();
                                 signInWithGoogleInterface.onSuccessFullFireBaseAuth();
                             }else{
                                 signInWithGoogleInterface.onFailedFireBaseAuth();

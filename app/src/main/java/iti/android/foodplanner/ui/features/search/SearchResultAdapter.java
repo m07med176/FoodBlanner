@@ -21,6 +21,7 @@ import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.ui.features.category.CategoryFragmentDirections;
 import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
 import iti.android.foodplanner.ui.util.Utils;
 
@@ -45,39 +46,25 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
         MealsItem item = itemsList.get(position);
         holder.foodNameTv.setText(item.getStrMeal());
 
-
         Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
 
+        holder.addToPlaneBtn.setOnClickListener(view -> searchInterface.onSavePlane(item));
 
-
-        holder.addToPlaneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    searchInterface.onSavePlane(item);
-            }
+        holder.addToFavBtn.setOnCheckedChangeListener((compoundButton, b) -> {
+            if (b)
+                searchInterface.onSaveFavorite(item);
         });
 
-        holder.addToFavBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
-                    searchInterface.onSaveFavorite(item);
-            }
-        });
-
-        holder.itemHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                HomeFragmentDirections.ActionNavigationHomeToNavigationDetails action=HomeFragmentDirections.actionNavigationHomeToNavigationDetails();
-                action.setMealId(item.getIdMeal());
-                Navigation.findNavController(v).navigate(action);
-            }
+        holder.itemHome.setOnClickListener(v -> {
+            SearchFragmentDirections.ActionNavigationSearchToNavigationDetails action = SearchFragmentDirections.actionNavigationSearchToNavigationDetails();
+            action.setMealId(item.getIdMeal());
+            Navigation.findNavController(v).navigate(action);
         });
     }
 
     public void setItemsList(List<MealsItem> itemsList){
-        this.itemsList = itemsList;
+        this.itemsList.clear();
+        this.itemsList.addAll(itemsList);
         notifyDataSetChanged();
     }
 

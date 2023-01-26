@@ -1,35 +1,478 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.facebook.shimmer.ShimmerFrameLayout
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-        app:shimmer_auto_start="true"
-        android:id="@+id/shimmer_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:id="@+id/shimmer_view_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:shimmer_auto_start="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="start"
         android:orientation="vertical">
 
-        <!--Image-->
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/dining" />
-
-        <!--Text given to Image-->
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="Bank"
-            android:textColor="@color/purple_200"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="horizontal">
 
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/shimmer_search_item_size"
+                android:layout_height="@dimen/shimmer_search_item_size"
+                android:layout_margin="@dimen/shimmer_search_margin"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <!--Image-->
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/dining" />
+
+                <!--Text given to Image-->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Loading .."
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/shimmer_title_size"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 </com.facebook.shimmer.ShimmerFrameLayout>

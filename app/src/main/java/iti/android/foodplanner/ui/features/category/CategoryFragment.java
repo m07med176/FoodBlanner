@@ -22,13 +22,11 @@ import iti.android.foodplanner.databinding.FragmentCategoryBinding;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterAreaAdapter;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterCategoryAdapter;
 import iti.android.foodplanner.ui.features.category.adpaters.FilterIngredientAdapter;
+import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class CategoryFragment extends Fragment implements CategoryInterface {
-    public static final int AREA = 1;
-    public static final int INGREDIENT = 2;
-    public static final int CATEGORY = 3;
-    public static final int SEARCH = 4;
+
     private CategoryPresenter categoryPresenter;
 
     private FragmentCategoryBinding binding;
@@ -46,16 +44,16 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
 
     private void navigateToSeeMore() {
         binding.seeMoreArea.setOnClickListener(view -> {
-            Utils.navigatorCategoryToSearchFragment(view,AREA,"");
+            Utils.navigatorCategoryToSearchFragment(view, SearchInterface.AREA,"");
         });
         binding.seeMoreCategory.setOnClickListener(view -> {
-            Utils.navigatorCategoryToSearchFragment(view,CATEGORY,"");
+            Utils.navigatorCategoryToSearchFragment(view,SearchInterface.CATEGORY,"");
         });
         binding.seeMoreIngredient.setOnClickListener(view -> {
-            Utils.navigatorCategoryToSearchFragment(view,INGREDIENT,"");
+            Utils.navigatorCategoryToSearchFragment(view,SearchInterface.INGREDIENT,"");
         });
         binding.searchView.setOnClickListener(view -> {
-            Utils.navigatorCategoryToSearchFragment(view,SEARCH,"");
+            Utils.navigatorCategoryToSearchFragment(view,SearchInterface.SEARCH,"");
         });
 
     }

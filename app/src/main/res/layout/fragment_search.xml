@@ -29,12 +29,13 @@
         <AutoCompleteTextView
             android:id="@+id/search_view"
             android:layout_margin="10dp"
-
+            android:lines="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_by_name"
             android:background="@drawable/input_style"
             android:drawableStart="@drawable/ic_search"
+            android:completionThreshold="1"
             android:padding="7dp"/>
 
 

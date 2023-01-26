@@ -28,6 +28,7 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
 import iti.android.foodplanner.ui.features.category.CategoryFragment;
+import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class HomeFragment extends Fragment implements HomeInterface {
@@ -192,13 +193,13 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     private void navigateToSeeMore() {
         binding.seeMoreArea.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view, CategoryFragment.AREA,"");
+            Utils.navigatorHomeToSearchFragment(view, SearchInterface.AREA,"");
         });
         binding.seeMoreCategory.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view,CategoryFragment.CATEGORY,"");
+            Utils.navigatorHomeToSearchFragment(view,SearchInterface.CATEGORY,"");
         });
         binding.seeMoreIngredients.setOnClickListener(view -> {
-            Utils.navigatorHomeToSearchFragment(view,CategoryFragment.INGREDIENT,"");
+            Utils.navigatorHomeToSearchFragment(view,SearchInterface.INGREDIENT,"");
         });
 
     }

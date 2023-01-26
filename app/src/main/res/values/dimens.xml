@@ -8,5 +8,8 @@
     <dimen name="input_radius">12dp</dimen>
     <dimen name="default_radius">3dp</dimen>
     <dimen name="meals_recyclerview_hight">290dp</dimen>
+    <dimen name="shimmer_search_item_size">100dp</dimen>
+    <dimen name="shimmer_search_margin">8dp</dimen>
+    <dimen name="shimmer_title_size">20sp</dimen>
 
 </resources>
