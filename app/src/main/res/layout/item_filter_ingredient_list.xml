@@ -8,6 +8,7 @@
     android:layout_gravity="center"
     android:padding="5dp"
     android:layout_margin="5dp"
+    android:id="@+id/item_holder"
 
     android:background="@drawable/input_style"
     android:layout_height="wrap_content">

@@ -8,8 +8,8 @@
     android:layout_gravity="center"
     android:padding="5dp"
     android:layout_margin="5dp"
+    android:id="@+id/item_holder"
     android:layout_height="wrap_content">
-<!--  de.hdodenhof.circleimageview.CircleImageView  -->
 
     <androidx.cardview.widget.CardView
         android:layout_width="96dp"

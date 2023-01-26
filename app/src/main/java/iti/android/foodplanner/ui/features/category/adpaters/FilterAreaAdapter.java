@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.util.List;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.selections.area.Area;
 import iti.android.foodplanner.ui.features.category.CategoryInterface;
+import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
 public class FilterAreaAdapter extends RecyclerView.Adapter<FilterAreaAdapter.ViewHolder> {
@@ -46,6 +48,9 @@ public class FilterAreaAdapter extends RecyclerView.Adapter<FilterAreaAdapter.Vi
         holder.title.setText(item.getStrArea());
         Utils.loadImage(context,item.getThumbnail(),holder.thumnailView);
 
+        holder.linearLayout.setOnClickListener(view -> {
+            Utils.navigatorCategoryToSearchFragment(view, SearchInterface.AREA,item.getStrArea());
+        });
     }
 
     public void setItemsList(List<Area> itemsList){
@@ -63,12 +68,14 @@ public class FilterAreaAdapter extends RecyclerView.Adapter<FilterAreaAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder{
         TextView title;
         ImageView thumnailView;
+        LinearLayout linearLayout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.title);
             thumnailView = itemView.findViewById(R.id.profile_image);
+            linearLayout = itemView.findViewById(R.id.item_holder);
         }
     }
 

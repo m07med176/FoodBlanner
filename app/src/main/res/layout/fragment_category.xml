@@ -188,12 +188,11 @@
                 android:text="@string/see_more" />
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
-            android:nestedScrollingEnabled="true"
             android:id="@+id/rv_ingredient"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:textColor="@color/black"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/section_title_ingredient_holder"
