@@ -60,6 +60,10 @@ public class HomePresenter {
         repository.insertFavoriteMealDataBase(item,dataFetch);
     }
 
+    public void deleteFavorite(MealsItem item,DataFetch<Void> dataFetch){
+        repository.deleteFavorite(item,dataFetch);
+    }
+
 
 
 }

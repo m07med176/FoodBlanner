@@ -90,12 +90,27 @@
             android:id="@+id/search_view"
             android:layout_margin="10dp"
             android:layout_width="0dp"
+            android:orientation="vertical"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/section_title_category_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/search_title">
-            <include layout="@layout/card_menu"/>
+            <LinearLayout
+                android:id="@+id/card_dialy"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/card_menu"/>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/shimmer_dialy_inspiration"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/simmer_home_dialy_inspiration"/>
+            </LinearLayout>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/section_title_category_holder"
@@ -105,7 +120,7 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/rv_random_area"
+            app:layout_constraintBottom_toTopOf="@+id/random_area_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
             app:layout_constraintTop_toBottomOf="@+id/search_view">
@@ -136,20 +151,36 @@
 
 
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_random_area"
+        <LinearLayout
+            android:id="@+id/random_area_holder"
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:textColor="@color/black"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/section_title_category_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideStart"
-            tools:layout_editor_absoluteY="78dp"
-            tools:listitem="@layout/item_meals_list" />
+            app:layout_constraintStart_toStartOf="@+id/guideStart">
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_weight="1"
+                android:id="@+id/rv_random_area"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/meals_recyclerview_hight"
+                android:layout_margin="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_meals_list" />
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/shimmer_feed_area"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/simmer_feed_category_area"/>
+            </LinearLayout>
+        </LinearLayout>
+        
 
 
         <LinearLayout
@@ -160,10 +191,10 @@
             android:padding="5dp"
             android:orientation="horizontal"
 
-            app:layout_constraintBottom_toTopOf="@+id/rv_random_category"
+            app:layout_constraintBottom_toTopOf="@+id/random_category_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            app:layout_constraintTop_toBottomOf="@+id/rv_random_area">
+            app:layout_constraintTop_toBottomOf="@+id/random_area_holder">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -189,20 +220,38 @@
                 android:textStyle="italic"
                 android:text="@string/see_more" />
         </LinearLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_random_category"
+        
+        <LinearLayout
+            android:id="@+id/random_category_holder"
 
             android:layout_width="0dp"
             android:layout_height="@dimen/meals_recyclerview_hight"
             android:layout_margin="5dp"
-            android:orientation="horizontal"
-            android:textColor="@color/black"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            
             app:layout_constraintTop_toBottomOf="@+id/section_title_area_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/guideStart"
-            tools:listitem="@layout/item_meals_list" />
+            app:layout_constraintStart_toStartOf="@+id/guideStart">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_random_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_meals_list" />
+
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/shimmer_feed_category"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/simmer_feed_category_area"/>
+            </LinearLayout>
+        </LinearLayout>
+       
 
         <LinearLayout
             android:id="@+id/section_title_ingredient_holder"
@@ -215,7 +264,7 @@
             app:layout_constraintBottom_toTopOf="@+id/random_ingredient_holder"
             app:layout_constraintEnd_toEndOf="@+id/guideEnd"
             app:layout_constraintStart_toStartOf="@+id/guideStart"
-            app:layout_constraintTop_toBottomOf="@+id/rv_random_category">
+            app:layout_constraintTop_toBottomOf="@+id/random_category_holder">
 
             <TextView
                 android:layout_width="wrap_content"

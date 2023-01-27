@@ -4,10 +4,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -45,13 +48,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
         randomMealCardSettings(view);
         navigateToSeeMore();
 
-//        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                binding.swipeRefresh.setRefreshing(false);
-//                Navigation.findNavController(view).navigate(R.id.navigation_home);
-//            }
-//        });
     }
 
     private void recycleriewAreaSettings () {
@@ -62,16 +58,20 @@ public class HomeFragment extends Fragment implements HomeInterface {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
                 homeFeedAdapterArea.setItemsList(data);
+                binding.shimmerFeedArea.setVisibility(View.GONE);
+                binding.rvRandomArea.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerFeedArea.setVisibility(View.VISIBLE);
+                binding.rvRandomArea.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
-
+                    binding.shimmerFeedArea.setVisibility(View.VISIBLE);
+                    binding.rvRandomArea.setVisibility(View.GONE);
             }
         });
 
@@ -86,35 +86,30 @@ public class HomeFragment extends Fragment implements HomeInterface {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
                 homeFeedAdapterCategory.setItemsList(data);
+                binding.shimmerFeedCategory.setVisibility(View.GONE);
+                binding.rvRandomCategory.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerFeedCategory.setVisibility(View.VISIBLE);
+                binding.rvRandomCategory.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
-
+                binding.shimmerFeedCategory.setVisibility(View.VISIBLE);
+                binding.rvRandomCategory.setVisibility(View.GONE);
             }
         });
-        homeFeedAdapterCategory.isHaveData.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean haveData) {
-                if (haveData) {
 
-                } else {
-
-                }
-            }
-        });
     }
 
     private void randomMealCardSettings (View view){
         ImageView imageViewSingleMeal = view.findViewById(R.id.image_thum);
         TextView foodSingleName = view.findViewById(R.id.food_name);
-        TextView plane_btn = view.findViewById(R.id.plane_btn);
-        ImageButton fav_btn = view.findViewById(R.id.fav_btn);
+        ToggleButton plane_btn = view.findViewById(R.id.plane_btn);
+        CheckBox fav_btn = view.findViewById(R.id.fav_btn);
         presenter.getRandomMeals(HomePresenter.SINGLE, new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
@@ -128,21 +123,42 @@ public class HomeFragment extends Fragment implements HomeInterface {
                         .into(imageViewSingleMeal);
 
                 foodSingleName.setText(mealsItem.getStrMeal());
-                plane_btn.setOnClickListener(view1 -> {
-                    onSavePlane(mealsItem);
+                plane_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+//                        if (checked)
+//                            onSavePlane(mealsItem);
+//                        else
+//                        onDeletePlane(mealsItem);
+
+                    }
                 });
 
-                fav_btn.setOnClickListener(view12 -> onSaveFavorite(mealsItem));
+                fav_btn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                     if (checked)
+                         onSaveFavorite(mealsItem);
+                     else
+                         onDeleteFavorite(mealsItem);
+                    }
+                });
+
+                binding.shimmerDialyInspiration.setVisibility(View.GONE);
+                binding.cardDialy.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerDialyInspiration.setVisibility(View.VISIBLE);
+                binding.cardDialy.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
 
+                binding.shimmerDialyInspiration.setVisibility(View.VISIBLE);
+                binding.cardDialy.setVisibility(View.GONE);
             }
         });
 
@@ -203,6 +219,28 @@ public class HomeFragment extends Fragment implements HomeInterface {
     }
 
     @Override
+    public void onDeletePlane(MealsItem item) {
+        presenter.deleteFavorite(item, new DataFetch<Void>() {
+            @Override
+            public void onDataSuccessResponse(Void data) {
+                Toast.makeText(getContext(), item.getStrMeal() + " Removed from Favorite", Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
+    }
+
+    @Override
     public void onSaveFavorite (MealsItem item){
         presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
@@ -221,6 +259,11 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
             }
         });
+    }
+
+    @Override
+    public void onDeleteFavorite(MealsItem item) {
+
     }
 
 }

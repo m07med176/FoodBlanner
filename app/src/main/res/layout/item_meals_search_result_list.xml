@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="150dp"
-    app:cardCornerRadius="10dp"
+    android:layout_height="220dp"
     android:layout_margin="10dp"
-    android:layout_height="220dp">
+    android:foregroundTint="#B1B1B1"
+    app:cardCornerRadius="10dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <RelativeLayout
             android:id="@+id/itemHome"
             android:layout_width="150dp"
@@ -21,7 +23,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
 
-                android:scaleType="centerCrop"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
@@ -29,6 +30,7 @@
                 android:layout_marginStart="0dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
+                android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
 
             <CheckBox
@@ -39,38 +41,38 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="0dp"
-                android:button="@drawable/favorite_effect"
-                android:checked="false"
+                android:button="@drawable/ic_favorite_black_24dp"
+
+                android:checked="true"
                 android:clickable="true" />
         </RelativeLayout>
+
         <TextView
             android:id="@+id/tv_title"
+            style="@style/TextTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            style="@style/TextTitle"
-            android:textSize="18sp"
-            android:gravity="center"
             android:layout_margin="5dp"
-            android:textStyle="bold"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
             android:text="@string/search_title"
-/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addTOPlanButton"
-            android:gravity="center"
-
-            android:background="@drawable/button_calender_effect"
             android:layout_width="match_parent"
+
             android:layout_height="30dp"
-            android:text="@string/add_to_plan"
-            android:drawableStart="@drawable/ic_plane"
-            android:padding="3dp"
-            android:layout_weight="1"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_marginBottom="5dp"
-            />
+            android:layout_weight="1"
+            android:background="@drawable/button_calender_effect"
+            android:drawableStart="@drawable/ic_plane"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/add_to_plan" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

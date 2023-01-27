@@ -61,18 +61,15 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         }
 
 
-        holder.addToPlaneBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    homeInterface.onSavePlane(item);
-            }
-        });
+        holder.addToPlaneBtn.setOnClickListener(view -> homeInterface.onSavePlane(item));
 
         holder.addToFavBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b)
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if (checked)
                     homeInterface.onSaveFavorite(item);
+                else
+                    homeInterface.onDeleteFavorite(item);
             }
         });
 

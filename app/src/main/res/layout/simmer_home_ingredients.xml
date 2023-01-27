@@ -10,26 +10,563 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!--Image-->
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/dining" />
-
-        <!--Text given to Image-->
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:text="Bank"
-            android:textColor="@color/purple_200"
-            android:textSize="24dp"
-            android:textStyle="bold" />
+            android:gravity="start"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
 
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="200dp"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp"
+                android:layout_height="270dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:id="@+id/itemHome"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:scaleType="centerCrop"
+
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_marginStart="0dp"
+                            android:layout_marginTop="0dp"
+                            android:layout_marginEnd="0dp"
+                            android:src="@drawable/dining" />
+
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        style="@style/TextTitle"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:layout_margin="5dp"
+                        android:textStyle="bold"
+                        android:text="@string/loading"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:gravity="center"
+
+                        android:background="@drawable/button_calender_effect"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:text="@string/loading"
+                        android:drawableStart="@drawable/ic_plane"
+                        android:padding="3dp"
+                        android:layout_weight="1"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
     </LinearLayout>
+
 
 </com.facebook.shimmer.ShimmerFrameLayout>

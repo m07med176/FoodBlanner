@@ -65,7 +65,7 @@
             android:background="@drawable/button_calender_effect"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:text="Add To Calender"
+            android:text="@string/add_to_plan"
             android:drawableStart="@drawable/ic_plane"
             android:padding="3dp"
             android:layout_weight="1"
