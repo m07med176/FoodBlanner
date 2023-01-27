@@ -96,5 +96,8 @@ public class SearchPresenter {
 
 
     }
+    public boolean isUser(){
+        return repository.isUser();
+    }
 
 }

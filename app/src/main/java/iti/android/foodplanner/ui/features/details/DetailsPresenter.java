@@ -44,6 +44,9 @@ public class DetailsPresenter {
          repository.retrieveMealByID(mealId,dataFetch);
     }
 
+    public boolean isUser(){
+        return repository.isUser();
+    }
     // TODO function Fetch data from ROOM or Network [ Details of food ]
     // TODO function Initialize Dialog of Add to Card
     // TODO function add to Favorite [ROOM]

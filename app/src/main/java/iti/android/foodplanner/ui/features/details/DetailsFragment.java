@@ -87,6 +87,11 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
+                if(!presenter.isUser())
+                {
+                    addToPlan.setVisibility(View.GONE);
+                    addTofavBtn.setVisibility(View.GONE);
+                }
                 mealsItem=data.get(0);
                 mealPlan=mealsItem.convertMealsItemToMealsPlan(mealsItem);
                 Log.i("TAG", "meal plan obj: "+mealPlan.getStrCategory());

@@ -29,10 +29,12 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     private List<MealsItem> itemsList = new ArrayList<>();
     private Context context;
     private SearchInterface searchInterface;
+    private SearchPresenter searchPresenter;
 
     public SearchResultAdapter(Context context, SearchInterface searchInterface) {
         this.context = context;
         this.searchInterface = searchInterface;
+       searchPresenter=new SearchPresenter(context,searchInterface);
     }
 
     @NonNull
@@ -43,6 +45,7 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SearchResultAdapter.ViewHolder holder, int position) {
+
         MealsItem item = itemsList.get(position);
         holder.foodNameTv.setText(item.getStrMeal());
 
@@ -60,6 +63,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
             action.setMealId(item.getIdMeal());
             Navigation.findNavController(v).navigate(action);
         });
+        if(!searchPresenter.isUser())
+        {
+            holder.addToFavBtn.setVisibility(View.GONE);
+            holder.addToPlaneBtn.setVisibility(View.GONE);
+        }
     }
 
     public void setItemsList(List<MealsItem> itemsList){

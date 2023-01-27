@@ -35,6 +35,7 @@ public class PlanFragment extends Fragment {
         View view = binding.getRoot();
         presenter = new PlanPresenter(getContext());
         if (!presenter.isUser){
+
             getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
             Toast.makeText(getContext(), "Please Login First or Register", Toast.LENGTH_SHORT).show();
             return view;

@@ -118,6 +118,7 @@ public class SearchFragment extends Fragment implements SearchInterface{
 
     @Override
     public void onDataSuccessResponse(List<MealsItem> data) {
+
         if (data.size()==0){
             binding.rvSearch.setVisibility(View.GONE);
             binding.shimmerHolder.setVisibility(View.GONE);
