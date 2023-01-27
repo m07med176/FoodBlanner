@@ -1,49 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/signup_login_chooser"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="32dp"
+    android:layout_marginTop="32dp"
+    android:layout_marginRight="32dp"
+    android:layout_marginBottom="32dp"
+    android:background="@drawable/constrain_layout_login_corners"
     tools:context=".ui.features.register.RegisterActivity">
 
-    <TextView
-        android:id="@+id/create_an_a"
-        android:layout_width="298dp"
-        android:layout_height="55dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="92dp"
-        android:gravity="top"
-        android:text="@string/create_an_a"
-        android:textAppearance="@style/hi_wecome_b"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/userNameTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.584"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/connect_wit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:gravity="top"
-        android:text="@string/connect_wit"
-        android:textAppearance="@style/hello_again"
-        app:layout_constraintStart_toStartOf="@+id/create_an_a"
-        app:layout_constraintTop_toBottomOf="@+id/create_an_a" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/sign_up" />
 
     <EditText
         android:id="@+id/signupEmailTxtView"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="24dp"
         android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/enterYourMail"
@@ -52,14 +50,16 @@
         android:textColor="@color/black"
         android:textColorHint="#999EA1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.484"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameTextView" />
 
     <EditText
         android:id="@+id/passwordSignupTxtView"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
+        android:autofillHints=""
         android:backgroundTint="@color/black"
         android:ems="10"
         android:hint="@string/enterPassword"
@@ -68,14 +68,13 @@
         android:textColor="@color/black"
         android:textColorHint="#999EA1"
         app:layout_constraintEnd_toEndOf="@+id/signupEmailTxtView"
-        app:layout_constraintTop_toBottomOf="@+id/signupEmailTxtView"
-        android:autofillHints="" />
+        app:layout_constraintTop_toBottomOf="@+id/signupEmailTxtView" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signUpBtn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="@drawable/button_state_color"
         android:text="@string/signUp"
         android:textColor="@color/white"
@@ -106,11 +105,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
+        android:layout_marginTop="16dp"
         android:text="Already have an account ?"
         android:textColor="#999EA1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/signUpBtn" />
+        app:layout_constraintStart_toStartOf="@+id/signUpBtn"
+        app:layout_constraintTop_toBottomOf="@+id/signUpBtn" />
 
     <TextView
         android:id="@+id/loginTxtView"
@@ -121,4 +120,41 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User name"
+        android:textColor="@color/purbleButtonsEnabled"
+        app:layout_constraintBottom_toTopOf="@+id/userNameTextView"
+        app:layout_constraintStart_toStartOf="@+id/userNameTextView" />
+
+    <EditText
+        android:id="@+id/userNameTextView"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:ems="10"
+        android:hint="@string/enterYourName"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="@color/black"
+        android:textColorHint="#999EA1"
+        app:layout_constraintEnd_toEndOf="@+id/signupEmailTxtView"
+        app:layout_constraintStart_toStartOf="@+id/signupEmailTxtView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/continueAsGuest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Or continue as a guest"
+        android:textColor="@color/purbleButtonsEnabled"
+        app:layout_constraintEnd_toEndOf="@+id/loginTxtView"
+        app:layout_constraintStart_toStartOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>

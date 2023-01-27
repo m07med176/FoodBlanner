@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -29,16 +30,23 @@ import com.google.firebase.auth.FirebaseUser;
 import iti.android.foodplanner.MainActivity;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.authentication.Authentication;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.data.backup.BackupManager;
+import iti.android.foodplanner.data.models.User;
+import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
 
 
 public class RegisterActivity extends AppCompatActivity implements RegisterInterface{
-    TextView signUpEmailTv;
-    TextView signUpPasswordTv;
-    Button signUpButton;
-    TextView loginTxtViewBtn;
+    private TextView signUpEmailTv;
+    private TextView signUpPasswordTv;
+    private Button signUpButton;
+    private TextView loginTxtViewBtn;
+    private TextView guestBtn;
+    private TextView userNameTv;
+    private ProgressDialog dialog;
 
     private static boolean statesFlagEmail=false;
     private static boolean statesFlagPassword=false;
@@ -85,7 +93,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(!statesFlagEmail) {
+                    showEmailError();
+                }
             }
 
 
@@ -110,16 +120,21 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if(!statesFlagPassword)
+                    showPasswordError();
             }
+
         });
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                authentication.register(RegisterActivity.this,signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString());
+                dialog = ProgressDialog.show(RegisterActivity.this, "",
+                        "Loading. Please wait...", true);
+                authentication.register(RegisterActivity.this,signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString(),RegisterActivity.this,userNameTv.getText().toString());
             }
         });
+        guestBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
     }
 
 
@@ -128,6 +143,8 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
         signUpPasswordTv=findViewById(R.id.passwordSignupTxtView);
         signUpButton=findViewById(R.id.signUpBtn);
         loginTxtViewBtn=findViewById(R.id.loginTxtView);
+        guestBtn=findViewById(R.id.continueAsGuest);
+        userNameTv=findViewById(R.id.userNameTextView);
         signUpButton.setEnabled(false);
     }
 
@@ -144,15 +161,28 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
 
     @Override
     public void onSuccess(FirebaseUser user) {
+        dialog.dismiss();
         updateUI(user);
     }
 
     @Override
     public void onFail(Exception exception) {
+        dialog.dismiss();
         if (exception == null) {
             Toast.makeText(getApplicationContext(), "UnExpected error occurred", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT).show();
         }
+        showEmailError();
+        showPasswordError();
     }
+    public void showEmailError(){
+        signUpEmailTv.setError("Please enter email in the right form");
+    }
+    public void showPasswordError(){
+        signUpPasswordTv.setError("Please enter password contains first character capital with at least 3 characters and 3 digits");
+    }
+
+
+
 }

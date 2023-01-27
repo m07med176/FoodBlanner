@@ -22,6 +22,7 @@ public class User implements Serializable {
         this.authProvider = authProvider;
     }
 
+
     public int getAuthProvider() {
         return authProvider;
     }

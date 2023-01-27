@@ -13,8 +13,8 @@ import iti.android.foodplanner.ui.features.register.RegisterInterface;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignInWithGoogleInterface;
 
 public abstract class Authentication<T> {
-    public void login(LoginInterface loginInterface, String email, String password){}
-    public void register(RegisterInterface registerInterface, String email, String password){}
+    public void login(LoginInterface loginInterface, String email, String password,Context context){}
+    public void register(RegisterInterface registerInterface, String email, String password,Context context,String userName){}
     public abstract void logout(Context context);
     public abstract T instance();
 

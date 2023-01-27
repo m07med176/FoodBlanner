@@ -86,6 +86,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
         signUpButton=findViewById(R.id.signUpWithMailBtn);
         loginTxtViewBtn=findViewById(R.id.loginTxtView);
         guestButton=findViewById(R.id.guestButton);
+
     }
 
     @Override

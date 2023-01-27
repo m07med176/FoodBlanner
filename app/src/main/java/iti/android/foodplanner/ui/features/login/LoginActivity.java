@@ -24,8 +24,12 @@ import com.google.firebase.auth.FirebaseUser;
 
 import iti.android.foodplanner.MainActivity;
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.authentication.Authentication;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.data.backup.BackupManager;
+import iti.android.foodplanner.data.models.User;
+import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
 
 
@@ -35,12 +39,14 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     private TextView emailTV;
     private TextView passwordTV;
     private TextView createNewAccountTV;
+    private TextView guestBtn;
     private Button loginButton;
     private Authentication authentication;
     private AuthenticationFactory authenticationFactory;
     private static boolean statesFlagEmail=false;
     private static boolean statesFlagPassword=false;
     private ProgressDialog dialog;
+
 
 
 
@@ -116,10 +122,11 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
             public void onClick(View view) {
                 dialog = ProgressDialog.show(LoginActivity.this, "",
                         "Loading. Please wait...", true);
-               authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString());
+               authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
 
             }
         });
+        guestBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
 
     }
 
@@ -134,6 +141,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         passwordTV = findViewById(R.id.passwordTxtView);
         loginButton = findViewById(R.id.loginBtn);
         createNewAccountTV = findViewById(R.id.createNewAccountTxtView);
+        guestBtn=findViewById(R.id.continueAsGuestLogin);
         loginButton.setEnabled(false);
     }
 
@@ -147,7 +155,9 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
 
     @Override
     public void onSuccess(FirebaseUser user) {
-            updateUI(user);
+          dialog.dismiss();
+        updateUI(user);
+
     }
 
     @Override
@@ -161,11 +171,17 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         showPasswordError();
 
     }
+
+
     public void showEmailError(){
         emailTV.setError("Please enter the correct email");
     }
     public void showPasswordError(){
         passwordTV.setError("Please enter the correct password");
     }
+    private User getUserData(FirebaseUser user) {
 
+        //TODO photo URL
+        return new User(user.getUid(), user.getDisplayName(), "user.getPhotoUrl().toString()", user.getEmail(),AuthenticationFactory.EMAIL);
+    }
 }

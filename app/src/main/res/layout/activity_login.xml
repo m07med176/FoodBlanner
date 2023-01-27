@@ -91,11 +91,11 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
+            android:layout_marginTop="32dp"
             android:text="New to food planner ?"
             android:textColor="#999EA1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/loginBtn" />
+            app:layout_constraintStart_toStartOf="@+id/loginBtn"
+            app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
         <TextView
             android:id="@+id/createNewAccountTxtView"
@@ -125,6 +125,16 @@
 
             app:layout_constraintBottom_toTopOf="@+id/passwordTxtView"
             app:layout_constraintStart_toStartOf="@+id/passwordTxtView" />
+        <TextView
+            android:id="@+id/continueAsGuestLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Or continue as a guest"
+            android:textColor="@color/purbleButtonsEnabled"
+            app:layout_constraintEnd_toEndOf="@+id/createNewAccountTxtView"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
