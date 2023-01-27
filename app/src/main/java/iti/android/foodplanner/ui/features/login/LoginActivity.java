@@ -32,14 +32,15 @@ import iti.android.foodplanner.ui.features.register.RegisterActivity;
 public class LoginActivity extends AppCompatActivity implements LoginInterface{
     private static final String TAG = "GOOGLEAUTHENTCATION";
 
-    TextView emailTV;
-    TextView passwordTV;
-    TextView createNewAccountTV;
-    Button loginButton;
-    Authentication authentication;
-    AuthenticationFactory authenticationFactory;
+    private TextView emailTV;
+    private TextView passwordTV;
+    private TextView createNewAccountTV;
+    private Button loginButton;
+    private Authentication authentication;
+    private AuthenticationFactory authenticationFactory;
     private static boolean statesFlagEmail=false;
     private static boolean statesFlagPassword=false;
+    private ProgressDialog dialog;
 
 
 
@@ -78,8 +79,10 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+               if(!statesFlagPassword)
+                showPasswordError();
             }
+
         });
         emailTV.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,6 +104,9 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
 
             @Override
             public void afterTextChanged(Editable editable) {
+                if(!statesFlagEmail) {
+                    showEmailError();
+                }
 
             }
         });
@@ -108,7 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ProgressDialog dialog = ProgressDialog.show(LoginActivity.this, "",
+                dialog = ProgressDialog.show(LoginActivity.this, "",
                         "Loading. Please wait...", true);
                authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString());
 
@@ -116,10 +122,6 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         });
 
     }
-
-
-
-
 
     public void updateUI(FirebaseUser user) {
         if (user != null) {
@@ -150,10 +152,20 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
 
     @Override
     public void onFail(String task) {
+
         Toast.makeText(LoginActivity.this, task,
                 Toast.LENGTH_SHORT).show();
+        dialog.dismiss();
         updateUI((FirebaseUser) null);
+        showEmailError();
+        showPasswordError();
 
+    }
+    public void showEmailError(){
+        emailTV.setError("Please enter the correct email");
+    }
+    public void showPasswordError(){
+        passwordTV.setError("Please enter the correct password");
     }
 
 }
