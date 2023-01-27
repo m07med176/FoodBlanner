@@ -67,16 +67,20 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
             @Override
             public void onDataSuccessResponse(List<Area> data) {
                 filterAreaAdapter.setItemsList(data);
+                binding.shimmerSaerchArea.setVisibility(View.GONE);
+                binding.rvAreas.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerSaerchArea.setVisibility(View.VISIBLE);
+                binding.rvAreas.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
-
+                binding.shimmerSaerchArea.setVisibility(View.VISIBLE);
+                binding.rvAreas.setVisibility(View.GONE);
             }
         });
 
@@ -92,16 +96,20 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
             @Override
             public void onDataSuccessResponse(List<Ingredient> data) {
                 filterIngredientAdapter.setItemsList(data);
+                binding.shimmerSaerchIngredient.setVisibility(View.GONE);
+                binding.rvIngredient.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerSaerchIngredient.setVisibility(View.VISIBLE);
+                binding.rvIngredient.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
-
+                binding.shimmerSaerchIngredient.setVisibility(View.VISIBLE);
+                binding.rvIngredient.setVisibility(View.GONE);
             }
         });
     }
@@ -115,16 +123,20 @@ public class CategoryFragment extends Fragment implements CategoryInterface {
             @Override
             public void onDataSuccessResponse(List<Category> data) {
                 filterCategoryAdapter.setItemsList(data);
+                binding.shimmerSaerchCategory.setVisibility(View.GONE);
+                binding.rvCategory.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-
+                binding.shimmerSaerchCategory.setVisibility(View.VISIBLE);
+                binding.rvCategory.setVisibility(View.GONE);
             }
 
             @Override
             public void onDataLoading() {
-
+                binding.shimmerSaerchCategory.setVisibility(View.VISIBLE);
+                binding.rvCategory.setVisibility(View.GONE);
             }
         });
     }
