@@ -59,7 +59,7 @@ public class Repository {
     }
 
     private Repository(Context context) {
-            apiCalls = Network.apiCalls;
+            apiCalls = Network.getInstance(context);
             roomDatabase = RoomDatabase.getInstance(context);
             sharedManager = SharedManager.getInstance(context);
             backupManager = BackupManager.getInstance(sharedManager);

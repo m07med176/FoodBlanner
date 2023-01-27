@@ -5,7 +5,7 @@
     <!--TODO Moamen [design]: design drawable button state -->
     <!--TODO Moamen [design]: design drawable inputs state -->
 
-    <style name="Theme.FoodPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.FoodPlanner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryVariant">@color/color_primary_variant</item>

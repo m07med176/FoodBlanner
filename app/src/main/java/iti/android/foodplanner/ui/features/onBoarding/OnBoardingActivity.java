@@ -41,7 +41,6 @@ public class OnBoardingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
-        getSupportActionBar().hide();
         List<SliderItem> sliderItems=new ArrayList<>();
         sliderItems.add(new SliderItem(R.drawable.img_intro,"Plan your weak plan meal \n" +
                 "better with us ","choose any meal you want and added to your plan by just a click"));
