@@ -12,9 +12,12 @@ public class OnBoardingPresenter {
         repository=Repository.getInstance(context);
 
     }
-    public boolean isUser() {
-        return repository.isUser();
-    }
 
-    // TODO save in shared preferance manager first entrance done
+
+    public boolean isFirst(){
+        return repository.isFirstEntrance();
+    }
+    public void entered(){
+        repository.saveEntrance();
+    }
 }

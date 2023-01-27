@@ -31,8 +31,11 @@ public class OnBoardingActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        if(presenter.isUser())
+        if(!presenter.isFirst())
         {
+            presenter.entered();
+        }
+        else {
             gotoApp();
         }
     }
@@ -43,9 +46,9 @@ public class OnBoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_on_boarding);
         getSupportActionBar().hide();
         List<SliderItem> sliderItems=new ArrayList<>();
-        sliderItems.add(new SliderItem(R.drawable.img_intro,"Plan your weak plan meal \n" +
+        sliderItems.add(new SliderItem(R.drawable.img_intro_1,"Plan your weak plan meal \n" +
                 "better with us ","choose any meal you want and added to your plan by just a click"));
-        sliderItems.add(new SliderItem(R.drawable.img_intro,"Enjoy your lunch time","Just relax and not overthink what to eat. This is in our side with our personalized meal plans just prepared and adapted to your needs."));
+        sliderItems.add(new SliderItem(R.drawable.img_intro_2,"Enjoy your lunch time","Just relax and not overthink what to eat. This is in our side with our personalized meal plans just prepared and adapted to your needs."));
         presenter = new OnBoardingPresenter(this);
         viewPager2=findViewById(R.id.viewPagerImageSlider);
         tabLayout=findViewById(R.id.tabLayoutIndicator);
@@ -62,21 +65,6 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         });
 
-//        viewPager2.setClipToPadding(false);
-//        viewPager2.setClipChildren(false);
-//        viewPager2.setOffscreenPageLimit(3);
-//        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-//        CompositePageTransformer compositePageTransformer=new CompositePageTransformer();
-//        compositePageTransformer.addTransformer(new MarginPageTransformer(40));
-//        compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
-//            @Override
-//            public void transformPage(@NonNull View page, float position) {
-//                float r=1-Math.abs(position);
-//                page.setScaleY(.85f+r*.15f);
-//
-//            }
-//        });
-//        viewPager2.setPageTransformer(compositePageTransformer);
     }
     public void gotoApp() {
         startActivity(new Intent(OnBoardingActivity.this, SignUpOrLoginActivity.class));

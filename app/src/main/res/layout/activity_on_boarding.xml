@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/on_boarding"
     tools:context=".ui.features.onBoarding.OnBoardingActivity" >
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerImageSlider"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="128dp"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
@@ -39,6 +40,7 @@
         app:tabBackground="@drawable/tab_selector"
         app:tabGravity="center"
         app:tabIndicatorHeight="0dp"
+        android:background="@color/transperant"
         app:layout_constraintBottom_toBottomOf="@+id/nextButton"
         app:layout_constraintStart_toStartOf="@+id/viewPagerImageSlider"
         app:layout_constraintTop_toTopOf="@+id/nextButton">
