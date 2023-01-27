@@ -52,7 +52,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         nextBtn=findViewById(R.id.nextButton);
 
         viewPager2.setAdapter(new SliderAdapter(sliderItems,viewPager2));
-        new TabLayoutMediator(tabLayout,viewPager2, (tab, position) -> tab.setText("OBJECT " + (position + 1))
+        new TabLayoutMediator(tabLayout,viewPager2, (tab, position) -> tab.setText("")
         ).attach();
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override

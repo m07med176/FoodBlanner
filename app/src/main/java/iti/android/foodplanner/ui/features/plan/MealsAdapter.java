@@ -60,23 +60,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
                 repository.deletePlanMeal(values.get(position), new DataFetch<Void>() {
                     @Override
                     public void onDataSuccessResponse(Void data) {
-                            repository.showPlanMealsByDay(values.get(position).getDay(), new DataFetch<List<MealPlan>>() {
-                                @Override
-                                public void onDataSuccessResponse(List<MealPlan> data) {
-                                    values=data;
-                                    notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onDataFailedResponse(String message) {
-
-                                }
-
-                                @Override
-                                public void onDataLoading() {
-
-                                }
-                            });
+                            values.remove(values.get(position));
+                            notifyItemRemoved(position);
                     }
 
                     @Override
