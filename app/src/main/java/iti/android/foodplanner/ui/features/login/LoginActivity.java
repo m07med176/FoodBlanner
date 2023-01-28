@@ -181,7 +181,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     }
     private User getUserData(FirebaseUser user) {
 
-        //TODO photo URL
-        return new User(user.getUid(), user.getDisplayName(), "user.getPhotoUrl().toString()", user.getEmail(),AuthenticationFactory.EMAIL);
+
+        return new User(user.getUid(), user.getDisplayName(), user.getPhotoUrl().toString(), user.getEmail(),AuthenticationFactory.EMAIL);
     }
 }
