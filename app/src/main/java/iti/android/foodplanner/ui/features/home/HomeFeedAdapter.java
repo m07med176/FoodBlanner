@@ -64,7 +64,8 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
         holder.addToPlaneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    homeInterface.onSavePlane(item);
+
+                homeInterface.onSavePlane(item);
             }
         });
 

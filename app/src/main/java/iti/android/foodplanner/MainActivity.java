@@ -39,10 +39,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void navigationUiSettings() {
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        int[] pages = {R.id.navigation_home,R.id.navigation_favorite,R.id.navigation_category, R.id.navigation_plan,R.id.navigation_details,R.id.navigation_onboarding,R.id.navigation_search};
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(pages).build();
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main_app);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override

@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        getSupportActionBar().hide();
+
 
         authentication= AuthenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 

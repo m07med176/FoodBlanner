@@ -22,6 +22,7 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentSearchBinding;
+import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
 import iti.android.foodplanner.ui.features.home.HomeFeedAdapter;
 import iti.android.foodplanner.ui.features.home.HomePresenter;
 import iti.android.foodplanner.ui.util.Utils;
@@ -32,6 +33,7 @@ public class SearchFragment extends Fragment implements SearchInterface{
     private SearchPresenter presenter;
     private RecyclerView rvSearch;
     private SearchResultAdapter searchResultAdapter;
+    private AddToPlanDailog addToPlanDailog;
 
     private int type;
     private String query=  "";
@@ -39,6 +41,7 @@ public class SearchFragment extends Fragment implements SearchInterface{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater,container,false);
         presenter = new SearchPresenter(getContext(),this);
+        addToPlanDailog=new AddToPlanDailog(requireContext());
         rvSearch = Utils.recyclerViewHandler(binding.rvSearch, getContext());
         searchResultAdapter = new SearchResultAdapter(getContext(), this);
         rvSearch.setAdapter(searchResultAdapter);
@@ -152,6 +155,8 @@ public class SearchFragment extends Fragment implements SearchInterface{
 
     @Override
     public void onSavePlane(MealsItem item) {
+
+        addToPlanDailog.createDialog(item.convertMealsItemToMealsPlan(item),requireContext());
 
     }
 

@@ -51,7 +51,10 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
 
         Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
 
-        holder.addToPlaneBtn.setOnClickListener(view -> searchInterface.onSavePlane(item));
+        holder.addToPlaneBtn.setOnClickListener(view ->
+
+                searchInterface.onSavePlane(item)
+        );
 
         holder.addToFavBtn.setOnCheckedChangeListener((compoundButton, b) -> {
             if (b)

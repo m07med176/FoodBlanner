@@ -6,41 +6,47 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/purbleButtonsEnabled"
-        app:cardCornerRadius="100dp"
-        app:cardElevation="150dp">
 
-        <TextView
-            android:id="@+id/dayTextView"
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center"
-            android:text="TextView"
-            android:textColor="@color/white" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/purbleButtonsEnabled"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="150dp">
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
+            <TextView
+                android:id="@+id/dayTextView"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textColor="@color/white" />
+        </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mealsRecycleView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:autofillHints="@string/nothingToShow"
-        android:background="@color/purbleButtonsDisabled"
-        android:elevation="-20dp"
-        android:orientation="horizontal">
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mealsRecycleView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purbleButtonsDisabled"
+            android:elevation="-20dp"
+            android:orientation="horizontal">
 
 
-    </androidx.recyclerview.widget.RecyclerView>
-
+        </androidx.recyclerview.widget.RecyclerView>
+<TextView
+    android:id="@+id/emptyView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="Text"
+    android:visibility="gone"/>
 
 
     <LinearLayout
@@ -48,13 +54,9 @@
         android:layout_height="50dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/empty_view"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:gravity="center"
-            android:text="@string/nothingToShow"
-            android:visibility="invisible" />
+
     </LinearLayout>
 
+
 </LinearLayout>
+

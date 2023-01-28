@@ -112,7 +112,7 @@ public class BackupManager  {
             firebaseFirestore
                     .collection(ROOT_KEY)
                     .document(sharedManager.getUser().getUID())
-                    .collection(FAV_KEY)
+                    .collection(PLANE_KEY)
                     .document(mealPlan.getIdMeal())
                     .set(mealPlan);
     }

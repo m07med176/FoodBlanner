@@ -364,6 +364,7 @@ public class Repository {
 
                     @Override
                     public void onComplete() {
+                        backupManager.savePlane(mealPlan);
                         dataFetch.onDataSuccessResponse(null);
                     }
 

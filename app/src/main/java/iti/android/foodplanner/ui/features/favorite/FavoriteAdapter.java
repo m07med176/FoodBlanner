@@ -20,10 +20,12 @@ import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
+import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private List<MealsItem> itemsList;
     private Context context;
+    private AddToPlanDailog addToPlanDailog;
     FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions;
     public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
 
@@ -32,6 +34,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         this.itemsList = itemsList;
         this.context = context;
         this.favoriteAdapterActions = favoriteAdapterActions;
+        addToPlanDailog=new AddToPlanDailog(context);
     }
 
     @NonNull
@@ -48,6 +51,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.tvArea.setText(item.getStrArea());
         Glide.with(context).load(item.getStrMealThumb()).into(holder.imagefav);
         holder.addToPlaneBtn.setOnClickListener(view -> {
+            addToPlanDailog.createDialog(item.convertMealsItemToMealsPlan(item),context);
             Toast.makeText(context, "Add This to Plan", Toast.LENGTH_SHORT).show();
         });
         holder.removeBtn.setOnClickListener(view -> {

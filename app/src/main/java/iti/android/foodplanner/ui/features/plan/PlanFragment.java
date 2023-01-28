@@ -69,6 +69,7 @@ public class PlanFragment extends Fragment {
         super.onStart();
         if (!presenter.isUser)
             Navigation.findNavController(binding.getRoot()).navigate(R.id.navigation_home);
+
     }
 
     @Override

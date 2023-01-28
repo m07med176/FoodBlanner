@@ -46,7 +46,7 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
         setContentView(R.layout.activity_sign_up_or_login);
         presenter =new SignInWithGooglePresenter(this,this);
 
-        getSupportActionBar().hide();
+
         initUi();
         presenter.googleAuthInitialize(this);
 

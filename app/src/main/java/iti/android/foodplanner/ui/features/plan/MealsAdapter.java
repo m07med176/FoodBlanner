@@ -1,7 +1,6 @@
 package iti.android.foodplanner.ui.features.plan;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,14 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
-import iti.android.foodplanner.data.room.Week;
 
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
     private List<MealPlan> values;
@@ -60,8 +57,9 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
                 repository.deletePlanMeal(values.get(position), new DataFetch<Void>() {
                     @Override
                     public void onDataSuccessResponse(Void data) {
-                            values.remove(values.get(position));
+                            values.remove(position);
                             notifyItemRemoved(position);
+
                     }
 
                     @Override
@@ -93,7 +91,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mealName=itemView.findViewById(R.id.nameMealTxtView);
+            mealName=itemView.findViewById(R.id.mealName);
             mealCategory=itemView.findViewById(R.id.categoryTxtView);
             mealCountry=itemView.findViewById(R.id.countryTxtView);
             deleteButton=itemView.findViewById(R.id.removeFromPlanButton);

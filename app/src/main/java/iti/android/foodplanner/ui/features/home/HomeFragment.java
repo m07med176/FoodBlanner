@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +28,7 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
+import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
 import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
@@ -31,12 +36,14 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     private HomePresenter presenter;
     private FragmentHomeBinding binding;
-
-
+    private RelativeLayout searchView;
+    String mealId=null;
+    AddToPlanDailog addToPlanDailog;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new HomePresenter(getContext(), this);
+        addToPlanDailog=new AddToPlanDailog(requireContext());
         recycleriewIngredientsSettings();
 
         recycleriewAreaSettings();
@@ -44,6 +51,16 @@ public class HomeFragment extends Fragment implements HomeInterface {
         recycleriewCategorySettings();
         randomMealCardSettings(view);
         navigateToSeeMore();
+        searchView=view.findViewById(R.id.rand);
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HomeFragmentDirections.ActionNavigationHomeToNavigationDetails action=HomeFragmentDirections.actionNavigationHomeToNavigationDetails();
+                action.setMealId(mealId);
+                Navigation.findNavController(v).navigate(action);
+            }
+        });
 
 //        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override
@@ -115,10 +132,13 @@ public class HomeFragment extends Fragment implements HomeInterface {
         TextView foodSingleName = view.findViewById(R.id.food_name);
         TextView plane_btn = view.findViewById(R.id.plane_btn);
         ImageButton fav_btn = view.findViewById(R.id.fav_btn);
+
+
         presenter.getRandomMeals(HomePresenter.SINGLE, new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
                 MealsItem mealsItem = data.get(0);
+                mealId=data.get(0).getIdMeal();
                 Glide.with(getContext())
                         .load(mealsItem.getStrMealThumb())
                         .apply(new RequestOptions()
@@ -180,6 +200,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -198,6 +219,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     @Override
     public void onSavePlane (MealsItem item){
+        addToPlanDailog.createDialog(item.convertMealsItemToMealsPlan(item),requireContext());
         Toast.makeText(getContext(), item.getStrMeal() + " Will Be Add to plane", Toast.LENGTH_SHORT).show();
 
     }

@@ -13,6 +13,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +47,7 @@ import iti.android.foodplanner.data.models.meal.MealsItem;
 
 import iti.android.foodplanner.data.room.Week;
 import iti.android.foodplanner.databinding.FragmentDetailsBinding;
+import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
 
 public class DetailsFragment extends Fragment implements DetailsInterface{
 
@@ -53,7 +56,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
     private TextView detailsName;
     private TextView categoryName;
     private TextView areaName;
-    private TextView ingridientsTv;
+    private RecyclerView ingridientsRV;
     private TextView instructionsTv;
     private AppCompatImageView addTofavBtn;
     private AppCompatButton addToPlan;
@@ -79,7 +82,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
         initUi();
         presenter = new DetailsPresenter(getContext(),this);
-
+        AddToPlanDailog addToPlanDailog=new AddToPlanDailog(requireContext());
 
         mealId=DetailsFragmentArgs.fromBundle(getArguments()).getMealId();
         presenter.getMeal(mealId, new DataFetch<List<MealsItem>>() {
@@ -103,11 +106,13 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
                 Log.i("TAG", "instructions: "+mealsItem.getStrInstructions());
                 ingridients=mealsItem.getIngredients();
 
-                for(int i=0;i<ingridients.size();i++)
-                {
-                    ingridientsTv.append("."+ingridients.get(i)+"\n");
-                    Log.i("TAG", "ingridients: "+ingridients.get(i));
-                }
+                LinearLayoutManager linearLayoutManager=new LinearLayoutManager(requireContext());
+                linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+                ingridientsRV.setLayoutManager(linearLayoutManager);
+                  IngredientAdapter ingredientAdapter=new IngredientAdapter(requireContext(),ingridients);
+                    ingridientsRV.setAdapter(ingredientAdapter);
+
+
                 Glide.with(requireContext()).
                         load(mealsItem.getStrMealThumb())
                         .apply(new RequestOptions().override(1920,1080).
@@ -144,7 +149,8 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
       addToPlan.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              createDialog();
+              addToPlanDailog.createDialog(mealPlan,requireContext());
+
           }
       });
 
@@ -169,7 +175,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         addTofavBtn=root.findViewById(id.addToFavoriteButton);
         addToPlan=root.findViewById(id.addTOPlanButton);
         imageView=root.findViewById(id.mealImageView);
-        ingridientsTv=root.findViewById(id.ingredientsTextView);
+        ingridientsRV=root.findViewById(id.ingredientsRecycleView);
         instructionsTv=root.findViewById(id.instructionsTextView);
 
     }
@@ -234,64 +240,5 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
 
 
-    public void createDialog(){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(requireContext());
-        dialogBuilder.setIcon(R.drawable.ic_plane);
-        dialogBuilder.setTitle("Choose any day you want");
 
-        final ArrayAdapter<String> days = new ArrayAdapter<String>(requireContext(), android.R.layout.select_dialog_singlechoice);
-        days.add(Week.SATURDAY.toString());
-        days.add(Week.SUNDAY.toString());
-        days.add(Week.MONDAY.toString());
-        days.add(Week.THURSDAY.toString());
-        days.add(Week.WEDNESDAY.toString());
-        days.add(Week.TUESDAY.toString());
-        days.add(Week.FRIDAY.toString());
-
-        dialogBuilder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        dialogBuilder.setAdapter(days, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.i("TAG", "meal plan at dialog: " + mealPlan.getStrCategory());
-                if(which==0)
-                {
-                    mealPlan.setDay(Week.SATURDAY);
-                }
-                if(which==1)
-                {
-                    mealPlan.setDay(Week.SUNDAY);
-                }
-                if(which==2)
-                {
-                    mealPlan.setDay(Week.MONDAY);
-                }
-                if(which==3)
-                {
-                    mealPlan.setDay(Week.THURSDAY);
-                }
-                if(which==4)
-                {
-                    mealPlan.setDay(Week.WEDNESDAY);
-                }
-                if(which==5)
-                {
-                    mealPlan.setDay(Week.TUESDAY);
-                }
-                if(which==6)
-                {
-                    mealPlan.setDay(Week.FRIDAY);
-                }
-                addToPlan(mealPlan);
-                Toast.makeText(requireContext(),"Added to plan successfully",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-       dialogBuilder.show();
-    }
 }
