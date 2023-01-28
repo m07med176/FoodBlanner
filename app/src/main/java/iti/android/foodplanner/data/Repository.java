@@ -2,6 +2,7 @@ package iti.android.foodplanner.data;
 
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -9,13 +10,14 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.CompletableObserver;
-import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -282,7 +284,7 @@ public class Repository {
 
     }
 
-    public void showFavouriteMealsDataBase(DataFetch<List<MealsItem>> dataFetch){
+    public void showFavouriteMealsRoom(DataFetch<List<MealsItem>> dataFetch){
         roomDatabase
                 .FavoriteDAO()
                 .showFavouriteMeals()
@@ -305,7 +307,7 @@ public class Repository {
                     }
                 });
     }
-    public void deleteFavorite(MealsItem mealsItem,DataFetch<Void> dataFetch){
+    public void deleteFavoriteRoom(MealsItem mealsItem, DataFetch<Void> dataFetch){
         roomDatabase.FavoriteDAO()
                 .deleteFavouriteMeal(mealsItem)
                 .subscribeOn(Schedulers.io())
@@ -329,7 +331,7 @@ public class Repository {
                 });
     }
 
-    public void insertPlaneMealDataBase(MealPlan mealPlan,DataFetch<Void> dataFetch){
+    public void insertPlaneMealRoom(MealPlan mealPlan, DataFetch<Void> dataFetch){
         apiCalls.retrieveMealByID(mealPlan.getIdMeal())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -374,7 +376,7 @@ public class Repository {
                 });
     }
 
-    public void showMealPlan(DataFetch<List<MealPlan>> dataFetch){
+    public void showMealPlanRoom(DataFetch<List<MealPlan>> dataFetch){
         roomDatabase
                 .PlaneFoodDAO()
                 .showPlanMeals()
@@ -396,6 +398,25 @@ public class Repository {
                         dataFetch.onDataFailedResponse(e.getMessage());
                     }
                 });
+    }
+
+
+    public void getMealsPlanAndFavorit(DataFetch<List<MealPlan>> dataFetch){
+
+        // Create Observables
+        Single<List<MealsItem>> mealsFavorites = roomDatabase.FavoriteDAO().showFavouriteMeals();
+        Single<List<MealPlan>> mealsPlans =roomDatabase.PlaneFoodDAO().showPlanMeals();
+//        Observable.zip(mealsPlans,mealsFavorites, new BiConsumer<MealsItem>())
+//        Observable.zip(mealsFavorites,mealsPlans,(favorite,plans)->{
+//            return null;
+//        } );
+//                .subscribeOn(AndroidSchedulers.mainThread())
+//
+//                .subscribe(pair->{
+//                    tvPreview.append("\n"+pair.first+" : "+pair.second);
+//
+//                });
+//    });
     }
     //git conflict keep both changes
     public void showPlanMealsByDay(Week dayName,DataFetch<List<MealPlan>> dataFetch)

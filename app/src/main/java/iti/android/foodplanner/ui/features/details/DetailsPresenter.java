@@ -8,7 +8,6 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.models.meal.MealsItem;
-import iti.android.foodplanner.data.models.meal.MealsList;
 
 public class DetailsPresenter {
     Context context;
@@ -27,12 +26,12 @@ public class DetailsPresenter {
     }
 
     public void deleteFromFav(MealsItem mealsItem){
-        repository.deleteFavorite(mealsItem,null);
+        repository.deleteFavoriteRoom(mealsItem,null);
     }
 
     public void addToPlan(MealPlan mealPlan,DataFetch<Void> dataFetch){
 
-        repository.insertPlaneMealDataBase(mealPlan,dataFetch);
+        repository.insertPlaneMealRoom(mealPlan,dataFetch);
 
     }
 

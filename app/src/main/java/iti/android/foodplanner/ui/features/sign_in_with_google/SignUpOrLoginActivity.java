@@ -8,17 +8,14 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 
-import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.ui.features.main.MainActivity;
 import iti.android.foodplanner.R;
-import iti.android.foodplanner.data.authentication.GoogleAuth;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
 

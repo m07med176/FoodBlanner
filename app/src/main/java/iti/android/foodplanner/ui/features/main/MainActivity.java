@@ -1,38 +1,31 @@
-package iti.android.foodplanner;
+package iti.android.foodplanner.ui.features.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.reactivestreams.Subscription;
-
-import io.reactivex.rxjava3.core.FlowableSubscriber;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
+import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.network.Network;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.databinding.ActivityMainAppBinding;
-import iti.android.foodplanner.ui.MainActivityPresenter;
+import iti.android.foodplanner.ui.features.main.MainActivityPresenter;
 import iti.android.foodplanner.ui.features.sign_in_with_google.SignUpOrLoginActivity;
 import iti.android.foodplanner.ui.util.Utils;
 
