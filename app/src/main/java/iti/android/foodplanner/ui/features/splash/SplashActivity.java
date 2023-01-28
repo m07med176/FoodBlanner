@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.ui.features.main.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.ui.features.onBoarding.OnBoardingActivity;
 

@@ -3,10 +3,7 @@ package iti.android.foodplanner.ui.features.login;
 import static iti.android.foodplanner.ui.util.Utils.isValidEmail;
 import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -22,7 +19,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseUser;
 
 
-import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.ui.features.main.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.authentication.Authentication;

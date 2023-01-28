@@ -17,7 +17,7 @@ import iti.android.foodplanner.data.models.meal.MealsItem;
 @Dao
 public interface FavoriteDAO {
 
-    @Query("SELECT * FROM meals")
+    @Query("SELECT * FROM meals ORDER BY idMealCode")
     public Single<List<MealsItem>> showFavouriteMeals();
 
     @Query("DELETE FROM meals")

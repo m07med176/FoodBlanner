@@ -66,28 +66,28 @@
     android:layout_alignParentBottom="true"
     android:background="#30000000">
 
-    <ImageButton
+    <CheckBox
         android:id="@+id/fav_btn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="9dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        card_view:srcCompat="@drawable/ic_favorite_border_black_menu_24dp" />
+        android:button="@drawable/ic_favorite_black_24dp"/>
 
-    <TextView
+    <ToggleButton
         android:id="@+id/plane_btn"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:background="@android:color/transparent"
         android:layout_marginLeft="10dp"
-        android:text="Add To Calender"
+        android:textOn="@string/added_to_plan"
+        android:textOff="@string/add_to_plan"
         style="@style/TextTitle"
         android:textStyle="bold"
+        android:checked="false"
         android:drawableStart="@drawable/ic_plane"
         android:layout_alignTop="@+id/fav_btn"
         android:layout_alignParentStart="true" />

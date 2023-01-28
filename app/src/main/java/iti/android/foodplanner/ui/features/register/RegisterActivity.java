@@ -6,28 +6,22 @@ package iti.android.foodplanner.ui.features.register;
 import static iti.android.foodplanner.ui.util.Utils.isValidEmail;
 import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.Navigation;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import iti.android.foodplanner.MainActivity;
+import iti.android.foodplanner.ui.features.main.MainActivity;
 
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.Repository;

@@ -2,7 +2,6 @@ package iti.android.foodplanner.ui.features.home;
 
 import android.content.Context;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -58,6 +57,10 @@ public class HomePresenter {
 
     public void saveFavorite(MealsItem item,DataFetch<Void> dataFetch){
         repository.insertFavoriteMealDataBase(item,dataFetch);
+    }
+
+    public void deleteFavorite(MealsItem item,DataFetch<Void> dataFetch){
+        repository.deleteFavoriteRoom(item,dataFetch);
     }
 
 

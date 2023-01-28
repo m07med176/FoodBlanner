@@ -16,7 +16,7 @@ import iti.android.foodplanner.data.models.meal.MealPlan;
 
 @Dao
 public interface PlaneFoodDAO {
-   @Query("SELECT * FROM MealPlan")
+   @Query("SELECT * FROM MealPlan ORDER BY idMeal")
     public Single<List<MealPlan>> showPlanMeals();
 
     @Query("DELETE FROM meals")
