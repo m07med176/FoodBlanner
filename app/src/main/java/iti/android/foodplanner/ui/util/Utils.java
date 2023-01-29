@@ -1,21 +1,28 @@
 package iti.android.foodplanner.ui.util;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +32,7 @@ import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.room.Week;
 import iti.android.foodplanner.ui.features.category.CategoryFragmentDirections;
 import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
 
 public class Utils {
     public static RecyclerView recyclerViewHandler(RecyclerView recyclerView, Context context){
@@ -82,4 +90,24 @@ public class Utils {
 
     }
 
+    public static ProgressDialog loadingDialog(Context context){
+       return ProgressDialog.show(context, "",
+                "Loading. Please wait...", true);
+    }
+
+    public static Snackbar snakeMessage(Context context,View view,String message,boolean isGood){
+        Snackbar snackbar = Snackbar.make(view,message,Snackbar.LENGTH_LONG);
+        if (isGood){
+            snackbar.setBackgroundTint(context.getColor(R.color.green));
+        }else {
+            snackbar.setBackgroundTint(context.getColor(R.color.red));
+        }
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+
+
+        return snackbar;
+    }
 }

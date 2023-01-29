@@ -132,6 +132,8 @@ public class HomeFragment extends Fragment implements HomeInterface {
         presenter.getRandomMeals(HomePresenter.SINGLE, new DataFetch<List<MealsItem>>() {
             @Override
             public void onDataSuccessResponse(List<MealsItem> data) {
+                binding.shimmerDialyInspiration.setVisibility(View.GONE);
+                binding.cardDialy.setVisibility(View.VISIBLE);
                 MealsItem mealsItem = data.get(0);
                 mealId=data.get(0).getIdMeal();
                 Glide.with(getContext())

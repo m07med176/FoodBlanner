@@ -4,11 +4,13 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
@@ -23,6 +25,7 @@ import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.authentication.AuthenticationFactory;
+import iti.android.foodplanner.data.internetConnection.InternetConnection;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.network.Network;
 import iti.android.foodplanner.data.shared.SharedManager;
@@ -57,36 +60,43 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void actionBarSettings() {
+        SharedManager.userMutableLiveData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                binding.profileTitle.setText(user.getName());
+                Utils.loadImage(getApplicationContext(),user.getImageUrl(),binding.profileImage);
+            }
+        });
         User user = presenter.getUserData();
         binding.logoutBtn.setOnClickListener(view -> {
             logoutFromApp();
         });
-
         binding.profileTitle.setText(user.getName());
-
         Utils.loadImage(this,user.getImageUrl(),binding.profileImage);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Network.hasNetworkRX(this).subscribe(new SingleObserver<Boolean>() {
-            @Override
-            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
 
-            }
 
-            @Override
-            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Boolean aBoolean) {
-                    netwrokConnectivity.postValue(aBoolean);
-            }
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ConstraintLayout constraintLayout = findViewById(R.id.container);
+        new InternetConnection(getApplicationContext()).observeForever(new Observer<Boolean>() {
             @Override
-            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+            public void onChanged(Boolean connected) {
+                if (connected)
+                    Utils.snakeMessage(getApplicationContext(),constraintLayout,"Online",true).show();
+                else
+                    Utils.snakeMessage(getApplicationContext(),constraintLayout,"Offline",false).show();
 
             }
         });
-
     }
 
     private void navigationUiSettings() {
@@ -100,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController navController, @NonNull NavDestination navDestination, @Nullable Bundle bundle) {
-                if(navDestination.getId() == R.id.navigation_details) {
+                if(navDestination.getId() == R.id.navigation_details||navDestination.getId()==R.id.navigation_profile) {
 
                     navView.setVisibility(View.GONE);
                 } else {

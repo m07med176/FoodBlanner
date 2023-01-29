@@ -2,6 +2,7 @@ package iti.android.foodplanner.data.backup;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -61,6 +62,13 @@ public class BackupManager  {
                 .document(user.getUID())
                 .set(user)
                 .addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getUser(String uid,OnSuccessListener<DocumentSnapshot> onSuccessListener){
+        firebaseFirestore
+                .collection(ROOT_KEY)
+                .document(uid)
+                .get().addOnSuccessListener(onSuccessListener);
     }
     public void deleteFavorite(MealsItem mealsItem){
         if (sharedManager.isUser())

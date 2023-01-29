@@ -6,6 +6,8 @@
     <color name="color_secondary">#FF03DAC5</color>
     <color name="color_secondary_variant">#FF018786</color>
     <color name="black">#060606</color>
+    <color name="red">#D32F2F</color>
+    <color name="green">#00E676</color>
     <color name="white">#FFFFFFFF</color>
     <color name="light_gray">#EBE5E5</color>
     <color name="purbleButtonsEnabled">#8A47EB</color>

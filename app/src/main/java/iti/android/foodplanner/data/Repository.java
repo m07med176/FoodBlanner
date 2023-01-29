@@ -133,7 +133,22 @@ public class Repository {
                                 roomDatabase.PlaneFoodDAO()
                                         .insertAllTable(mealPlans)
                                         .subscribeOn(Schedulers.io())
-                                        .subscribe();
+                                        .subscribe(new CompletableObserver() {
+                                            @Override
+                                            public void onSubscribe(@NonNull Disposable d) {
+                                                Log.d(TAG, "onSubscribe: ");
+                                            }
+
+                                            @Override
+                                            public void onComplete() {
+                                                Log.d(TAG, "onComplete: Restore all data");
+                                            }
+
+                                            @Override
+                                            public void onError(@NonNull Throwable e) {
+                                                Log.d(TAG, "onError: restore has been failed");
+                                            }
+                                        });
 
                             }
 

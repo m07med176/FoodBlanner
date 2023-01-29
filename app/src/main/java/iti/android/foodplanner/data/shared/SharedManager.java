@@ -3,6 +3,8 @@ package iti.android.foodplanner.data.shared;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 import iti.android.foodplanner.data.models.User;
 
 public class SharedManager {
+    public static MutableLiveData<User> userMutableLiveData = new MutableLiveData<>();
     public static final String DELEMETER = ",";
     public static final String AREAS = "AREAS";
     public static final String INGREDIENTS = "INGREDIENTS";
@@ -18,8 +21,9 @@ public class SharedManager {
     public static final String USER_INFO = "USER_INFO";
     private volatile static SharedManager instance = null;
     private  SharedPreferences sharedPreferences = null;
+    final String SHARE_KEY = "shareRoom";
     private SharedManager(Context context){
-        final String SHARE_KEY = "shareRoom";
+
         sharedPreferences = context.getSharedPreferences(SHARE_KEY,Context.MODE_PRIVATE);
     }
     public static  SharedManager getInstance(Context context) {
@@ -37,6 +41,7 @@ public class SharedManager {
     }
 
     public void saveUser(User user){
+        userMutableLiveData.postValue(user);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(USER_INFO,new Gson().toJson(user));
         editor.apply();
@@ -67,7 +72,11 @@ public class SharedManager {
     }
 
 
+    public void refreshSharedPrefrence(Context context){
 
+        sharedPreferences = context.getSharedPreferences(SHARE_KEY,Context.MODE_PRIVATE);
+
+    }
 
     public void saveList(String type, List<String> cashList){
         SharedPreferences.Editor editor = sharedPreferences.edit();

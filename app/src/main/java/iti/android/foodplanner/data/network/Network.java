@@ -74,9 +74,6 @@ public class Network {
         return activeNetwork != null && activeNetwork.isConnected();
     }
 
-    public static Single<Boolean> hasNetworkRX(Context context) {
-        return Single.create(emitter -> emitter.onSuccess(hasNetwork(context)));
-    }
 
 
 

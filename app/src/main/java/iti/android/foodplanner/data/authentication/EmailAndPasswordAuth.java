@@ -26,7 +26,11 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
     private Context context;
     @Override
     public void logout(Context context){
-        this.context=context;
+        mAuth=FirebaseAuth.getInstance();
+        Repository.getInstance(context).deleteAllTable(Repository.DELETE_PLAN_AND_FAV);
+        SharedManager.getInstance(context).clearAllData();
+        mAuth.signOut();
+
     }
 
     @Override
@@ -50,17 +54,9 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser firebaseUser= mAuth.getCurrentUser();
                             loginInterface.onSuccess(firebaseUser);
-                            SharedManager sharedManager = SharedManager.getInstance(context);
-                            User userInfo = getUserData(firebaseUser);
+                            updateUserData(firebaseUser);
 
-                            BackupManager.getInstance(sharedManager).saveUser(userInfo, task1 -> {
-                                if(task.isSuccessful())
-                                {
-                                    sharedManager.saveUser(userInfo);
-                                    Repository.getInstance(context).restoreAllData();
-                                }
 
-                            });
 
                         }
                         else {
@@ -92,15 +88,13 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser firebaseUser= mAuth.getCurrentUser();
                             registerInterface.onSuccess(firebaseUser);
-                            User userInfo= getUserData(firebaseUser,userName);
+                            User userInfo= updateUserData(firebaseUser,userName);
                             Log.i(TAG, "userName: "+userName);
                             SharedManager sharedManager = SharedManager.getInstance(context);
-
                             BackupManager.getInstance(sharedManager).saveUser(userInfo, task1 -> {
                                 if(task.isSuccessful())
                                 {
                                     sharedManager.saveUser(userInfo);
-                                    Repository.getInstance(context).restoreAllData();
                                 }
 
                             });
@@ -114,12 +108,22 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
 
 
     }
-    private User getUserData(FirebaseUser user,String userName) {
-        Log.i(TAG, "getUserData: username "+userName);
-        return new User(user.getUid(), userName, "user.getPhotoUrl().toString()", user.getEmail(),AuthenticationFactory.EMAIL);
+    private User updateUserData(FirebaseUser user, String userName) {
+        return new User(user.getUid(), userName, "", user.getEmail(),AuthenticationFactory.EMAIL);
     }
-    private User getUserData(FirebaseUser user) {
+    private void updateUserData(FirebaseUser user) {
+        BackupManager.getInstance(SharedManager.getInstance(context)).getUser(user.getUid(),documentSnapshot -> {
+            User userFromServer = documentSnapshot.toObject(User.class);
+            User userInfo = new User(user.getUid(),userFromServer.getName(),userFromServer.getImageUrl(), user.getEmail(),AuthenticationFactory.EMAIL);
+            SharedManager sharedManager = SharedManager.getInstance(context);
+            BackupManager.getInstance(sharedManager).saveUser(userInfo, task1 -> {
+                if(task1.isSuccessful())
+                {
+                    sharedManager.saveUser(userInfo);
+                    Repository.getInstance(context).restoreAllData();
+                }
 
-        return new User(user.getUid(),user.getDisplayName(), "user.getPhotoUrl().toString()", user.getEmail(),AuthenticationFactory.EMAIL);
+            });
+        });
     }
 }

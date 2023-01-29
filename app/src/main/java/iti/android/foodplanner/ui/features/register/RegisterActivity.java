@@ -147,7 +147,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
             startActivity(new Intent(getApplicationContext(), MainActivity.class));}
     }
     public void buttonStates() {
-        if (statesFlagEmail&&statesFlagPassword)
+        if (statesFlagEmail&&statesFlagPassword&&!userNameTv.getText().toString().trim().isEmpty())
             signUpButton.setEnabled(true);
         else
             signUpButton.setEnabled(false);
@@ -157,6 +157,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
     public void onSuccess(FirebaseUser user) {
         dialog.dismiss();
         updateUI(user);
+        finish();
     }
 
     @Override

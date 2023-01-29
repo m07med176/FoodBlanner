@@ -28,6 +28,7 @@ import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.register.RegisterActivity;
+import iti.android.foodplanner.ui.util.Utils;
 
 
 public class LoginActivity extends AppCompatActivity implements LoginInterface{
@@ -117,8 +118,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = ProgressDialog.show(LoginActivity.this, "",
-                        "Loading. Please wait...", true);
+                dialog = Utils.loadingDialog(LoginActivity.this);
                authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
 
             }
@@ -153,7 +153,10 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     @Override
     public void onSuccess(FirebaseUser user) {
           dialog.dismiss();
+
         updateUI(user);
+       finish();
+
 
     }
 

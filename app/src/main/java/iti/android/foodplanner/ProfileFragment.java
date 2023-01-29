@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import androidx.fragment.app.Fragment;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -52,6 +53,8 @@ import java.util.zip.Inflater;
 import iti.android.foodplanner.data.backup.BackupManager;
 import iti.android.foodplanner.data.models.User;
 import iti.android.foodplanner.data.shared.SharedManager;
+import iti.android.foodplanner.ui.features.login.LoginActivity;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
@@ -124,12 +127,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.upload:
                 if (bitmap != null)
+
                     uploadImageToServer();
                 break;
         }
     }
 
     private void uploadImageToServer() {
+     ProgressDialog dialog = Utils.loadingDialog(requireContext());
         File imageFile = persistImage(bitmap, "profile");
         String folderName = "profiles";
 
@@ -161,11 +166,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     BackupManager.getInstance(sharedManager).saveUser(user, new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            dialog.dismiss();
                             Toast.makeText(getContext(), "data Uploaded", Toast.LENGTH_SHORT).show();
+                            sharedManager.refreshSharedPrefrence(requireContext());
                             sharedManager.saveUser(user);
                         }
                     });
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+             dialog.dismiss();
+             Toast.makeText(requireContext(),e.getMessage(),Toast.LENGTH_SHORT).show();
             }
         });
 
