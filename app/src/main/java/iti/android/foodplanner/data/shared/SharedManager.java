@@ -31,9 +31,6 @@ public class SharedManager {
             instance = new SharedManager(context);
         return instance;
     }
-
-
-
     public void clearAllData(){
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.clear();

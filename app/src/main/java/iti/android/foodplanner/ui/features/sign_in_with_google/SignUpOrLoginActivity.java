@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.google.android.gms.common.SignInButton;
 
 
+import iti.android.foodplanner.data.shared.SharedManager;
 import iti.android.foodplanner.ui.features.main.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.ui.features.login.LoginActivity;
@@ -58,7 +59,10 @@ public class SignUpOrLoginActivity extends AppCompatActivity implements SignInWi
 
         loginTxtViewBtn.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), LoginActivity.class)));
 
-        guestButton.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        guestButton.setOnClickListener(v -> {
+            SharedManager.getInstance(getApplicationContext()).clearAllData();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        });
 
     }
 

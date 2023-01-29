@@ -327,6 +327,7 @@ public class Repository {
                 .deleteFavouriteMeal(mealsItem)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+
                 .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {

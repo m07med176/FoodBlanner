@@ -67,6 +67,11 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     private void recycleriewAreaSettings () {
         RecyclerView rvRandomArea = Utils.recyclerViewHandler(binding.rvRandomArea, getContext());
         HomeFeedAdapter homeFeedAdapterArea = new HomeFeedAdapter(getContext(), this);

@@ -4,6 +4,7 @@ import static iti.android.foodplanner.ui.util.Utils.isValidEmail;
 import static iti.android.foodplanner.ui.util.Utils.isValidPassword;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseUser;
 
 
+import iti.android.foodplanner.data.internetConnection.InternetConnection;
 import iti.android.foodplanner.ui.features.main.MainActivity;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.Repository;
@@ -52,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        LinearLayout linearLayout=findViewById(R.id.login_container);
         authentication= AuthenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 
         initUi();
@@ -118,8 +121,20 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialog = Utils.loadingDialog(LoginActivity.this);
-               authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
+                new InternetConnection(getApplicationContext()).observeForever(new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean connected) {
+                        if (connected)
+                        {
+                            dialog = Utils.loadingDialog(LoginActivity.this);
+                            authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
+                        }
+                        else
+                            Utils.snakeMessage(getApplicationContext(),linearLayout,"Offline",false).show();
+
+                    }
+                });
+
 
             }
         });
@@ -144,6 +159,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
 
 
     public void buttonStates() {
+
         if (statesFlagEmail&&statesFlagPassword)
             loginButton.setEnabled(true);
         else

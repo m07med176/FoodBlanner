@@ -91,12 +91,8 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
                             User userInfo= updateUserData(firebaseUser,userName);
                             Log.i(TAG, "userName: "+userName);
                             SharedManager sharedManager = SharedManager.getInstance(context);
+                            sharedManager.saveUser(userInfo);
                             BackupManager.getInstance(sharedManager).saveUser(userInfo, task1 -> {
-                                if(task.isSuccessful())
-                                {
-                                    sharedManager.saveUser(userInfo);
-                                }
-
                             });
                         } else {Exception exception = task.getException();
                            registerInterface.onFail(exception);

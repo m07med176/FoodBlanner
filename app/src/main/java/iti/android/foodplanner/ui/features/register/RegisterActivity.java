@@ -128,7 +128,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterInter
                 authentication.register(RegisterActivity.this,signUpEmailTv.getText().toString(),signUpPasswordTv.getText().toString(),RegisterActivity.this,userNameTv.getText().toString());
             }
         });
-        guestBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        guestBtn.setOnClickListener(v -> {
+            SharedManager.getInstance(getApplicationContext()).clearAllData();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        });
     }
 
 
