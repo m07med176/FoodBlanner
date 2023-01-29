@@ -85,7 +85,7 @@ public class AddToPlanDailog {
         dialogBuilder.show();
     }
     private void addToPlan(MealPlan mealPlan) {
-        repository.insertPlaneMealDataBase(mealPlan, new DataFetch<Void>() {
+        repository.insertPlaneMealRoom(mealPlan, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
 

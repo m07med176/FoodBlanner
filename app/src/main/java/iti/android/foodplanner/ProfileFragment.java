@@ -2,7 +2,8 @@ package iti.android.foodplanner;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -60,7 +61,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private Bitmap bitmap;
     FirebaseStorage storageRef;
 
-    private ImageView imageView;
     private ImageView fromCamera, fromGallery;
     private Button upload;
     private SharedManager sharedManager;
@@ -91,11 +91,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         sharedManager = SharedManager.getInstance(view.getContext());
         user = sharedManager.getUser();
         storageRef=  FirebaseStorage.getInstance("gs://food-planner-cd0cd.appspot.com");
-        fromGallery = view.findViewById(R.id.profile_imagek);
-        fromCamera =  view.findViewById(R.id.camera_btn);
+        fromGallery = view.findViewById(R.id.fromGallery);
+        fromCamera =  view.findViewById(R.id.fromCamera);
         nameTV=view.findViewById(R.id.username);
         mailTv=view.findViewById(R.id.email);
-        upload = view.findViewById(R.id.upload_button);
+        upload = view.findViewById(R.id.upload);
         upload.setOnClickListener(this);
         fromCamera.setOnClickListener(this);
         fromGallery.setOnClickListener(this);
@@ -215,7 +215,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                     InputStream inputStream =
                             getActivity().getContentResolver().openInputStream(data.getData());
                     bitmap = BitmapFactory.decodeStream(inputStream);
-                    imageView.setImageBitmap(bitmap);
+                    fromGallery.setImageBitmap(bitmap);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -225,7 +225,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             if (resultCode == Activity.RESULT_OK) {
                 Bundle extras = data.getExtras();
                 bitmap = (Bitmap) extras.get("data");
-                imageView.setImageBitmap(bitmap);
+                fromGallery.setImageBitmap(bitmap);
             }
         }
     }

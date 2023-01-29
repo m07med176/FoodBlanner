@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_navigation_home_to_navigation_search"
             app:destination="@id/navigation_search" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_profile2"
+            app:destination="@id/navigation_profile" />
     </fragment>
 
     <fragment
@@ -37,6 +40,11 @@
         android:name="iti.android.foodplanner.ui.features.plan.PlanFragment"
         android:label="@string/title_plane"
         tools:layout="@layout/fragment_plan" />
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="iti.android.foodplanner.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/navigation_category"
         android:name="iti.android.foodplanner.ui.features.category.CategoryFragment"
@@ -91,11 +99,6 @@
             app:argType="string"
             app:nullable="true" />
     </fragment>
-    <fragment
-        android:id="@+id/navigation_onboarding"
-        android:name="iti.android.foodplanner.ui.features.onBoarding.OnBoardingFragment"
-        android:label="fragment_on_boarding"
-        tools:layout="@layout/fragment_on_boarding" />
     <fragment
         android:id="@+id/navigation_search"
         android:name="iti.android.foodplanner.ui.features.search.SearchFragment"

@@ -15,6 +15,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.core.SingleObserver;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
@@ -54,11 +56,13 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 repository.deletePlanMeal(values.get(position), new DataFetch<Void>() {
                     @Override
                     public void onDataSuccessResponse(Void data) {
                             values.remove(position);
                             notifyItemRemoved(position);
+
 
                     }
 

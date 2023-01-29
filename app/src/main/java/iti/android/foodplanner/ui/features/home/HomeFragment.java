@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
         ImageView imageViewSingleMeal = view.findViewById(R.id.image_thum);
         TextView foodSingleName = view.findViewById(R.id.food_name);
         TextView plane_btn = view.findViewById(R.id.plane_btn);
-        ImageButton fav_btn = view.findViewById(R.id.fav_btn);
+        CheckBox fav_btn = view.findViewById(R.id.fav_btn);
 
 
         presenter.getRandomMeals(HomePresenter.SINGLE, new DataFetch<List<MealsItem>>() {

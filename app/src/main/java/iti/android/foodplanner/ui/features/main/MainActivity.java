@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.main;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.profileTitle.setText(user.getName());
+
         Utils.loadImage(this,user.getImageUrl(),binding.profileImage);
     }
 
@@ -104,6 +107,13 @@ public class MainActivity extends AppCompatActivity {
                     navView.setVisibility(View.VISIBLE);
                 }
 
+            }
+        });
+        binding.profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                navController.navigate(R.id.navigation_profile);
             }
         });
     }

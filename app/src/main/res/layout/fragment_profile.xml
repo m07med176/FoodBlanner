@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/splash"
-    android:padding="40dp"
+
 
     android:id="@+id/coordinatorlayout">
 
@@ -14,6 +14,10 @@
         android:id="@+id/profile_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/constrain_layout_login_corners"
 
         tools:layout_editor_absoluteX="40dp"
@@ -29,9 +33,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_image"
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
 
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
 
             android:layout_marginTop="32dp"
             android:elevation="10dp"
@@ -41,9 +45,9 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/profile_imagek"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/fromGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
@@ -65,7 +69,7 @@
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animationView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/logout_button"
             app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +110,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
-            android:id="@+id/camera_btn"
+            android:id="@+id/fromCamera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -115,7 +119,7 @@
             app:srcCompat="@drawable/camera" />
 
         <Button
-            android:id="@+id/upload_button"
+            android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
