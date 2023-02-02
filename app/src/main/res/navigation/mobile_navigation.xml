@@ -33,13 +33,21 @@
         android:id="@+id/navigation_favorite"
         android:name="iti.android.foodplanner.ui.features.favorite.FavoriteFragment"
         android:label="@string/title_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_navigation_favorite_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_plan"
         android:name="iti.android.foodplanner.ui.features.plan.PlanFragment"
         android:label="@string/title_plane"
-        tools:layout="@layout/fragment_plan" />
+        tools:layout="@layout/fragment_plan" >
+        <action
+            android:id="@+id/action_navigation_plan_to_navigation_details"
+            app:destination="@id/navigation_details" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="iti.android.foodplanner.ProfileFragment"

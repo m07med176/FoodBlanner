@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.lifecycle.MutableLiveData;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +23,7 @@ import java.util.List;
 import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
+import iti.android.foodplanner.ui.features.plan.PlanFragmentDirections;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private List<MealsItem> itemsList;
@@ -66,6 +69,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
                 dialog.show();
 
         });
+        holder.mealRowFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FavoriteFragmentDirections.ActionNavigationFavoriteToNavigationDetails action=FavoriteFragmentDirections.actionNavigationFavoriteToNavigationDetails();
+                action.setMealId(itemsList.get(position).getIdMeal());
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
 
     }
 
@@ -79,6 +90,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         AppCompatButton addToPlaneBtn;
         ImageView removeBtn;
         ImageView imagefav;
+        LinearLayout mealRowFav;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.nameDetailsTextView);
@@ -87,6 +99,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
             tvCategory = itemView.findViewById(R.id.categoryTextView);
             addToPlaneBtn = itemView.findViewById(R.id.addTOPlanButton);
             removeBtn = itemView.findViewById(R.id.addToFavoriteButton);
+            mealRowFav=itemView.findViewById(R.id.meal_row_fav);
 
         }
     }

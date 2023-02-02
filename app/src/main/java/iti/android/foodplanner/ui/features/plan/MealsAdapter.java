@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -21,10 +23,12 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
+import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
 
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
     private List<MealPlan> values;
     private Context context;
+
     Repository repository;
     public MealsAdapter(Context context, List<MealPlan> dataset) {
         this.context = context;
@@ -78,6 +82,14 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
                 });
             }
         });
+        holder.mealRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                 PlanFragmentDirections.ActionNavigationPlanToNavigationDetails action=PlanFragmentDirections.actionNavigationPlanToNavigationDetails();
+                action.setMealId(values.get(position).getIdMeal());
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
     }
 
     @Override
@@ -90,6 +102,8 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
         TextView mealCountry;
         ImageView deleteButton;
         ImageView mealThumb;
+        LinearLayout mealRow;
+
 
 
 
@@ -100,6 +114,7 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
             mealCountry=itemView.findViewById(R.id.countryTxtView);
             deleteButton=itemView.findViewById(R.id.removeFromPlanButton);
             mealThumb=itemView.findViewById(R.id.mealImgView);
+            mealRow=itemView.findViewById(R.id.row_mealPlan);
 
         }
     }

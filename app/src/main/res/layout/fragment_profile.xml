@@ -33,21 +33,21 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_image"
-            android:layout_width="50dp"
+            android:layout_width="150dp"
 
-            android:layout_height="50dp"
+            android:layout_height="150dp"
 
             android:layout_marginTop="32dp"
             android:elevation="10dp"
-            app:cardCornerRadius="50dp"
+            app:cardCornerRadius="150dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/fromGallery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
                 tools:src="@tools:sample/avatars" />
@@ -71,7 +71,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/logout_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email"
@@ -94,21 +93,6 @@
             app:layout_constraintStart_toStartOf="@+id/username"
             app:layout_constraintTop_toBottomOf="@+id/username" />
 
-        <Button
-            android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
-            android:paddingStart="14dp"
-            android:paddingTop="0dp"
-            android:paddingEnd="14dp"
-            android:paddingBottom="0dp"
-            android:text="Logout"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <ImageView
             android:id="@+id/fromCamera"
             android:layout_width="wrap_content"
@@ -122,10 +106,10 @@
             android:id="@+id/upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginBottom="24dp"
             android:text="Save"
-            app:layout_constraintBottom_toBottomOf="@+id/logout_button"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/logout_button" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
