@@ -91,6 +91,7 @@ dependencies {
 
     // region Firebase
     implementation platform('com.google.firebase:firebase-bom:31.1.1')
+    implementation 'com.facebook.android:facebook-android-sdk:15.2.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:20.4.0'
     implementation 'com.google.firebase:firebase-auth:21.1.0'

@@ -61,4 +61,11 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorControlActivated">@color/white</item>
     </style>
+
+
+
+<!--Facebook Login-->
+    <string name="facebook_app_id">865880251304474</string>
+    <string name="fb_login_protocol_scheme">fb865880251304474</string>
+    <string name="facebook_client_token">d38bc5cb93336d6ab50b7ec0617bc203</string>
 </resources>

@@ -13,12 +13,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
@@ -32,6 +42,8 @@ import iti.android.foodplanner.ui.features.register.RegisterActivity;
 public class LoginActivity extends AppCompatActivity implements LoginInterface{
     private static final String TAG = "GOOGLEAUTHENTCATION";
 
+    private static final String EMAIL = "dev.mohamed.arfa@gmail.com";
+    CallbackManager mCallbackManager;
     TextView emailTV;
     TextView passwordTV;
     TextView createNewAccountTV;
@@ -40,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     AuthenticationFactory authenticationFactory;
     private static boolean statesFlagEmail=false;
     private static boolean statesFlagPassword=false;
-
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -51,6 +63,32 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         authentication= AuthenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 
         initUi();
+
+        //        FacebookSdk.sdkInitialize(getApplicationContext());
+//        AppEventsLogger.activateApp(getApplication());
+
+        mAuth = FirebaseAuth.getInstance();
+        mCallbackManager = CallbackManager.Factory.create();
+        LoginButton loginButton = findViewById(R.id.login_button);
+        loginButton.setReadPermissions("email", "public_profile");
+//        loginButton.setReadPermissions(Arrays.asList(EMAIL));
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+            }
+        });
 
         createNewAccountTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +191,31 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         Toast.makeText(LoginActivity.this, task,
                 Toast.LENGTH_SHORT).show();
         updateUI((FirebaseUser) null);
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        String mToken = token.getToken();
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnSuccessListener(authResult -> {
+                    Log.d(TAG, "signInWithCredential:success");
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    updateUI(user);
+                })
+                .addOnFailureListener(e -> {
+                    updateUI(null);
+
+                });
+
 
     }
 
