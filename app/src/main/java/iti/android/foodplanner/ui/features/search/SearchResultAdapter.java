@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.ui.features.category.CategoryFragmentDirections;
 import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
@@ -47,6 +49,24 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     public void onBindViewHolder(@NonNull SearchResultAdapter.ViewHolder holder, int position) {
 
         MealsItem item = itemsList.get(position);
+        searchPresenter.isFound(itemsList.get(position).getIdMeal(), new DataFetch<Boolean>() {
+            @Override
+            public void onDataSuccessResponse(Boolean data) {
+                if(data)
+                    holder.addToFavBtn.setChecked(true);
+                ;
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
         holder.foodNameTv.setText(item.getStrMeal());
 
         Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
@@ -56,9 +76,29 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                 searchInterface.onSavePlane(item)
         );
 
-        holder.addToFavBtn.setOnCheckedChangeListener((compoundButton, b) -> {
-            if (b)
+        holder.addToFavBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.addToFavBtn.isChecked())
                 searchInterface.onSaveFavorite(item);
+                else
+                    searchInterface.onDeleteFavorite(item, new DataFetch<Void>() {
+                        @Override
+                        public void onDataSuccessResponse(Void data) {
+                            Toast.makeText(context,"deleted",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onDataFailedResponse(String message) {
+
+                        }
+
+                        @Override
+                        public void onDataLoading() {
+
+                        }
+                    });
+            }
         });
 
         holder.itemHome.setOnClickListener(v -> {

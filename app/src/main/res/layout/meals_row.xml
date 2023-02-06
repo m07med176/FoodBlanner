@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 style="@style/TextTitle"
+                android:textColor="@color/main_color_2"
                 android:textSize="22sp"
                 android:layout_weight="1"
                 android:textStyle="bold"

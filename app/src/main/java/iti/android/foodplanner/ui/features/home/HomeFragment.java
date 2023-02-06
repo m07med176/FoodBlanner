@@ -1,6 +1,8 @@
 package iti.android.foodplanner.ui.features.home;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.databinding.FragmentHomeBinding;
 import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
+import iti.android.foodplanner.ui.features.register.RegisterActivity;
 import iti.android.foodplanner.ui.features.search.SearchInterface;
 import iti.android.foodplanner.ui.util.Utils;
 
@@ -40,6 +43,8 @@ public class HomeFragment extends Fragment implements HomeInterface {
     private HomePresenter presenter;
     private FragmentHomeBinding binding;
     private RelativeLayout searchView;
+    private ProgressDialog dialog;
+    private CheckBox fav_btn;
     String mealId=null;
     AddToPlanDailog addToPlanDailog;
     @Override
@@ -53,6 +58,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
         recycleriewCategorySettings();
         randomMealCardSettings(view);
+
         navigateToSeeMore();
         searchView=view.findViewById(R.id.rand);
         searchView.setOnClickListener(new View.OnClickListener() {
@@ -131,8 +137,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
         ImageView imageViewSingleMeal = view.findViewById(R.id.image_thum);
         TextView foodSingleName = view.findViewById(R.id.food_name);
         TextView plane_btn = view.findViewById(R.id.plane_btn);
-        CheckBox fav_btn = view.findViewById(R.id.fav_btn);
-
+        fav_btn = view.findViewById(R.id.fav_btn);
 
         presenter.getRandomMeals(HomePresenter.SINGLE, new DataFetch<List<MealsItem>>() {
             @Override
@@ -141,6 +146,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
                 binding.cardDialy.setVisibility(View.VISIBLE);
                 MealsItem mealsItem = data.get(0);
                 mealId=data.get(0).getIdMeal();
+
                 Glide.with(getContext())
                         .load(mealsItem.getStrMealThumb())
                         .apply(new RequestOptions()
@@ -154,7 +160,12 @@ public class HomeFragment extends Fragment implements HomeInterface {
                     onSavePlane(mealsItem);
                 });
 
-                fav_btn.setOnClickListener(view12 -> onSaveFavorite(mealsItem));
+                fav_btn.setOnClickListener(view12 ->{
+                    if(fav_btn.isChecked())
+                        onSaveFavorite(mealsItem);
+                    else
+                        onDeleteFavorite(mealsItem);
+                } );
             }
 
             @Override
@@ -253,10 +264,36 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     @Override
     public void onSaveFavorite (MealsItem item){
+
         presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
                 Toast.makeText(getContext(), item.getStrMeal() + " Added To Favorite", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+
+
+
+            }
+        });
+    }
+
+    @Override
+    public void onDeleteFavorite(MealsItem item) {
+        presenter.deleteFavorite(item, new DataFetch<Void>() {
+            @Override
+            public void onDataSuccessResponse(Void data) {
+                Toast.makeText(getContext(), item.getStrMeal() + " deleted", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -270,10 +307,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
             }
         });
-    }
-
-    @Override
-    public void onDeleteFavorite(MealsItem item) {
 
     }
 

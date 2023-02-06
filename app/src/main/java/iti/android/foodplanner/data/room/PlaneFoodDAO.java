@@ -33,5 +33,6 @@ public interface PlaneFoodDAO {
 
     @Query("SELECT * FROM MealPlan where day=:dayName" )
     public Single<List<MealPlan>> showPlanMealsByDay(Week dayName);
+
 }
 

@@ -8,6 +8,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -54,6 +55,7 @@ public class Repository {
     private final BackupManager backupManager;
     private final SharedManager sharedManager;
     public static Repository repository = null;
+
     public static Repository getInstance(Context context){
         if (repository==null)
             repository = new Repository(context);
@@ -481,6 +483,35 @@ public class Repository {
                     }
                 });
     }
+    public void isFound(String mealId,DataFetch<Boolean> dataFetch){
+
+        roomDatabase.FavoriteDAO().isFound(mealId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MealsItem>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull MealsItem mealsItem) {
+                        if(mealsItem!=null)
+                        {Log.i(TAG, "onSuccess: is found"+mealsItem.getStrMeal());
+                            dataFetch.onDataSuccessResponse(true);}
+                        else
+                        {    dataFetch.onDataSuccessResponse(false);
+                        Log.i(TAG, "onSuccess: is found"+mealsItem.getStrMeal());}
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                            dataFetch.onDataFailedResponse(e.getMessage());
+                    }
+                });
+
+
+    }
     // endregion ROOM
     // region API
 
@@ -499,6 +530,8 @@ public class Repository {
             public void onSuccess(@NonNull MealsList mealsList) {
                 if (mealsList!=null && mealsList.getMeals()!=null)
                     dataFetch.onDataSuccessResponse(mealsList.getMeals());
+
+
                 else
                     dataFetch.onDataSuccessResponse(new ArrayList<>());
             }

@@ -62,7 +62,9 @@ public class HomePresenter {
     public void deleteFavorite(MealsItem item,DataFetch<Void> dataFetch){
         repository.deleteFavoriteRoom(item,dataFetch);
     }
-
+    public void isFound(String mealId,DataFetch<Boolean> dataFetch){
+        repository.isFound(mealId,dataFetch);
+    }
 
 
 }

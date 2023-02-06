@@ -31,4 +31,8 @@ public interface FavoriteDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public Completable insertAllTable(List<MealsItem> mealPlanList);
+
+    @Query("SELECT * FROM meals WHERE idMealCode=:id LIMIT 1")
+    public Single<MealsItem> isFound(String id);
+
 }

@@ -1,6 +1,7 @@
 package iti.android.foodplanner.ui.features.home;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import iti.android.foodplanner.R;
+import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.ui.util.Utils;
 
@@ -31,7 +34,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     private List<MealsItem> itemsList = new ArrayList<>();
     public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
     private HomePresenter presenter;
-
+    private final static String TAG ="SHAREDISUSER";
     private Context context;
     private HomeInterface homeInterface;
 
@@ -44,34 +47,90 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     @NonNull
     @Override
     public HomeFeedAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meals_list,parent,false));
+      ViewHolder v=new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_meals_list,parent,false));
+
+        return  v;
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeFeedAdapter.ViewHolder holder, int position) {
+
         MealsItem item = itemsList.get(position);
+
+        presenter.isFound(itemsList.get(position).getIdMeal(), new DataFetch<Boolean>() {
+            @Override
+            public void onDataSuccessResponse(Boolean data) {
+                if(data)
+                {
+                    if (!presenter.isUser){
+                        Log.i(TAG, "onCreateViewHolder: ");
+                        holder.addToPlaneBtn.setVisibility(View.GONE);
+                        holder.addToFavBtn.setVisibility(View.GONE);
+                    }
+                    holder.addToFavBtn.setChecked(true);
+                    Log.i("TAG", "onDataSuccessResponse: addToFavButton"+data.toString());
+                }
+            }
+
+            @Override
+            public void onDataFailedResponse(String message) {
+
+            }
+
+            @Override
+            public void onDataLoading() {
+
+            }
+        });
+
         holder.foodNameTv.setText(item.getStrMeal());
 
 
         Utils.loadImage(context,item.getStrMealThumb(),holder.thumnailView);
 
-        if (!presenter.isUser){
-            holder.addToPlaneBtn.setVisibility(View.GONE);
-            holder.addToFavBtn.setVisibility(View.GONE);
-        }
 
 
         holder.addToPlaneBtn.setOnClickListener(view ->
 
                 homeInterface.onSavePlane(item));
 
-        holder.addToFavBtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.addToFavBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
-                if (checked)
-                    homeInterface.onSaveFavorite(item);
+            public void onClick(View v) {
+                if(holder.addToFavBtn.isChecked())
+                    presenter.saveFavorite(item, new DataFetch<Void>() {
+                        @Override
+                        public void onDataSuccessResponse(Void data) {
+                            Toast.makeText(context,"Saved",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onDataFailedResponse(String message) {
+
+                        }
+
+                        @Override
+                        public void onDataLoading() {
+
+                        }
+                    });
                 else
-                    homeInterface.onDeleteFavorite(item);
+                    presenter.deleteFavorite(item, new DataFetch<Void>() {
+                        @Override
+                        public void onDataSuccessResponse(Void data) {
+                            Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onDataFailedResponse(String message) {
+
+                        }
+
+                        @Override
+                        public void onDataLoading() {
+
+                        }
+                    });
             }
         });
 
@@ -112,6 +171,7 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
             addToFavBtn = itemView.findViewById(R.id.fav_ceheck);
             thumnailView = itemView.findViewById(R.id.thumnail_image);
             itemHome=itemView.findViewById(R.id.itemHome);
+
         }
     }
 

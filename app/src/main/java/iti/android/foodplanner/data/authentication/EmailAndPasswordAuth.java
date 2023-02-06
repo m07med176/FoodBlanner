@@ -6,10 +6,12 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.backup.BackupManager;
@@ -52,9 +54,20 @@ public class EmailAndPasswordAuth extends EmailAuthentication<EmailAndPasswordAu
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser firebaseUser= mAuth.getCurrentUser();
+                            FirebaseUser firebaseUser=mAuth.getCurrentUser();
                             loginInterface.onSuccess(firebaseUser);
-                            updateUserData(firebaseUser);
+
+                           User user= updateUserData(firebaseUser,firebaseUser.getDisplayName());
+                           SharedManager sharedManager=SharedManager.getInstance(context);
+                            BackupManager.getInstance(sharedManager).saveUser(user, task1 -> {
+                                if (task1.isSuccessful()){
+                                    sharedManager.saveUser(user);
+                                    Repository.getInstance(context).restoreAllData();
+
+                                }else{
+                                 loginInterface.onFail(task1.getException().getMessage());
+                                }
+                            });
 
 
 

@@ -4,6 +4,7 @@ import static iti.android.foodplanner.R.*;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -37,6 +38,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -67,6 +69,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
     private View root;
     private List<String> ingridients;
     private MealPlan mealPlan;
+    private Button addToCalender;
 
     @Override
     public void onStart() {
@@ -162,6 +165,20 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
 
             }
         });
+        addToCalender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendarEvent = Calendar.getInstance();
+                Intent i = new Intent(Intent.ACTION_EDIT);
+                i.setType("vnd.android.cursor.item/event");
+                i.putExtra("beginTime", calendarEvent.getTimeInMillis());
+                i.putExtra("allDay", false);
+                i.putExtra("rule", "FREQ=YEARLY");
+                i.putExtra("endTime", calendarEvent.getTimeInMillis() + 60 * 60 * 1000);
+                i.putExtra("title", mealsItem.getStrMeal());
+                requireContext().startActivity(i);
+            }
+        });
         return root;
     }
 
@@ -177,6 +194,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         imageView=root.findViewById(id.mealImageView);
         ingridientsRV=root.findViewById(id.ingredientsRecycleView);
         instructionsTv=root.findViewById(id.instructionsTextView);
+        addToCalender=root.findViewById(id.addTOCalender);
 
     }
 

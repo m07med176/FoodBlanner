@@ -2,6 +2,7 @@ package iti.android.foodplanner.data.shared;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -20,6 +21,7 @@ public class SharedManager {
     public static final String IS_FIRST = "IS_FIRST";
     public static final String USER_INFO = "USER_INFO";
     private volatile static SharedManager instance = null;
+
     private  SharedPreferences sharedPreferences = null;
     final String SHARE_KEY = "shareRoom";
     private SharedManager(Context context){
@@ -45,6 +47,7 @@ public class SharedManager {
     }
 
     public boolean isUser(){
+
         return sharedPreferences.contains(USER_INFO);
     }
 

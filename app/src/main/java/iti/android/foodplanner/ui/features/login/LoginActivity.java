@@ -121,20 +121,9 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new InternetConnection(getApplicationContext()).observeForever(new Observer<Boolean>() {
-                    @Override
-                    public void onChanged(Boolean connected) {
-                        if (connected)
-                        {
-                            dialog = Utils.loadingDialog(LoginActivity.this);
-                            authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
-                        }
-                        else
-                            Utils.snakeMessage(getApplicationContext(),linearLayout,"Offline",false).show();
 
-                    }
-                });
-
+                dialog = Utils.loadingDialog(LoginActivity.this);
+                authentication.login(LoginActivity.this,emailTV.getText().toString(), passwordTV.getText().toString(),LoginActivity.this);
 
             }
         });

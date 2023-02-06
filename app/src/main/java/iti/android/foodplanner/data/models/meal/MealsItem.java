@@ -50,7 +50,8 @@ public class MealsItem implements Parcelable {
 	private String strCategory;
 
 
-	// region Ingredients
+
+// region Ingredients
 
 	@ColumnInfo
 	@SerializedName("strIngredient10")
@@ -121,6 +122,7 @@ public class MealsItem implements Parcelable {
 
 	@Ignore
 	private ArrayList<String> ingredients;
+
 	public MealsItem(){
 
 	}
@@ -530,4 +532,6 @@ public class MealsItem implements Parcelable {
 		mealPlan.setStrIngredient20(mealsItem.getStrIngredient20());
 		return mealPlan;
 	}
+
+
 }

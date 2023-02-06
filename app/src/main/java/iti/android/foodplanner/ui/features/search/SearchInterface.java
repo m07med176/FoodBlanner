@@ -12,4 +12,5 @@ public interface SearchInterface extends DataFetch<List<MealsItem>>{
     public static final int SEARCH = 4;
     public void onSavePlane(MealsItem item);
     public void onSaveFavorite(MealsItem item);
+    public void onDeleteFavorite(MealsItem item,DataFetch<Void>dataFetch);
 }

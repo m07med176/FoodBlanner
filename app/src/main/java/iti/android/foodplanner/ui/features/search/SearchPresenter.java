@@ -99,5 +99,11 @@ public class SearchPresenter {
     public boolean isUser(){
         return repository.isUser();
     }
+    public void isFound(String mealId,DataFetch<Boolean> dataFetch){
+        repository.isFound(mealId,dataFetch);
+    }
 
+    public void deleteFavorite(MealsItem item,DataFetch<Void> dataFetch){
+        repository.deleteFavoriteRoom(item,dataFetch);
+    }
 }

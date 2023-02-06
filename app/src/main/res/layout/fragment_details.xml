@@ -18,19 +18,22 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="Instructions"
-            android:textColor="@color/black"
+            android:textColor="@color/main_color_2"
+            android:textStyle="bold"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addTOPlanButton" />
+            app:layout_constraintTop_toBottomOf="@+id/addTOCalender" />
 
         <TextView
             android:id="@+id/instructionsTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="TextView"
-            android:textColor="@color/black"
+            android:textColor="@color/main_color_2"
             app:layout_constraintStart_toStartOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
@@ -40,7 +43,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Ingredients"
-            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textColor="@color/main_color_2"
             android:textSize="24dp"
             app:layout_constraintStart_toStartOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/instructionsTextView" />
@@ -62,14 +66,7 @@
                 app:videoId="" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></LinearLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addTOPlanButton"
@@ -83,10 +80,29 @@
             android:drawableStart="@drawable/ic_plane"
             android:gravity="center"
             android:padding="3dp"
-            android:text="Add To Calender"
+            android:text="Add To Plan"
             android:elevation="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addTOCalender"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_calender_effect"
+            android:drawableStart="@drawable/ic_plane"
+            android:elevation="30dp"
+            android:gravity="center"
+            android:padding="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Add To Your Calender"
+            app:layout_constraintEnd_toEndOf="@+id/addToFavoriteButton"
+            app:layout_constraintStart_toStartOf="@+id/addTOPlanButton"
+            app:layout_constraintTop_toBottomOf="@+id/addTOPlanButton" />
 
         <ImageView
             android:id="@+id/addToFavoriteButton"
@@ -233,7 +249,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/ingredientsRecycleView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
             app:layout_constraintEnd_toEndOf="parent"

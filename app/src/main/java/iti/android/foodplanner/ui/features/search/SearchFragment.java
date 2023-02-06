@@ -180,5 +180,10 @@ public class SearchFragment extends Fragment implements SearchInterface{
         });
     }
 
+    @Override
+    public void onDeleteFavorite(MealsItem item,DataFetch<Void>dataFetch) {
+        presenter.deleteFavorite(item,dataFetch);
+    }
+
 
 }

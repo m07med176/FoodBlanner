@@ -13,15 +13,25 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+
+
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp">
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="10dp"
+        app:cardCornerRadius="100dp"
+        android:background="@drawable/input_style"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/ingradientImgView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:cropToPadding="true"
+            android:scaleType="centerCrop"
             tools:src="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
 
@@ -35,7 +45,7 @@
         <TextView
             android:id="@+id/ingradientName"
             style="@style/TextTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
