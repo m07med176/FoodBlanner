@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().hide();
+
         authentication= AuthenticationFactory.authenticationManager(AuthenticationFactory.EMAIL);
 
         initUi();
