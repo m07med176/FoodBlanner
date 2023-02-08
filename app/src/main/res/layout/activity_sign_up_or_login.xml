@@ -7,7 +7,6 @@
     tools:context=".ui.features.sign_in_with_google.SignUpOrLoginActivity">
 
 
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="843dp"
@@ -41,65 +40,76 @@
         app:layout_constraintTop_toTopOf="@+id/imageView"
         app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/signUpWithMailBtn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="376dp"
-        android:background="@color/black"
-        android:backgroundTint="@color/black"
-        android:text="@string/signUpWithMail"
-
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="@+id/signUpWithMailBtn"
-        app:layout_constraintStart_toStartOf="@+id/signUpWithMailBtn"
-        app:layout_constraintTop_toBottomOf="@+id/signUpWithMailBtn">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5">
+
+        <Button
+            android:id="@+id/signUpWithMailBtn"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="376dp"
+            android:background="@color/black"
+            android:backgroundTint="@color/black"
+            android:text="@string/signUpWithMail" />
+
+
         <com.google.android.gms.common.SignInButton
             android:id="@+id/signInWithGoogle"
             android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="64dp"
-             />
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp" />
+
         <com.facebook.login.widget.LoginButton
-            android:layout_marginTop="32dp"
             android:id="@+id/login_button"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_gravity="center_horizontal"
-            />
+            android:layout_marginTop="25dp" />
 
-        <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="--- or guest ---"
+            android:textColor="@android:color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/guestButton"
             android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="32dp"
-            android:text="@string/guest"
+            android:layout_height="30dp"
+            android:layout_marginTop="6dp"
             android:background="@color/black"
             android:backgroundTint="@color/black"
-            android:textColor="@android:color/white"
-            />
+            android:text="@string/guest"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Already have an account?"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/loginTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="or use google to sign in"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/signInWithGoogle"
-        app:layout_constraintEnd_toEndOf="@+id/signUpWithMailBtn"
-        app:layout_constraintStart_toStartOf="@+id/signUpWithMailBtn"
-        app:layout_constraintTop_toBottomOf="@+id/signUpWithMailBtn" />
 
     <View
         android:id="@+id/divider3"
@@ -118,28 +128,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintStart_toEndOf="@+id/textView2"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:text="Already have an account?"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toStartOf="@+id/signInWithGoogle"
-        app:layout_constraintTop_toBottomOf="@+id/signInWithGoogle" />
-
-    <TextView
-        android:id="@+id/loginTxtView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/textView3"
-        app:layout_constraintEnd_toEndOf="@+id/signInWithGoogle"
-        app:layout_constraintStart_toEndOf="@+id/textView3"
-        app:layout_constraintTop_toTopOf="@+id/textView3" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
