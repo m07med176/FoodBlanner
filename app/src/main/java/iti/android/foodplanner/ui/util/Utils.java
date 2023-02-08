@@ -95,6 +95,26 @@ public class Utils {
                 "Loading. Please wait...", true);
     }
 
+    public static Snackbar snakeMessage(Context context,View view,String message,boolean isGood,String btnTitle,View.OnClickListener clickListener){
+        Snackbar snackbar = Snackbar.make(view,message,Snackbar.LENGTH_LONG);
+        if (isGood){
+            snackbar.setBackgroundTint(context.getColor(R.color.green));
+        }else {
+            snackbar.setBackgroundTint(context.getColor(R.color.red));
+        }
+
+        snackbar.setAction(btnTitle, clickListener);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        snackbar.setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE);
+
+
+        return snackbar;
+    }
+
+
+
     public static Snackbar snakeMessage(Context context,View view,String message,boolean isGood){
         Snackbar snackbar = Snackbar.make(view,message,Snackbar.LENGTH_LONG);
         if (isGood){

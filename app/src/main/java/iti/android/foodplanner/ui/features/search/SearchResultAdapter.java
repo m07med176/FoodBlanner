@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.search;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,9 +34,11 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
     private Context context;
     private SearchInterface searchInterface;
     private SearchPresenter searchPresenter;
+    private Activity activity;
 
-    public SearchResultAdapter(Context context, SearchInterface searchInterface) {
+    public SearchResultAdapter(Context context, Activity activity, SearchInterface searchInterface) {
         this.context = context;
+        this.activity = activity;
         this.searchInterface = searchInterface;
        searchPresenter=new SearchPresenter(context,searchInterface);
     }
@@ -85,7 +89,20 @@ public class SearchResultAdapter extends RecyclerView.Adapter<SearchResultAdapte
                     searchInterface.onDeleteFavorite(item, new DataFetch<Void>() {
                         @Override
                         public void onDataSuccessResponse(Void data) {
-                            Toast.makeText(context,"deleted",Toast.LENGTH_SHORT).show();
+                            ConstraintLayout constraintLayout = activity.getWindow().getDecorView().findViewById(R.id.container);
+                            Utils.snakeMessage(
+                                    context,
+                                    constraintLayout,
+                                    item.getStrMeal() + "Has been removed into favorite",
+                                    false,
+                                    "SEE FAVORITE",
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Navigation.findNavController(view).navigate(R.id.navigation_favorite);
+                                        }
+                                    }
+                            ).show();
                         }
 
                         @Override

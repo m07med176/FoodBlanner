@@ -1,11 +1,16 @@
 package iti.android.foodplanner.ui.features.AddToPlanDialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.navigation.Navigation;
 
 import org.checkerframework.checker.units.qual.C;
 
@@ -14,13 +19,16 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.data.room.Week;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class AddToPlanDailog {
     Repository repository;
+    Activity activity;
     Context context;
-    public AddToPlanDailog(Context context) {
+    public AddToPlanDailog(Context context, Activity activity) {
 
         this.context=context;
+        this.activity=activity;
         repository = Repository.getInstance(context);
     }
 
@@ -78,7 +86,14 @@ public class AddToPlanDailog {
                     mealPlan.setDay(Week.FRIDAY);
                 }
                 addToPlan(mealPlan);
-                Toast.makeText(context,"Added to plan successfully",Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = activity.getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        context,
+                        constraintLayout,
+                        mealPlan.getStrMeal() + "Has been added into plan",
+                        true
+                ).show();
 
             }
         });

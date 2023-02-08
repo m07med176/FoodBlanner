@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.favorite;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,20 +26,23 @@ import iti.android.foodplanner.R;
 import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
 import iti.android.foodplanner.ui.features.plan.PlanFragmentDirections;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
     private List<MealsItem> itemsList;
     private Context context;
     private AddToPlanDailog addToPlanDailog;
+    private Activity activity;
     FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions;
     public MutableLiveData<Boolean> isHaveData = new MutableLiveData<Boolean>(false);
 
 
-    public FavoriteAdapter(Context context,List<MealsItem> itemsList, FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions) {
+    public FavoriteAdapter(Context context,Activity activity,List<MealsItem> itemsList, FavoriteAdapter.FavoriteAdapterActions favoriteAdapterActions) {
         this.itemsList = itemsList;
         this.context = context;
+        this.activity = activity;
         this.favoriteAdapterActions = favoriteAdapterActions;
-        addToPlanDailog=new AddToPlanDailog(context);
+        addToPlanDailog=new AddToPlanDailog(context,activity);
     }
 
     @NonNull
@@ -55,7 +60,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         Glide.with(context).load(item.getStrMealThumb()).into(holder.imagefav);
         holder.addToPlaneBtn.setOnClickListener(view -> {
             addToPlanDailog.createDialog(item.convertMealsItemToMealsPlan(item),context);
-            Toast.makeText(context, "Add This to Plan", Toast.LENGTH_SHORT).show();
+
         });
         holder.removeBtn.setOnClickListener(view -> {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);

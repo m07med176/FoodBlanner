@@ -14,11 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.Navigation;
@@ -47,11 +47,13 @@ public class HomeFragment extends Fragment implements HomeInterface {
     private CheckBox fav_btn;
     String mealId=null;
     AddToPlanDailog addToPlanDailog;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter = new HomePresenter(getContext(), this);
-        addToPlanDailog=new AddToPlanDailog(requireContext());
+
+        addToPlanDailog=new AddToPlanDailog(requireContext(),getActivity());
         recycleriewIngredientsSettings();
 
         recycleriewAreaSettings();
@@ -80,7 +82,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     private void recycleriewAreaSettings () {
         RecyclerView rvRandomArea = Utils.recyclerViewHandler(binding.rvRandomArea, getContext());
-        HomeFeedAdapter homeFeedAdapterArea = new HomeFeedAdapter(getContext(), this);
+        HomeFeedAdapter homeFeedAdapterArea = new HomeFeedAdapter(getContext(), this,getActivity());
         rvRandomArea.setAdapter(homeFeedAdapterArea);
         presenter.getRandomMeals(HomePresenter.AREA, new DataFetch<List<MealsItem>>() {
             @Override
@@ -107,7 +109,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
 
     private void recycleriewCategorySettings () {
         RecyclerView rvRandomCategory = Utils.recyclerViewHandler(binding.rvRandomCategory, getContext());
-        HomeFeedAdapter homeFeedAdapterCategory = new HomeFeedAdapter(getContext(), this);
+        HomeFeedAdapter homeFeedAdapterCategory = new HomeFeedAdapter(getContext(), this,getActivity());
         rvRandomCategory.setAdapter(homeFeedAdapterCategory);
 
         presenter.getRandomMeals(HomePresenter.CATEGORY, new DataFetch<List<MealsItem>>() {
@@ -186,7 +188,7 @@ public class HomeFragment extends Fragment implements HomeInterface {
     }
     private void recycleriewIngredientsSettings() {
         RecyclerView rvRandomIngredien = Utils.recyclerViewHandler(binding.rvRandomIngredien, getContext());
-        HomeFeedAdapter homeFeedAdapterIngredien = new HomeFeedAdapter(getContext(), this);
+        HomeFeedAdapter homeFeedAdapterIngredien = new HomeFeedAdapter(getContext(), this,getActivity());
         rvRandomIngredien.setAdapter(homeFeedAdapterIngredien);
         presenter.getRandomMeals(HomePresenter.INGREDIENT, new DataFetch<List<MealsItem>>() {
             @Override
@@ -236,7 +238,6 @@ public class HomeFragment extends Fragment implements HomeInterface {
     @Override
     public void onSavePlane (MealsItem item){
         addToPlanDailog.createDialog(item.convertMealsItemToMealsPlan(item),requireContext());
-        Toast.makeText(getContext(), item.getStrMeal() + " Will Be Add to plane", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -245,14 +246,33 @@ public class HomeFragment extends Fragment implements HomeInterface {
         presenter.deleteFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
-                Toast.makeText(getContext(), item.getStrMeal() + " Removed from Favorite", Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        item.getStrMeal() + "Has been removed into favorite",
+                        false,
+                        "SEE FAVORITE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Navigation.findNavController(view).navigate(R.id.navigation_favorite);
+                            }
+                        }
+                ).show();
 
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
 
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        " Error Happened: " + message,
+                        false ).show();
             }
 
             @Override
@@ -268,14 +288,32 @@ public class HomeFragment extends Fragment implements HomeInterface {
         presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
-                Toast.makeText(getContext(), item.getStrMeal() + " Added To Favorite", Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        item.getStrMeal() + "Has been added into favorite",
+                        true,
+                        "SEE FAVORITE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Navigation.findNavController(view).navigate(R.id.navigation_favorite);
+                            }
+                        }
+                ).show();
             }
 
             @Override
             public void onDataFailedResponse(String message) {
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
 
-                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
-
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        " Error Happened: " + message,
+                        false ).show();
             }
 
             @Override
@@ -293,12 +331,33 @@ public class HomeFragment extends Fragment implements HomeInterface {
         presenter.deleteFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
-                Toast.makeText(getContext(), item.getStrMeal() + " deleted", Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        item.getStrMeal() + "Has been removed into favorite",
+                        false,
+                        "SEE FAVORITE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Navigation.findNavController(view).navigate(R.id.navigation_favorite);
+                            }
+                        }
+                ).show();
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        " Error Happened: " + message,
+                        false
+                ).show();
 
             }
 

@@ -41,22 +41,19 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityPresenter presenter;
     private NavController navController;
 
+    private boolean isFirstOpen = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isFirstOpen = true;
         presenter = new MainActivityPresenter(this);
         binding = ActivityMainAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         navigationUiSettings();
         actionBarSettings();
-        netwrokConnectivity.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-//                if (!aBoolean)
-//                    Toast.makeText(MainActivity.this, "No Interent", Toast.LENGTH_SHORT).show();
-            }
-        });
+
     }
 
     private void actionBarSettings() {
@@ -77,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        isFirstOpen = true;
         super.onStart();
 
 
@@ -90,11 +88,15 @@ public class MainActivity extends AppCompatActivity {
         new InternetConnection(getApplicationContext()).observeForever(new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean connected) {
-                if (connected)
-                    Utils.snakeMessage(getApplicationContext(),constraintLayout,"Online",true).show();
-                else
-                    Utils.snakeMessage(getApplicationContext(),constraintLayout,"Offline",false).show();
-
+                if (connected) {
+                    if (isFirstOpen){
+                        isFirstOpen = false;
+                    }else{
+                        Utils.snakeMessage(getApplicationContext(), constraintLayout, "Online", true).show();
+                    }
+                }else {
+                    Utils.snakeMessage(getApplicationContext(), constraintLayout, "Offline", false).show();
+                }
             }
         });
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,12 +31,14 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
     private FavoriteAdapter favoriteAdapter;
     private List<MealsItem> mealsItemList = new ArrayList<>();
     private  RecyclerView recyclerView;
+    private ConstraintLayout constraintLayout;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         presenter = new FavoritePresenter(getContext(),this);
-
+        constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
         View view = binding.getRoot();
         if (!presenter.isUser){
             getActivity().startActivity(new Intent(getActivity(), LoginActivity.class));
@@ -49,12 +52,20 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
 
     private void recyclerViewHandle() {
         recyclerView = Utils.recyclerViewHandler(binding.rvListFavorite,getContext());
-        favoriteAdapter = new FavoriteAdapter(getContext(), mealsItemList, (item, position) -> {
+        favoriteAdapter = new FavoriteAdapter(getContext(),getActivity(), mealsItemList, (item, position) -> {
             presenter.removeFavorite(item, new DataFetch<Void>() {
                 @Override
                 public void onDataSuccessResponse(Void data) {
                     mealsItemList.remove(item);
                     favoriteAdapter.notifyItemRemoved(position);
+                    ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                    Utils.snakeMessage(
+                            getContext(),
+                            constraintLayout,
+                            item.getStrMeal() + "Has been removed from favorite",
+                            false).show();
+
                     if (mealsItemList.size() == 0)
                         showNoData();
 
@@ -63,7 +74,12 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
 
                 @Override
                 public void onDataFailedResponse(String message) {
-                    Toast.makeText(getContext(), "Problem happened during delete "+message, Toast.LENGTH_SHORT).show();
+                    Utils.snakeMessage(
+                            getContext(),
+                            constraintLayout,
+                            "Problem happened during delete "+message,
+                            false
+                    ).show();
                 }
 
                 @Override
@@ -144,8 +160,12 @@ public class FavoriteFragment extends Fragment implements FavoriteInterface{
     @Override
     public void onDataFailedResponse(String message) {
         showError();
-        Toast.makeText(getContext(), "Error Happened "+message, Toast.LENGTH_SHORT).show();
-    }
+        Utils.snakeMessage(
+                getContext(),
+                constraintLayout,
+                "Problem happened during delete "+message,
+                false
+        ).show();    }
 
     @Override
     public void onDataLoading() {

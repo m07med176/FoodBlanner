@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
@@ -41,9 +43,9 @@ public class SearchFragment extends Fragment implements SearchInterface{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         binding = FragmentSearchBinding.inflate(inflater,container,false);
         presenter = new SearchPresenter(getContext(),this);
-        addToPlanDailog=new AddToPlanDailog(requireContext());
+        addToPlanDailog=new AddToPlanDailog(requireContext(),getActivity());
         rvSearch = Utils.recyclerViewHandler(binding.rvSearch, getContext());
-        searchResultAdapter = new SearchResultAdapter(getContext(), this);
+        searchResultAdapter = new SearchResultAdapter(getContext(), getActivity(),this);
         rvSearch.setAdapter(searchResultAdapter);
 
         type = SearchFragmentArgs.fromBundle(getArguments()).getType();
@@ -165,12 +167,31 @@ public class SearchFragment extends Fragment implements SearchInterface{
         presenter.saveFavorite(item, new DataFetch<Void>() {
             @Override
             public void onDataSuccessResponse(Void data) {
-                Toast.makeText(getContext(), item.getStrMeal() + " Added To Favorite", Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        item.getStrMeal() + " Added To Favorite",
+                        true,
+                        "SEE FAVORITE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Navigation.findNavController(view).navigate(R.id.navigation_favorite);
+                            }
+                        }
+                ).show();
             }
 
             @Override
             public void onDataFailedResponse(String message) {
-                Toast.makeText(getContext(), " Error Happened: " + message, Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        " Error Happened: " + message,
+                        false
+                ).show();
             }
 
             @Override

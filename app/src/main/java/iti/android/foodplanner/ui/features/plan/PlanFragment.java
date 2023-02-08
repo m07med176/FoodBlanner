@@ -57,7 +57,7 @@ public class PlanFragment extends Fragment {
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(requireContext());
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         binding.daysRecycleView.setLayoutManager(linearLayoutManager);
-        daysAdapter=new DaysAdapter(requireContext(),dayList);
+        daysAdapter=new DaysAdapter(requireContext(),getActivity(),dayList);
         binding.daysRecycleView.setAdapter(daysAdapter);
 
         return view;

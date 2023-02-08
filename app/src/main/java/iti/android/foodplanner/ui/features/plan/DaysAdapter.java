@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.plan;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,8 +30,10 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
 
     Repository repository;
 
-    public DaysAdapter(Context context,List<Week> dataset) {
+    Activity activity;
+    public DaysAdapter(Context context,Activity activity,List<Week> dataset) {
         this.context = context;
+        this.activity = activity;
         values=dataset;
         repository=Repository.getInstance(context);
     }
@@ -57,7 +60,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.SATURDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context,activity, data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -77,7 +80,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.SUNDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context, activity,data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -97,7 +100,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.MONDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context,activity, data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -117,7 +120,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.TUESDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context,activity, data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -137,7 +140,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.WEDNESDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context,activity, data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -157,7 +160,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.THURSDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                        mealsAdapter = new MealsAdapter(context, data);
+                        mealsAdapter = new MealsAdapter(context,activity, data);
                         holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
                     }
@@ -177,7 +180,7 @@ public class DaysAdapter extends RecyclerView.Adapter<DaysAdapter.ViewHolder>{
                 repository.showPlanMealsByDay(Week.FRIDAY, new DataFetch<List<MealPlan>>() {
                     @Override
                     public void onDataSuccessResponse(List<MealPlan> data) {
-                            mealsAdapter = new MealsAdapter(context, data);
+                            mealsAdapter = new MealsAdapter(context,activity, data);
                             holder.mealsRecyclerView.setAdapter(mealsAdapter);
 
 

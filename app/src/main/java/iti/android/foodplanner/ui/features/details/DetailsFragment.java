@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,6 +51,7 @@ import iti.android.foodplanner.data.models.meal.MealsItem;
 import iti.android.foodplanner.data.room.Week;
 import iti.android.foodplanner.databinding.FragmentDetailsBinding;
 import iti.android.foodplanner.ui.features.AddToPlanDialog.AddToPlanDailog;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class DetailsFragment extends Fragment implements DetailsInterface{
 
@@ -85,7 +87,7 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
         binding = FragmentDetailsBinding.inflate(inflater, container, false);
         initUi();
         presenter = new DetailsPresenter(getContext(),this);
-        AddToPlanDailog addToPlanDailog=new AddToPlanDailog(requireContext());
+        AddToPlanDailog addToPlanDailog=new AddToPlanDailog(requireContext(),requireActivity());
 
         mealId=DetailsFragmentArgs.fromBundle(getArguments()).getMealId();
         presenter.getMeal(mealId, new DataFetch<List<MealsItem>>() {
@@ -161,7 +163,22 @@ public class DetailsFragment extends Fragment implements DetailsInterface{
             @Override
             public void onClick(View v) {
                 addToFav(mealsItem);
-                Toast.makeText(requireContext(), "Meal added to your favorite successfully", Toast.LENGTH_SHORT).show();
+                ConstraintLayout constraintLayout = getActivity().getWindow().getDecorView().findViewById(R.id.container);
+
+                Utils.snakeMessage(
+                        getContext(),
+                        constraintLayout,
+                        mealsItem.getStrMeal() + "Has been added into favorite",
+                        true,
+                        "SEE FAVORITE",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Navigation.findNavController(view).navigate(id.navigation_favorite);
+                            }
+                        }
+                ).show();
+
 
             }
         });

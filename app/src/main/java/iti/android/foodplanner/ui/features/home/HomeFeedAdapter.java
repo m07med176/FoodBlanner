@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.home;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,13 +11,13 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.lifecycle.LiveData;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -36,11 +37,13 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
     private HomePresenter presenter;
     private final static String TAG ="SHAREDISUSER";
     private Context context;
+    private Activity activity;
     private HomeInterface homeInterface;
 
-    public HomeFeedAdapter(Context context, HomeInterface homeInterface) {
+    public HomeFeedAdapter(Context context, HomeInterface homeInterface,Activity activity) {
         presenter = new HomePresenter(context,homeInterface);
         this.context = context;
+        this.activity = activity;
         this.homeInterface = homeInterface;
     }
 
@@ -101,7 +104,20 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
                     presenter.saveFavorite(item, new DataFetch<Void>() {
                         @Override
                         public void onDataSuccessResponse(Void data) {
-                            Toast.makeText(context,"Saved",Toast.LENGTH_SHORT).show();
+                            ConstraintLayout constraintLayout = activity.getWindow().getDecorView().findViewById(R.id.container);
+                            Utils.snakeMessage(
+                                    context,
+                                    constraintLayout,
+                                    item.getStrMeal() + "Has been saved into favorite",
+                                    true,
+                                    "SEE FAVORITE",
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Navigation.findNavController(v).navigate(R.id.navigation_favorite);
+                                        }
+                                    }
+                            ).show();
                         }
 
                         @Override
@@ -118,7 +134,20 @@ public class HomeFeedAdapter extends RecyclerView.Adapter<HomeFeedAdapter.ViewHo
                     presenter.deleteFavorite(item, new DataFetch<Void>() {
                         @Override
                         public void onDataSuccessResponse(Void data) {
-                            Toast.makeText(context,"Deleted",Toast.LENGTH_SHORT).show();
+                            ConstraintLayout constraintLayout = activity.getWindow().getDecorView().findViewById(R.id.container);
+                            Utils.snakeMessage(
+                                    context,
+                                    constraintLayout,
+                                    item.getStrMeal() + "Has been removed into favorite",
+                                    false,
+                                    "SEE FAVORITE",
+                                    new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Navigation.findNavController(v).navigate(R.id.navigation_favorite);
+                                        }
+                                    }
+                            ).show();
                         }
 
                         @Override

@@ -1,5 +1,6 @@
 package iti.android.foodplanner.ui.features.plan;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,14 +26,17 @@ import iti.android.foodplanner.data.DataFetch;
 import iti.android.foodplanner.data.Repository;
 import iti.android.foodplanner.data.models.meal.MealPlan;
 import iti.android.foodplanner.ui.features.home.HomeFragmentDirections;
+import iti.android.foodplanner.ui.util.Utils;
 
 public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
     private List<MealPlan> values;
     private Context context;
 
+    private Activity activity;
     Repository repository;
-    public MealsAdapter(Context context, List<MealPlan> dataset) {
+    public MealsAdapter(Context context, Activity activity, List<MealPlan> dataset) {
         this.context = context;
+        this.activity = activity;
         values = dataset;
         repository=Repository.getInstance(context);
 
@@ -57,16 +62,24 @@ public class MealsAdapter extends RecyclerView.Adapter<MealsAdapter.ViewHolder>{
                 .apply(new RequestOptions().override(400,300).
                         placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_foreground)).
                 into(holder.mealThumb);
+        MealPlan mealPlan = values.get(position);
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                repository.deletePlanMeal(values.get(position), new DataFetch<Void>() {
+                repository.deletePlanMeal(mealPlan, new DataFetch<Void>() {
                     @Override
                     public void onDataSuccessResponse(Void data) {
                             values.remove(position);
                             notifyItemRemoved(position);
+                        ConstraintLayout constraintLayout = activity.getWindow().getDecorView().findViewById(R.id.container);
 
+                        Utils.snakeMessage(
+                                context,
+                                constraintLayout,
+                                mealPlan.getStrMeal() + "Has been removed from plan",
+                                false
+                        ).show();
 
                     }
 
