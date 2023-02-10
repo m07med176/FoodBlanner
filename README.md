@@ -1,10 +1,12 @@
 # FoodPlannerProject
 <h2>Food Planner</h2>
-- Native Mobile Android Application to set weekly food plan, open source and free,using design architecture MVP, java rx, room , firestore-"authentication,storage,fire store".
+- Native Mobile Android Application to set weekly food plan, open source and free,using design architecture MVP, java rx, room , firestore-"authentication,storage,fire store" and you can finded it on play store .
 
 <hr>
 
 <h2>Features :</h2>
+-  Available on play store
+
 -  Onboarding Screen
 
 -  Splash Screen
@@ -128,6 +130,7 @@
   <img alt="Dark" src="https://user-images.githubusercontent.com/115614797/218108677-a529e657-2bf8-4b0e-a07e-6a0960dad3d2.png" width="45%">
 </p>
 
+<a href="https://play.google.com/store/apps/details?id=org.thoughtcrime.securesms&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" width=100% /></a>
 
 
 
