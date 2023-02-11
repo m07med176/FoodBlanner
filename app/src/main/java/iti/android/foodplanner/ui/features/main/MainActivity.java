@@ -61,14 +61,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+
 
         isFirstOpen = true;
         presenter = new MainActivityPresenter(this);
         binding = ActivityMainAppBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
         navigationUiSettings();
         actionBarSettings();
 
