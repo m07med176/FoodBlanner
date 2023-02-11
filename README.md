@@ -2,6 +2,8 @@
 <h2>Food Planner</h2>
 - Native Mobile Android Application to set weekly food plan, open source and free,using design architecture MVP, java rx, room , firestore-"authentication,storage,fire store" and you can finded it on play store .
 
+<a href="https://play.google.com/store/apps/details?id=iti.android.foodplanner"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" width=100% /></a>
+
 <hr>
 
 <h2>Features :</h2>
@@ -130,7 +132,7 @@
   <img alt="Dark" src="https://user-images.githubusercontent.com/115614797/218108677-a529e657-2bf8-4b0e-a07e-6a0960dad3d2.png" width="45%">
 </p>
 
-<a href="https://play.google.com/store/apps/details?id=iti.android.foodplanner"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" width=100% /></a>
+
 
 
 
