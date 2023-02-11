@@ -3,7 +3,7 @@
     <string name="title_activity_main_app">MainActivityApp</string>
     <string name="enterYourMail">Please enter your E-mail</string>
     <string name="enterPassword">Please enter your password</string>
-    <string name="login">Login</string>
+    <string name="login"><u>Login</u></string>
     <string name="loginWithGoogle">Login with google</string>
     <string name="signUp">SignUp</string>
     <string name="createNewAccount">" Create new account "</string>
@@ -81,4 +81,7 @@
     <string name="nothingToShow">Nothing to show</string>
     <string name="enterYourName">Please enter your name</string>
 
+<!--ADS-->
+    <string name="ads_app_id">ca-app-pub-5341090982761131~9958166321</string>
+    <string name="unit_banner_id">ca-app-pub-5341090982761131/6948859600</string>
 </resources>

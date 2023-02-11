@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "33748487454-atls8l23hna7uvm6lpjk0eveiir04vmf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iti.android.foodplanner",
+            "certificate_hash": "10cf5241246c3aa9355557221578be3044b19189"
+          }
+        },
+        {
           "client_id": "33748487454-jllq6a4v29sa4lld95egu0ml99opj7ij.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
